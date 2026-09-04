@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Station {
+  register
+  purchase
+  goldbar
+  vegasfix
+}
+
+model Visitor {
+  id           String   @id @default(cuid())
+  name         String
+  surname      String   @default("")
+  email        String   @unique
+  personalCode String   @unique @map("personal_code")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  tokens       Token[]
+  raffleWins   RaffleDraw[]
+
+  @@map("visitors")
+}
+
+model Token {
+  id          String   @id @default(cuid())
+  visitorId   String   @map("visitor_id")
+  station     Station
+  collectedAt DateTime @default(now()) @map("collected_at")
+
+  visitor Visitor @relation(fields: [visitorId], references: [id])
+
+  @@unique([visitorId, station])
+  @@map("tokens")
+}
+
+model RaffleDraw {
+  id                String   @id @default(cuid())
+  drawnAt           DateTime @default(now()) @map("drawn_at")
+  winningVisitorId  String   @map("winning_visitor_id")
+  drawLabel         String   @map("draw_label")
+
+  winner Visitor @relation(fields: [winningVisitorId], references: [id])
+
+  @@map("raffle_draws")
+}
