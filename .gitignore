@@ -48,3 +48,7 @@ next-env.d.ts
 
 # leftover nested repo scaffold, not part of this project
 /money2020gold/
+
+# stale SQLite-era migrations, incompatible with the Postgres switch;
+# schema is applied via `prisma db push` instead
+/prisma/migrations/
