@@ -52,3 +52,6 @@ next-env.d.ts
 # stale SQLite-era migrations, incompatible with the Postgres switch;
 # schema is applied via `prisma db push` instead
 /prisma/migrations/
+
+.vercel
+.env*
