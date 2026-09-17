@@ -63,6 +63,7 @@ export async function GET() {
     mode: state.mode,
     slotLabel: state.slotLabel,
     drawLabel: state.drawLabel,
+    ordinal: state.ordinal,
     secondsRemaining,
     winner:
       state.mode === "reveal" ? { name: state.winnerName, surname: state.winnerSurname } : null,

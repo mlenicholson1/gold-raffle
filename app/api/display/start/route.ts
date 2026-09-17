@@ -27,6 +27,8 @@ export async function POST(request: Request) {
       ? Math.min(body.durationSeconds, 3600)
       : 300;
 
+  const ordinal = typeof body?.ordinal === "number" && body.ordinal > 0 ? body.ordinal : null;
+
   const countdownEndsAt = new Date(Date.now() + durationSeconds * 1000);
 
   await prisma.displayState.upsert({
@@ -37,6 +39,7 @@ export async function POST(request: Request) {
       slotKey,
       slotLabel,
       drawLabel,
+      ordinal,
       countdownEndsAt,
       winningVisitorId: null,
       winnerName: null,
@@ -48,6 +51,7 @@ export async function POST(request: Request) {
       slotKey,
       slotLabel,
       drawLabel,
+      ordinal,
       countdownEndsAt,
       winningVisitorId: null,
       winnerName: null,

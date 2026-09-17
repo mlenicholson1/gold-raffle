@@ -11,8 +11,8 @@ export default function ProgressTracker({ progress }: { progress: Progress }) {
               key={station}
               className={`flex h-14 w-14 items-center justify-center rounded-lg border-2 text-2xl font-bold ${
                 collected
-                  ? "border-yellow-500 bg-yellow-400 text-yellow-950"
-                  : "border-slate-700 bg-slate-800 text-slate-700"
+                  ? "border-[#a6822b] bg-[#a6822b] text-white"
+                  : "border-gray-200 bg-[#FBF3E1] text-transparent"
               }`}
               aria-label={`${STATION_LABELS[station]}: ${collected ? "collected" : "not collected"}`}
             >
@@ -21,7 +21,7 @@ export default function ProgressTracker({ progress }: { progress: Progress }) {
           );
         })}
       </div>
-      <p className="mt-3 text-center text-sm text-slate-400">
+      <p className="mt-3 text-center text-sm text-gray-500">
         {progress.count} of {progress.total} tokens collected
       </p>
     </div>

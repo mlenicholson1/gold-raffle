@@ -153,7 +153,8 @@ export default function AdminPage() {
   }
 
   async function startLoungeCountdown(durationSeconds: number, busyKind: "start" | "redraw") {
-    if (!activeSlot) return;
+    if (!activeSlot || !slots) return;
+    const ordinal = slots.findIndex((s) => s.key === activeSlot.key) + 1;
     setLoungeBusy(busyKind);
     setLoungeError(null);
     setLoungeMessage(null);
@@ -167,6 +168,7 @@ export default function AdminPage() {
           slotLabel: activeSlot.label,
           drawLabel,
           durationSeconds,
+          ordinal,
         }),
       });
       const data = await res.json();
@@ -428,7 +430,7 @@ export default function AdminPage() {
                       disabled={loungeBusy !== null}
                       className="whitespace-nowrap rounded-full border border-amber-400/60 px-6 py-2.5 font-bold tracking-wide text-amber-300 transition hover:bg-amber-400/10 disabled:opacity-60"
                     >
-                      {loungeBusy === "redraw" ? "Redrawing…" : "🎲 Redraw"}
+                      {loungeBusy === "redraw" ? "Redrawing…" : "Redraw"}
                     </button>
                     <button
                       onClick={handleResetLoungeScreen}

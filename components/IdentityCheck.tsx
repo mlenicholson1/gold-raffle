@@ -140,8 +140,8 @@ export default function IdentityCheck({
 
   if (phase === "checking") {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-        <p className="text-slate-400">Checking who you are…</p>
+      <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
+        <p className="text-gray-500">Checking who you are…</p>
       </main>
     );
   }
@@ -152,48 +152,48 @@ export default function IdentityCheck({
 
   if (phase === "register") {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-        <div className="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-md">
-          <h1 className="text-xl font-bold text-slate-100">New here? Register first</h1>
-          <p className="mt-1 text-sm text-slate-400">
+      <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
+        <div className="w-full max-w-sm rounded-3xl border border-violet-100 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+          <h1 className="text-xl font-bold text-gray-900">New here? Register first</h1>
+          <p className="mt-1 text-sm text-gray-500">
             Just your name, surname, and email - takes a few seconds.
           </p>
           <form onSubmit={handleRegister} className="mt-6 space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-300">Name</label>
+              <label className="block text-sm font-medium text-gray-700">Name</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 focus:border-yellow-500 focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-300">Surname</label>
+              <label className="block text-sm font-medium text-gray-700">Surname</label>
               <input
                 type="text"
                 required
                 value={surname}
                 onChange={(e) => setSurname(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 focus:border-yellow-500 focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-300">Email</label>
+              <label className="block text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 focus:border-yellow-500 focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
               />
             </div>
-            {error && <p className="text-sm text-red-400">{error}</p>}
+            {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
               disabled={submitting}
-              className="w-full rounded-full bg-amber-400 py-3 font-bold tracking-wide text-slate-900 shadow-[0_4px_14px_rgba(251,191,36,0.35)] transition hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[0_6px_20px_rgba(251,191,36,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(251,191,36,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full rounded-full bg-[#a6822b] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submitting ? "Submitting…" : "Register & continue"}
             </button>
@@ -203,7 +203,7 @@ export default function IdentityCheck({
                 setPhase("identify");
                 setError(null);
               }}
-              className="w-full text-sm text-slate-400 underline"
+              className="w-full text-sm text-gray-500 underline"
             >
               Already registered? Look yourself up
             </button>
@@ -214,15 +214,15 @@ export default function IdentityCheck({
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-md">
-        <h1 className="text-xl font-bold text-slate-100">Who are you?</h1>
-        <p className="mt-1 text-sm text-slate-400">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
+      <div className="w-full max-w-sm rounded-3xl border border-violet-100 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+        <h1 className="text-xl font-bold text-gray-900">Who are you?</h1>
+        <p className="mt-1 text-sm text-gray-500">
           Enter the email or 4-digit code from when you registered.
         </p>
         <form onSubmit={handleLookup} className="mt-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-300">
+            <label className="block text-sm font-medium text-gray-700">
               Email or 4-digit code
             </label>
             <input
@@ -230,15 +230,15 @@ export default function IdentityCheck({
               required
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 focus:border-yellow-500 focus:outline-none"
+              className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
               placeholder="you@example.com or 1234"
             />
           </div>
-          {error && <p className="text-sm text-red-400">{error}</p>}
+          {error && <p className="text-sm text-red-600">{error}</p>}
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-lg bg-yellow-500 py-2.5 font-semibold text-white hover:bg-yellow-600 disabled:opacity-60"
+            className="w-full rounded-lg bg-[#a6822b] py-2.5 font-semibold text-white hover:bg-[#8f6f22] disabled:opacity-60"
           >
             {submitting ? "Looking up…" : "Continue"}
           </button>
@@ -248,7 +248,7 @@ export default function IdentityCheck({
               setPhase("register");
               setError(null);
             }}
-            className="w-full text-sm text-slate-400 underline"
+            className="w-full text-sm text-gray-500 underline"
           >
             New here? Register instead
           </button>

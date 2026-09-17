@@ -18,6 +18,7 @@ export async function POST(request: Request) {
       slotKey: null,
       slotLabel: null,
       drawLabel: null,
+      ordinal: null,
       countdownEndsAt: null,
       winningVisitorId: null,
       winnerName: null,

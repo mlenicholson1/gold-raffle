@@ -63,6 +63,7 @@ model DisplayState {
   slotKey         String?   @map("slot_key")
   slotLabel       String?   @map("slot_label")
   drawLabel       String?   @map("draw_label")
+  ordinal         Int?      @map("ordinal")
   countdownEndsAt DateTime? @map("countdown_ends_at")
   winningVisitorId String?  @map("winning_visitor_id")
   winnerName      String?   @map("winner_name")

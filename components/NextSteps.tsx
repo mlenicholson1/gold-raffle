@@ -14,12 +14,12 @@ export default function NextSteps({
   const nextDraw = getNextVegasFixDraw(new Date(registeredAt));
 
   return (
-    <div className="mt-6 space-y-3 rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4 text-left text-sm text-slate-300">
+    <div className="mt-6 space-y-3 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-sm text-gray-600">
       <p>
-        <span className="font-semibold text-slate-100">The live Vegas Gold Call moment</span> takes
+        <span className="font-semibold text-gray-900">The live Vegas Gold Call moment</span> takes
         place at the booth at 10:30am and 3pm today.
       </p>
-      <p className="font-medium text-slate-100">
+      <p className="font-medium text-gray-900">
         You&rsquo;re entered into the Vegas Gold Call draw at {nextDraw}
         {remaining.length > 0
           ? " - collect your remaining chips before then to make them count toward it."
@@ -27,7 +27,7 @@ export default function NextSteps({
       </p>
       {remaining.length > 0 && (
         <div>
-          <p className="font-medium text-slate-100">
+          <p className="font-medium text-gray-900">
             Fancy more entries? A few more chips are still up for grabs:
           </p>
           <ul className="mt-1 list-disc space-y-1 pl-5">
