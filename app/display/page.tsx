@@ -211,12 +211,18 @@ export default function DisplayPage() {
       {!state && <p className="relative text-2xl text-gray-400">Connecting…</p>}
 
       {state && state.mode === "idle" && (
-        <div className="relative space-y-8">
-          <SectionLabel>Hold Gold</SectionLabel>
+        <div className="relative max-w-4xl space-y-6">
+          <SectionLabel>World Gold Council</SectionLabel>
           <h1 className="text-6xl font-black text-gray-900 sm:text-7xl">
             The Vegas <span className="text-[#a6822b]">Gold</span> Call
           </h1>
           <p className="text-2xl text-gray-500">Live draws happen right here at the booth.</p>
+          <p className="mx-auto max-w-2xl text-xl text-gray-600">
+            Win a real 1oz gold coin at every draw.
+          </p>
+          <p className="mx-auto max-w-xl text-lg text-gray-500">
+            See what gold ownership looks like in a digital world.
+          </p>
           <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full border-4 border-[#EADFC0] bg-[#FBF3E1] shadow-[0_20px_60px_-15px_rgba(166,130,43,0.35)]">
             <div className="h-16 w-16 rounded-full border-4 border-[#a6822b]" />
           </div>
