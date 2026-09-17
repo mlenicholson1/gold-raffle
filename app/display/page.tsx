@@ -61,9 +61,9 @@ const GOLD_FACTS: { before: string; highlight: string; after: string }[] = [
     after: " a day in 2025.",
   },
   {
-    before: "London's first Gold Fixing took place on ",
-    highlight: "12 September 1919",
-    after: " - gold opened at 98 shillings 8 pence an ounce.",
+    before: "Gold opened at 98 shillings 8 pence an ounce at that ",
+    highlight: "first Fixing",
+    after: ".",
   },
   {
     before: "Just ",
@@ -213,11 +213,12 @@ function BenchmarkIcon() {
   );
 }
 
-function ShieldIcon() {
+function ScrollIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="30" height="30">
-      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" strokeLinejoin="round" />
-      <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6 4h9l3 3v13H6z" strokeLinejoin="round" />
+      <path d="M15 4v3h3" strokeLinejoin="round" />
+      <path d="M9 11h6M9 15h6" strokeLinecap="round" />
     </svg>
   );
 }
@@ -354,8 +355,7 @@ export default function DisplayPage() {
             <FactColumn
               icon={<ClockIcon />}
               title="Daily Call"
-              description="Mon 3pm · Tue 10:30am & 3pm · Wed 10:30am"
-              note="Same time as the London Gold Auction"
+              description="Twice a day, 10:30am and 3:00pm London time."
             />
             <FactColumn
               icon={<BenchmarkIcon />}
@@ -363,9 +363,9 @@ export default function DisplayPage() {
               description="A trusted reference price for gold markets."
             />
             <FactColumn
-              icon={<ShieldIcon />}
-              title="Why It Matters"
-              description="Store of value. Portfolio diversifier. Inflation hedge."
+              icon={<ScrollIcon />}
+              title="Since 1919"
+              description="London's first Gold Fixing took place on 12 September 1919."
             />
           </div>
 
