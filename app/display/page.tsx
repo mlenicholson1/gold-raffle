@@ -226,10 +226,12 @@ function FactColumn({
   icon,
   title,
   description,
+  note,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
+  note?: string;
 }) {
   return (
     <div className="flex flex-1 flex-col items-center gap-3 px-6 py-2 text-center">
@@ -238,6 +240,7 @@ function FactColumn({
       </div>
       <p className="text-lg font-bold uppercase tracking-wide text-gray-900">{title}</p>
       <p className="text-base text-gray-500">{description}</p>
+      {note && <p className="text-xs text-gray-400">{note}</p>}
     </div>
   );
 }
@@ -352,11 +355,12 @@ export default function DisplayPage() {
               icon={<ClockIcon />}
               title="Daily Call"
               description="Mon 3pm · Tue 10:30am & 3pm · Wed 10:30am"
+              note="Same time as the London Gold Auction"
             />
             <FactColumn
               icon={<BenchmarkIcon />}
               title="Global Benchmark"
-              description="Inspired by the LBMA Gold Auction - fixed at 10:30am & 3pm in London, every day."
+              description="A trusted reference price for gold markets."
             />
             <FactColumn
               icon={<ShieldIcon />}
