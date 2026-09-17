@@ -17,7 +17,7 @@ export default function NextSteps({
     <div className="mt-6 space-y-3 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-sm text-gray-600">
       <p>
         <span className="font-semibold text-gray-900">The live Vegas Gold Call moment</span> takes
-        place at the booth at 10:30am and 3pm today.
+        place right here at the booth.
       </p>
       <p className="font-medium text-gray-900">
         You&rsquo;re entered into the Vegas Gold Call draw at {nextDraw}

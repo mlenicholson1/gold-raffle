@@ -113,6 +113,54 @@ function Sparkles() {
   );
 }
 
+function ClockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="30" height="30">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3.2 2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function BenchmarkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="30" height="30">
+      <rect x="4" y="15" width="16" height="4" rx="1" />
+      <rect x="5.5" y="10" width="13" height="4" rx="1" />
+      <rect x="7" y="5" width="10" height="4" rx="1" />
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="30" height="30">
+      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" strokeLinejoin="round" />
+      <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function FactColumn({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="flex flex-1 flex-col items-center gap-3 px-6 py-2 text-center">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#EADFC0] bg-[#FBF3E1] text-[#a6822b]">
+        {icon}
+      </div>
+      <p className="text-lg font-bold uppercase tracking-wide text-gray-900">{title}</p>
+      <p className="text-base text-gray-500">{description}</p>
+    </div>
+  );
+}
+
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p className="flex items-center justify-center gap-4 text-xl font-semibold uppercase tracking-[0.3em] text-violet-600">
@@ -211,21 +259,35 @@ export default function DisplayPage() {
       {!state && <p className="relative text-2xl text-gray-400">Connecting…</p>}
 
       {state && state.mode === "idle" && (
-        <div className="relative max-w-4xl space-y-6">
+        <div className="relative w-full max-w-5xl space-y-8">
           <SectionLabel>World Gold Council</SectionLabel>
           <h1 className="text-6xl font-black text-gray-900 sm:text-7xl">
             The Vegas <span className="text-[#a6822b]">Gold</span> Call
           </h1>
-          <p className="text-2xl text-gray-500">Live draws happen right here at the booth.</p>
-          <p className="mx-auto max-w-2xl text-xl text-gray-600">
-            Win a real 1oz gold coin at every draw.
-          </p>
-          <p className="mx-auto max-w-xl text-lg text-gray-500">
-            See what gold ownership looks like in a digital world.
-          </p>
-          <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full border-4 border-[#EADFC0] bg-[#FBF3E1] shadow-[0_20px_60px_-15px_rgba(166,130,43,0.35)]">
-            <div className="h-16 w-16 rounded-full border-4 border-[#a6822b]" />
+          <p className="text-2xl text-gray-500">A daily benchmark price for physical gold.</p>
+
+          <div className="mx-auto flex flex-col divide-y divide-violet-100 rounded-[2.5rem] border border-violet-100 bg-white px-10 py-8 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)] sm:flex-row sm:divide-x sm:divide-y-0">
+            <FactColumn
+              icon={<ClockIcon />}
+              title="Daily Call"
+              description="Mon 3pm · Tue 10:30am & 3pm · Wed 10:30am"
+            />
+            <FactColumn
+              icon={<BenchmarkIcon />}
+              title="Global Benchmark"
+              description="A trusted reference price for gold markets."
+            />
+            <FactColumn
+              icon={<ShieldIcon />}
+              title="Why It Matters"
+              description="Store of value. Portfolio diversifier. Inflation hedge."
+            />
           </div>
+
+          <p className="text-lg text-gray-500">
+            Collect chips at every station around the booth. Win a real 1oz gold coin at every
+            draw.
+          </p>
         </div>
       )}
 

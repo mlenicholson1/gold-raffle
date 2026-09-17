@@ -2,6 +2,23 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { drawWinnerForSlot } from "@/lib/raffle";
 
+// How long the winner's name (or the "no eligible entries" message) stays on
+// screen before the display falls back to the idle Vegas Gold Call facts screen.
+const AUTO_IDLE_MS = 3 * 60 * 1000;
+
+const IDLE_RESET_DATA = {
+  mode: "idle",
+  slotKey: null,
+  slotLabel: null,
+  drawLabel: null,
+  ordinal: null,
+  countdownEndsAt: null,
+  winningVisitorId: null,
+  winnerName: null,
+  winnerSurname: null,
+  emptyReason: null,
+};
+
 // Public, read-only: polled every second or two by the lounge display screen.
 // No visitor data beyond the eventual winner's first name/surname is exposed.
 export async function GET() {
@@ -52,6 +69,19 @@ export async function GET() {
       // Another request is mid-draw; re-read shortly after instead of racing it.
       state = await prisma.displayState.findUniqueOrThrow({ where: { id: "singleton" } });
     }
+  }
+
+  if (
+    (state.mode === "reveal" || state.mode === "empty") &&
+    Date.now() - state.updatedAt.getTime() >= AUTO_IDLE_MS
+  ) {
+    // Same optimistic-concurrency guard as the countdown transition above, so
+    // two overlapping polls don't both try to reset the row.
+    await prisma.displayState.updateMany({
+      where: { id: "singleton", mode: state.mode, updatedAt: state.updatedAt },
+      data: IDLE_RESET_DATA,
+    });
+    state = await prisma.displayState.findUniqueOrThrow({ where: { id: "singleton" } });
   }
 
   const secondsRemaining =
