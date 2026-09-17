@@ -60,6 +60,16 @@ const GOLD_FACTS: { before: string; highlight: string; after: string }[] = [
     highlight: "$160 billion",
     after: " a day in 2025.",
   },
+  {
+    before: "London's first Gold Fixing took place on ",
+    highlight: "12 September 1919",
+    after: " - gold opened at 98 shillings 8 pence an ounce.",
+  },
+  {
+    before: "Just ",
+    highlight: "four bullion brokers",
+    after: " set that first gold price - the basic structure lasted over a century.",
+  },
 ];
 
 function GoldFactsTicker() {
@@ -346,7 +356,7 @@ export default function DisplayPage() {
             <FactColumn
               icon={<BenchmarkIcon />}
               title="Global Benchmark"
-              description="A trusted reference price for gold markets."
+              description="Inspired by the LBMA Gold Auction - fixed at 10:30am & 3pm in London, every day."
             />
             <FactColumn
               icon={<ShieldIcon />}
@@ -357,10 +367,19 @@ export default function DisplayPage() {
 
           <GoldFactsTicker />
 
-          <p className="text-base text-gray-500">
-            Collect chips at every station around the booth. Win a real 1oz gold coin at every
-            draw.
-          </p>
+          <div className="mx-auto flex max-w-2xl items-center gap-6 rounded-3xl border border-violet-100 bg-white px-8 py-5 text-left shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/qr-vegasfix.png"
+              alt="QR code to collect your Vegas Gold Call chip"
+              className="h-24 w-24 flex-none rounded-lg border border-gray-200"
+            />
+            <p className="text-base text-gray-600">
+              <span className="font-bold text-gray-900">Scan the QR code</span> to collect your
+              Vegas Gold Call chip - then visit the other activations around the booth to collect
+              the remaining three and enter the draw.
+            </p>
+          </div>
         </div>
       )}
 
