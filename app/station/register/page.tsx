@@ -196,7 +196,7 @@ export default function RegisterPage() {
               <label htmlFor="terms" className="text-sm text-gray-600">
                 I agree to the{" "}
                 <a
-                  href="https://britannia-gold-giveaway.vercel.app/terms"
+                  href="/terms"
                   target="_blank"
                   rel="noreferrer"
                   className="text-violet-600 underline hover:text-violet-700"
