@@ -1,0 +1,63 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { drawWinnerForSlot } from "@/lib/raffle";
+
+// Public, read-only: polled every second or two by the lounge display screen.
+// No visitor data beyond the eventual winner's first name/surname is exposed.
+export async function GET() {
+  let state = await prisma.displayState.upsert({
+    where: { id: "singleton" },
+    create: { id: "singleton", mode: "idle" },
+    update: {},
+  });
+
+  if (state.mode === "countdown" && state.countdownEndsAt && state.countdownEndsAt <= new Date()) {
+    // Claim the transition atomically so that if two requests race (e.g. two
+    // display tabs open), only one of them actually runs the draw.
+    const claim = await prisma.displayState.updateMany({
+      where: { id: "singleton", mode: "countdown", countdownEndsAt: state.countdownEndsAt },
+      data: { mode: "drawing" },
+    });
+
+    if (claim.count === 1) {
+      const result = state.slotKey
+        ? await drawWinnerForSlot(state.slotKey, state.drawLabel ?? "Vegas Gold Call Draw")
+        : { ok: false as const, reason: "no_eligible_visitors" as const };
+
+      state = await prisma.displayState.update({
+        where: { id: "singleton" },
+        data: result.ok
+          ? {
+              mode: "reveal",
+              winningVisitorId: result.winner.id,
+              winnerName: result.winner.name,
+              winnerSurname: result.winner.surname,
+              emptyReason: null,
+            }
+          : {
+              mode: "empty",
+              emptyReason: "No one in this draw window has collected a chip yet.",
+            },
+      });
+    } else {
+      // Another request is mid-draw; re-read shortly after instead of racing it.
+      state = await prisma.displayState.findUniqueOrThrow({ where: { id: "singleton" } });
+    }
+  }
+
+  const secondsRemaining =
+    state.mode === "countdown" && state.countdownEndsAt
+      ? Math.max(0, Math.ceil((state.countdownEndsAt.getTime() - Date.now()) / 1000))
+      : null;
+
+  return NextResponse.json({
+    mode: state.mode,
+    slotLabel: state.slotLabel,
+    drawLabel: state.drawLabel,
+    secondsRemaining,
+    winner:
+      state.mode === "reveal" ? { name: state.winnerName, surname: state.winnerSurname } : null,
+    emptyReason: state.emptyReason,
+    updatedAt: state.updatedAt,
+  });
+}

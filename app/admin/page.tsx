@@ -48,6 +48,11 @@ export default function AdminPage() {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
 
+  const [loungeMinutes, setLoungeMinutes] = useState("5");
+  const [loungeBusy, setLoungeBusy] = useState<"start" | "redraw" | "reset" | null>(null);
+  const [loungeError, setLoungeError] = useState<string | null>(null);
+  const [loungeMessage, setLoungeMessage] = useState<string | null>(null);
+
   async function fetchStats(pw: string): Promise<boolean> {
     try {
       const res = await fetch("/api/admin/stats", {
@@ -144,6 +149,63 @@ export default function AdminPage() {
       setDrawError("Something went wrong. Please try again.");
     } finally {
       setDrawing(false);
+    }
+  }
+
+  async function startLoungeCountdown(durationSeconds: number, busyKind: "start" | "redraw") {
+    if (!activeSlot) return;
+    setLoungeBusy(busyKind);
+    setLoungeError(null);
+    setLoungeMessage(null);
+    try {
+      const res = await fetch("/api/display/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          password,
+          slotKey: activeSlot.key,
+          slotLabel: activeSlot.label,
+          drawLabel,
+          durationSeconds,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setLoungeError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setLoungeMessage(
+        busyKind === "redraw"
+          ? "Redraw sent - the lounge screen will reveal a new winner shortly."
+          : "Countdown sent to the lounge screen."
+      );
+    } catch {
+      setLoungeError("Something went wrong. Please try again.");
+    } finally {
+      setLoungeBusy(null);
+    }
+  }
+
+  async function handleResetLoungeScreen() {
+    setLoungeBusy("reset");
+    setLoungeError(null);
+    setLoungeMessage(null);
+    try {
+      const res = await fetch("/api/display/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setLoungeError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setLoungeMessage("Lounge screen reset to idle.");
+    } catch {
+      setLoungeError("Something went wrong. Please try again.");
+    } finally {
+      setLoungeBusy(null);
     }
   }
 
@@ -322,6 +384,62 @@ export default function AdminPage() {
                       </p>
                     </div>
                   )}
+                </div>
+
+                <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-md">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+                    Lounge screen - {activeSlot.label}
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-400">
+                    Starts a countdown on the big screen in the lounge (
+                    <a
+                      href="/display"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline hover:text-slate-200"
+                    >
+                      open display
+                    </a>
+                    ). When it hits zero it draws and reveals the winner live, with fireworks.
+                  </p>
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <label className="flex items-center gap-2 text-sm text-slate-300">
+                      Countdown
+                      <input
+                        type="number"
+                        min={1}
+                        value={loungeMinutes}
+                        onChange={(e) => setLoungeMinutes(e.target.value)}
+                        className="w-16 rounded-lg border border-slate-700 bg-slate-950 px-2 py-1.5 text-slate-100 focus:border-yellow-500 focus:outline-none"
+                      />
+                      min
+                    </label>
+                    <button
+                      onClick={() =>
+                        startLoungeCountdown(Math.max(1, Number(loungeMinutes) || 5) * 60, "start")
+                      }
+                      disabled={loungeBusy !== null}
+                      className="whitespace-nowrap rounded-full bg-amber-400 px-6 py-2.5 font-bold tracking-wide text-slate-900 shadow-[0_4px_14px_rgba(251,191,36,0.35)] transition hover:-translate-y-0.5 hover:bg-amber-300 disabled:opacity-60 disabled:hover:translate-y-0"
+                    >
+                      {loungeBusy === "start" ? "Starting…" : "Start Countdown"}
+                    </button>
+                    <button
+                      onClick={() => startLoungeCountdown(8, "redraw")}
+                      disabled={loungeBusy !== null}
+                      className="whitespace-nowrap rounded-full border border-amber-400/60 px-6 py-2.5 font-bold tracking-wide text-amber-300 transition hover:bg-amber-400/10 disabled:opacity-60"
+                    >
+                      {loungeBusy === "redraw" ? "Redrawing…" : "🎲 Redraw"}
+                    </button>
+                    <button
+                      onClick={handleResetLoungeScreen}
+                      disabled={loungeBusy !== null}
+                      className="whitespace-nowrap rounded-full border border-slate-700 px-6 py-2.5 font-semibold text-slate-300 transition hover:bg-slate-800 disabled:opacity-60"
+                    >
+                      {loungeBusy === "reset" ? "Resetting…" : "Reset Screen"}
+                    </button>
+                  </div>
+                  {loungeError && <p className="mt-3 text-sm text-red-400">{loungeError}</p>}
+                  {loungeMessage && <p className="mt-3 text-sm text-emerald-400">{loungeMessage}</p>}
                 </div>
               </>
             )}

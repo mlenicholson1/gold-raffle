@@ -53,3 +53,22 @@ model RaffleDraw {
 
   @@map("raffle_draws")
 }
+
+// Singleton row (id is always "singleton") driving the lounge display screen:
+// staff start a countdown from the admin dashboard, and the display polls this
+// to know when to flip from countdown to the winner reveal.
+model DisplayState {
+  id              String    @id @default("singleton")
+  mode            String    @default("idle") @map("mode")
+  slotKey         String?   @map("slot_key")
+  slotLabel       String?   @map("slot_label")
+  drawLabel       String?   @map("draw_label")
+  countdownEndsAt DateTime? @map("countdown_ends_at")
+  winningVisitorId String?  @map("winning_visitor_id")
+  winnerName      String?   @map("winner_name")
+  winnerSurname   String?   @map("winner_surname")
+  emptyReason     String?   @map("empty_reason")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@map("display_state")
+}

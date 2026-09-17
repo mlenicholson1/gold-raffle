@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { isValidAdminPassword } from "@/lib/adminAuth";
-import { getDrawSlot } from "@/lib/vegasFixSchedule";
+import { drawWinnerForSlot } from "@/lib/raffle";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -19,50 +18,14 @@ export async function POST(request: Request) {
       ? body.drawLabel.trim()
       : "Vegas Gold Call Draw";
 
-  const visitors = await prisma.visitor.findMany({ include: { tokens: true } });
-  const eligible = visitors.filter((v) => getDrawSlot(v.createdAt).key === slotKey);
+  const result = await drawWinnerForSlot(slotKey, drawLabel);
 
-  const weighted = eligible
-    .map((v) => ({ visitor: v, weight: v.tokens.length }))
-    .filter((w) => w.weight > 0);
-
-  if (weighted.length === 0) {
+  if (!result.ok) {
     return NextResponse.json(
       { error: "No eligible visitors in this draw slot." },
       { status: 400 }
     );
   }
 
-  const totalWeight = weighted.reduce((sum, w) => sum + w.weight, 0);
-  let r = Math.random() * totalWeight;
-  let winner = weighted[weighted.length - 1].visitor;
-  for (const w of weighted) {
-    if (r < w.weight) {
-      winner = w.visitor;
-      break;
-    }
-    r -= w.weight;
-  }
-
-  const draw = await prisma.raffleDraw.create({
-    data: {
-      winningVisitorId: winner.id,
-      drawLabel,
-    },
-  });
-
-  return NextResponse.json({
-    draw: {
-      id: draw.id,
-      drawLabel: draw.drawLabel,
-      drawnAt: draw.drawnAt,
-    },
-    winner: {
-      id: winner.id,
-      name: winner.name,
-      surname: winner.surname,
-      email: winner.email,
-      tokenCount: winner.tokens.length,
-    },
-  });
+  return NextResponse.json({ draw: result.draw, winner: result.winner });
 }
