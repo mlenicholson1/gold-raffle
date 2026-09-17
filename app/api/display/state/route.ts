@@ -20,25 +20,34 @@ export async function GET() {
     });
 
     if (claim.count === 1) {
-      const result = state.slotKey
-        ? await drawWinnerForSlot(state.slotKey, state.drawLabel ?? "Vegas Gold Call Draw")
-        : { ok: false as const, reason: "no_eligible_visitors" as const };
+      // If the draw itself throws, still move the screen out of "drawing" so
+      // it never gets stuck mid-transition in front of a live crowd.
+      try {
+        const result = state.slotKey
+          ? await drawWinnerForSlot(state.slotKey, state.drawLabel ?? "Vegas Gold Call Draw")
+          : { ok: false as const, reason: "no_eligible_visitors" as const };
 
-      state = await prisma.displayState.update({
-        where: { id: "singleton" },
-        data: result.ok
-          ? {
-              mode: "reveal",
-              winningVisitorId: result.winner.id,
-              winnerName: result.winner.name,
-              winnerSurname: result.winner.surname,
-              emptyReason: null,
-            }
-          : {
-              mode: "empty",
-              emptyReason: "No one in this draw window has collected a chip yet.",
-            },
-      });
+        state = await prisma.displayState.update({
+          where: { id: "singleton" },
+          data: result.ok
+            ? {
+                mode: "reveal",
+                winningVisitorId: result.winner.id,
+                winnerName: result.winner.name,
+                winnerSurname: result.winner.surname,
+                emptyReason: null,
+              }
+            : {
+                mode: "empty",
+                emptyReason: "No one in this draw window has collected a chip yet.",
+              },
+        });
+      } catch {
+        state = await prisma.displayState.update({
+          where: { id: "singleton" },
+          data: { mode: "empty", emptyReason: "Something went wrong running the draw." },
+        });
+      }
     } else {
       // Another request is mid-draw; re-read shortly after instead of racing it.
       state = await prisma.displayState.findUniqueOrThrow({ where: { id: "singleton" } });
