@@ -189,6 +189,25 @@ export default function IdentityCheck({
                 className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
               />
             </div>
+            <div className="flex items-start gap-2">
+              <input
+                type="checkbox"
+                id="terms"
+                required
+                className="mt-1 h-4 w-4 flex-none rounded border-gray-300 text-[#a6822b] focus:ring-[#a6822b]"
+              />
+              <label htmlFor="terms" className="text-sm text-gray-600">
+                I agree to the{" "}
+                <a
+                  href="https://britannia-gold-giveaway.vercel.app/terms"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-violet-600 underline hover:text-violet-700"
+                >
+                  Terms &amp; Conditions
+                </a>
+              </label>
+            </div>
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
