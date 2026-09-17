@@ -17,6 +17,77 @@ type DisplayState = {
 const GOLD = "#a6822b";
 const CONFETTI_COLORS = [GOLD, "#c9a13c", "#e8d18f", "#7c3aed", "#ffffff"];
 
+// Sourced from the WGC/BCG "Digital Gold" white paper - kept to public, final
+// figures only (no internal roadmap, projections, or named individuals).
+const GOLD_FACTS: { before: string; highlight: string; after: string }[] = [
+  {
+    before: "Almost all the gold ever mined - around ",
+    highlight: "220,000 tonnes",
+    after: " - is still in circulation today.",
+  },
+  {
+    before: "The world's above-ground gold stock is worth more than ",
+    highlight: "$30 trillion",
+    after: ".",
+  },
+  {
+    before: "Gold ETFs took in ",
+    highlight: "$89 billion",
+    after: " in 2025, pushing holdings to 4,025 tonnes.",
+  },
+  {
+    before: "The tokenized gold market passed ",
+    highlight: "$4 billion",
+    after: " in 2025.",
+  },
+  {
+    before: "DeFi protocols now hold more than ",
+    highlight: "$125 billion",
+    after: " in value.",
+  },
+  {
+    before: "",
+    highlight: "85%",
+    after: " of central banks cite gold's crisis performance as a reason to hold it.",
+  },
+  {
+    before: "",
+    highlight: "30%",
+    after: " of Gen Z start investing as young adults - versus just 6% of Baby Boomers.",
+  },
+  {
+    before: "Gold trading in the Loco London market topped ",
+    highlight: "$160 billion",
+    after: " a day in 2025.",
+  },
+];
+
+function GoldFactsTicker() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % GOLD_FACTS.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const fact = GOLD_FACTS[index];
+
+  return (
+    <div className="mx-auto max-w-3xl">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-violet-600">
+        Did you know?
+      </p>
+      <p key={index} className="mt-2 text-2xl text-gray-700 [animation:factFade_0.6s_ease-out]">
+        {fact.before}
+        <span className="font-bold text-[#a6822b]">{fact.highlight}</span>
+        {fact.after}
+      </p>
+    </div>
+  );
+}
+
 function formatClock(totalSeconds: number): string {
   const m = Math.floor(totalSeconds / 60);
   const s = totalSeconds % 60;
@@ -259,14 +330,14 @@ export default function DisplayPage() {
       {!state && <p className="relative text-2xl text-gray-400">Connecting…</p>}
 
       {state && state.mode === "idle" && (
-        <div className="relative w-full max-w-5xl space-y-8">
+        <div className="relative w-full max-w-5xl space-y-6">
           <SectionLabel>World Gold Council</SectionLabel>
           <h1 className="text-6xl font-black text-gray-900 sm:text-7xl">
             The Vegas <span className="text-[#a6822b]">Gold</span> Call
           </h1>
           <p className="text-2xl text-gray-500">A daily benchmark price for physical gold.</p>
 
-          <div className="mx-auto flex flex-col divide-y divide-violet-100 rounded-[2.5rem] border border-violet-100 bg-white px-10 py-8 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)] sm:flex-row sm:divide-x sm:divide-y-0">
+          <div className="mx-auto flex flex-col divide-y divide-violet-100 rounded-[2.5rem] border border-violet-100 bg-white px-10 py-6 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)] sm:flex-row sm:divide-x sm:divide-y-0">
             <FactColumn
               icon={<ClockIcon />}
               title="Daily Call"
@@ -284,7 +355,9 @@ export default function DisplayPage() {
             />
           </div>
 
-          <p className="text-lg text-gray-500">
+          <GoldFactsTicker />
+
+          <p className="text-base text-gray-500">
             Collect chips at every station around the booth. Win a real 1oz gold coin at every
             draw.
           </p>
@@ -369,6 +442,10 @@ export default function DisplayPage() {
         @keyframes sparkle {
           0%, 100% { opacity: 0; transform: scale(0.6); }
           50% { opacity: 0.7; transform: scale(1); }
+        }
+        @keyframes factFade {
+          0% { opacity: 0; transform: translateY(6px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </main>
