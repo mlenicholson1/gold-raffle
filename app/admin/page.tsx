@@ -243,33 +243,33 @@ export default function AdminPage() {
 
   if (checking) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-        <p className="text-slate-400">Loading…</p>
+      <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
+        <p className="text-gray-500">Loading…</p>
       </main>
     );
   }
 
   if (!authed) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4">
-        <div className="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-md">
-          <h1 className="text-xl font-bold text-slate-100">Staff Admin</h1>
-          <p className="mt-1 text-sm text-slate-400">Enter the shared staff password.</p>
+      <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
+        <div className="w-full max-w-sm rounded-3xl border border-violet-100 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+          <h1 className="text-xl font-bold text-gray-900">Staff Admin</h1>
+          <p className="mt-1 text-sm text-gray-500">Enter the shared staff password.</p>
           <form onSubmit={handleLogin} className="mt-6 space-y-4">
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 focus:border-yellow-500 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
               placeholder="Password"
               autoFocus
             />
-            {loginError && <p className="text-sm text-red-400">{loginError}</p>}
+            {loginError && <p className="text-sm text-red-600">{loginError}</p>}
             <button
               type="submit"
               disabled={submittingLogin}
-              className="w-full rounded-full bg-amber-400 py-3 font-bold tracking-wide text-slate-900 shadow-[0_4px_14px_rgba(251,191,36,0.35)] transition hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[0_6px_20px_rgba(251,191,36,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(251,191,36,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full rounded-full bg-[#a6822b] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submittingLogin ? "Checking…" : "Enter"}
             </button>
@@ -280,15 +280,15 @@ export default function AdminPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 px-4 py-10">
+    <main className="min-h-screen bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4 py-10">
       <div className="mx-auto max-w-2xl space-y-6">
-        <h1 className="text-2xl font-bold text-slate-100">Hold Gold - Staff Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Hold Gold - Staff Dashboard</h1>
 
-        {statsError && <p className="text-sm text-red-400">{statsError}</p>}
+        {statsError && <p className="text-sm text-red-600">{statsError}</p>}
 
         {slots && slots.length === 0 && (
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 text-center shadow-md">
-            <p className="text-slate-400">No visitors registered yet.</p>
+          <div className="rounded-2xl border border-violet-100 bg-white p-6 text-center shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+            <p className="text-gray-500">No visitors registered yet.</p>
           </div>
         )}
 
@@ -301,8 +301,8 @@ export default function AdminPage() {
                   onClick={() => setActiveSlotKey(slot.key)}
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     slot.key === activeSlotKey
-                      ? "bg-amber-400 text-slate-900"
-                      : "border border-slate-700 text-slate-300 hover:bg-slate-800"
+                      ? "bg-[#a6822b] text-white"
+                      : "border border-gray-300 text-gray-600 hover:bg-gray-50"
                   }`}
                 >
                   {slot.label}
@@ -312,45 +312,45 @@ export default function AdminPage() {
 
             {activeSlot && (
               <>
-                <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-md">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+                <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
                     Live counts - {activeSlot.label}
                   </h2>
-                  <p className="mt-1 text-xs text-slate-500">
+                  <p className="mt-1 text-xs text-gray-500">
                     Only visitors whose first chip fell in this draw window are counted here.
                   </p>
                   <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
-                    <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 text-center">
-                      <p className="text-3xl font-bold text-yellow-400">
+                    <div className="rounded-xl border border-[#EADFC0] bg-[#FBF3E1] p-4 text-center">
+                      <p className="text-3xl font-bold text-[#a6822b]">
                         {activeSlot.totalVisitors}
                       </p>
-                      <p className="mt-1 text-xs text-slate-400">Total registered</p>
+                      <p className="mt-1 text-xs text-gray-600">Total registered</p>
                     </div>
-                    <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 text-center">
-                      <p className="text-3xl font-bold text-yellow-400">
+                    <div className="rounded-xl border border-[#EADFC0] bg-[#FBF3E1] p-4 text-center">
+                      <p className="text-3xl font-bold text-[#a6822b]">
                         {activeSlot.fullyCollected}
                       </p>
-                      <p className="mt-1 text-xs text-slate-400">All tokens collected</p>
+                      <p className="mt-1 text-xs text-gray-600">All tokens collected</p>
                     </div>
                     {STATIONS.map((station) => (
                       <div
                         key={station}
-                        className="rounded-xl border border-slate-800 bg-slate-950 p-4 text-center"
+                        className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center"
                       >
-                        <p className="text-3xl font-bold text-slate-100">
+                        <p className="text-3xl font-bold text-gray-900">
                           {activeSlot.perStation[station] ?? 0}
                         </p>
-                        <p className="mt-1 text-xs text-slate-400">{STATION_LABELS[station]}</p>
+                        <p className="mt-1 text-xs text-gray-600">{STATION_LABELS[station]}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-md">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+                <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
                     Run raffle - {activeSlot.label}
                   </h2>
-                  <p className="mt-2 text-sm text-slate-400">
+                  <p className="mt-2 text-sm text-gray-500">
                     Draws only from visitors in this slot, weighted by tokens held (a visitor
                     with more tokens is proportionally more likely to be drawn).
                   </p>
@@ -359,28 +359,28 @@ export default function AdminPage() {
                       type="text"
                       value={drawLabel}
                       onChange={(e) => setDrawLabel(e.target.value)}
-                      className="flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 focus:border-yellow-500 focus:outline-none"
+                      className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
                       placeholder="Draw label"
                     />
                     <button
                       onClick={handleRunRaffle}
                       disabled={drawing}
-                      className="whitespace-nowrap rounded-full bg-amber-400 px-6 py-2.5 font-bold tracking-wide text-slate-900 shadow-[0_4px_14px_rgba(251,191,36,0.35)] transition hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-[0_6px_20px_rgba(251,191,36,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(251,191,36,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+                      className="whitespace-nowrap rounded-full bg-[#a6822b] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
                     >
                       {drawing ? "Drawing…" : "Run Raffle"}
                     </button>
                   </div>
-                  {drawError && <p className="mt-3 text-sm text-red-400">{drawError}</p>}
+                  {drawError && <p className="mt-3 text-sm text-red-600">{drawError}</p>}
                   {lastDraw && (
-                    <div className="mt-4 rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4">
-                      <p className="text-xs uppercase tracking-wide text-slate-400">
+                    <div className="mt-4 rounded-xl border border-[#EADFC0] bg-[#FBF3E1] p-4">
+                      <p className="text-xs uppercase tracking-wide text-gray-500">
                         {lastDraw.draw.drawLabel}
                       </p>
-                      <p className="mt-1 text-lg font-bold text-slate-100">
+                      <p className="mt-1 text-lg font-bold text-gray-900">
                         {lastDraw.winner.name} {lastDraw.winner.surname}
                       </p>
-                      <p className="text-sm text-slate-300">{lastDraw.winner.email}</p>
-                      <p className="mt-1 text-xs text-slate-400">
+                      <p className="text-sm text-gray-600">{lastDraw.winner.email}</p>
+                      <p className="mt-1 text-xs text-gray-500">
                         {lastDraw.winner.tokenCount} token{lastDraw.winner.tokenCount === 1 ? "" : "s"}{" "}
                         held
                       </p>
@@ -388,31 +388,31 @@ export default function AdminPage() {
                   )}
                 </div>
 
-                <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-md">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+                <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
                     Lounge screen - {activeSlot.label}
                   </h2>
-                  <p className="mt-2 text-sm text-slate-400">
+                  <p className="mt-2 text-sm text-gray-500">
                     Starts a countdown on the big screen in the lounge (
                     <a
                       href="/display"
                       target="_blank"
                       rel="noreferrer"
-                      className="underline hover:text-slate-200"
+                      className="text-violet-600 underline hover:text-violet-700"
                     >
                       open display
                     </a>
                     ). When it hits zero it draws and reveals the winner live, with fireworks.
                   </p>
                   <div className="mt-4 flex flex-wrap items-center gap-3">
-                    <label className="flex items-center gap-2 text-sm text-slate-300">
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
                       Countdown
                       <input
                         type="number"
                         min={1}
                         value={loungeMinutes}
                         onChange={(e) => setLoungeMinutes(e.target.value)}
-                        className="w-16 rounded-lg border border-slate-700 bg-slate-950 px-2 py-1.5 text-slate-100 focus:border-yellow-500 focus:outline-none"
+                        className="w-16 rounded-lg border border-gray-300 bg-white px-2 py-1.5 text-gray-900 focus:border-[#a6822b] focus:outline-none"
                       />
                       min
                     </label>
@@ -421,49 +421,49 @@ export default function AdminPage() {
                         startLoungeCountdown(Math.max(1, Number(loungeMinutes) || 5) * 60, "start")
                       }
                       disabled={loungeBusy !== null}
-                      className="whitespace-nowrap rounded-full bg-amber-400 px-6 py-2.5 font-bold tracking-wide text-slate-900 shadow-[0_4px_14px_rgba(251,191,36,0.35)] transition hover:-translate-y-0.5 hover:bg-amber-300 disabled:opacity-60 disabled:hover:translate-y-0"
+                      className="whitespace-nowrap rounded-full bg-[#a6822b] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] disabled:opacity-60 disabled:hover:translate-y-0"
                     >
                       {loungeBusy === "start" ? "Starting…" : "Start Countdown"}
                     </button>
                     <button
                       onClick={() => startLoungeCountdown(8, "redraw")}
                       disabled={loungeBusy !== null}
-                      className="whitespace-nowrap rounded-full border border-amber-400/60 px-6 py-2.5 font-bold tracking-wide text-amber-300 transition hover:bg-amber-400/10 disabled:opacity-60"
+                      className="whitespace-nowrap rounded-full border border-[#a6822b]/50 px-6 py-2.5 font-bold tracking-wide text-[#a6822b] transition hover:bg-[#FBF3E1] disabled:opacity-60"
                     >
                       {loungeBusy === "redraw" ? "Redrawing…" : "Redraw"}
                     </button>
                     <button
                       onClick={handleResetLoungeScreen}
                       disabled={loungeBusy !== null}
-                      className="whitespace-nowrap rounded-full border border-slate-700 px-6 py-2.5 font-semibold text-slate-300 transition hover:bg-slate-800 disabled:opacity-60"
+                      className="whitespace-nowrap rounded-full border border-gray-300 px-6 py-2.5 font-semibold text-gray-600 transition hover:bg-gray-50 disabled:opacity-60"
                     >
                       {loungeBusy === "reset" ? "Resetting…" : "Reset Screen"}
                     </button>
                   </div>
-                  {loungeError && <p className="mt-3 text-sm text-red-400">{loungeError}</p>}
-                  {loungeMessage && <p className="mt-3 text-sm text-emerald-400">{loungeMessage}</p>}
+                  {loungeError && <p className="mt-3 text-sm text-red-600">{loungeError}</p>}
+                  {loungeMessage && <p className="mt-3 text-sm text-emerald-600">{loungeMessage}</p>}
                 </div>
               </>
             )}
           </>
         )}
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-md">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+        <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
             Export data
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-gray-500">
             Download all visitor data as CSV (across every draw slot) for post-show contact and
             reconciliation.
           </p>
           <button
             onClick={handleExport}
             disabled={exporting}
-            className="mt-4 rounded-full border border-slate-700 px-6 py-2.5 font-semibold text-slate-200 transition hover:bg-slate-800 disabled:opacity-60"
+            className="mt-4 rounded-full border border-gray-300 px-6 py-2.5 font-semibold text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
           >
             {exporting ? "Exporting…" : "Export CSV"}
           </button>
-          {exportError && <p className="mt-3 text-sm text-red-400">{exportError}</p>}
+          {exportError && <p className="mt-3 text-sm text-red-600">{exportError}</p>}
         </div>
       </div>
     </main>
