@@ -292,10 +292,11 @@ function FullscreenButton() {
   return (
     <button
       onClick={() => (isFullscreen ? document.exitFullscreen() : enterFullscreen())}
-      className="absolute bottom-4 right-4 z-20 rounded-full border border-gray-200 bg-white/60 px-3 py-2 text-sm text-gray-400 opacity-40 transition hover:opacity-100"
+      className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-full border border-violet-100 bg-white px-4 py-2 text-sm font-semibold text-gray-600 shadow-[0_10px_30px_-10px_rgba(124,58,237,0.35)] transition hover:text-[#a6822b]"
       title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
     >
-      ⛶
+      <span className="text-lg">⛶</span>
+      {isFullscreen ? "Exit fullscreen" : "Fullscreen"}
     </button>
   );
 }
