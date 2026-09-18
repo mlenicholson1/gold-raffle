@@ -86,13 +86,13 @@ function GoldFactsTicker() {
 
   return (
     <div className="w-full">
-      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-violet-600">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
         Did you know?
       </p>
       <div className="mt-2 flex min-h-[4rem] w-full items-center justify-center">
         <p
           key={index}
-          className="text-2xl text-gray-700 [animation:factFade_0.6s_ease-out]"
+          className="text-2xl text-[#3c1e4b] [animation:factFade_0.6s_ease-out]"
         >
           {fact.before}
           <span className="font-bold text-[#a6822b]">{fact.highlight}</span>
@@ -246,7 +246,7 @@ function NetworkBackground() {
 
 function ClockIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.875rem] w-[1.875rem]">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.3rem] w-[1.3rem]">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7v5l3.2 2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -255,7 +255,7 @@ function ClockIcon() {
 
 function BenchmarkIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.875rem] w-[1.875rem]">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.3rem] w-[1.3rem]">
       <rect x="4" y="15" width="16" height="4" rx="1" />
       <rect x="5.5" y="10" width="13" height="4" rx="1" />
       <rect x="7" y="5" width="10" height="4" rx="1" />
@@ -265,7 +265,7 @@ function BenchmarkIcon() {
 
 function ScrollIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.875rem] w-[1.875rem]">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.3rem] w-[1.3rem]">
       <path d="M6 4h9l3 3v13H6z" strokeLinejoin="round" />
       <path d="M15 4v3h3" strokeLinejoin="round" />
       <path d="M9 11h6M9 15h6" strokeLinecap="round" />
@@ -285,12 +285,12 @@ function FactColumn({
   note?: string;
 }) {
   return (
-    <div className="flex flex-1 flex-col items-center gap-3 px-6 py-2 text-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#EADFC0] bg-[#FBF3E1] text-[#a6822b]">
+    <div className="flex flex-1 flex-col items-center gap-2 px-4 py-1 text-center">
+      <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#EADFC0] bg-[#FBF3E1] text-[#a6822b]">
         {icon}
       </div>
-      <p className="text-lg font-bold uppercase tracking-wide text-gray-900">{title}</p>
-      <p className="text-base text-gray-500">{description}</p>
+      <p className="text-base font-bold uppercase tracking-wide text-gray-900">{title}</p>
+      <p className="text-sm text-gray-500">{description}</p>
       {note && <p className="text-xs text-gray-400">{note}</p>}
     </div>
   );
@@ -435,9 +435,9 @@ export default function DisplayPage() {
           </h1>
           <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
 
-          <div className="mx-auto rounded-[2.5rem] border border-violet-100 bg-white px-10 py-6 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
-            <p className="pb-4 text-lg font-bold text-gray-900">
-              The daily benchmark price setting mechanism for physical gold
+          <div className="mx-auto rounded-[1.75rem] border border-violet-100 bg-white px-7 py-4 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+            <p className="pb-3 text-base font-normal text-gray-900">
+              The daily benchmark price-setting mechanism for physical gold
             </p>
             <div className="flex flex-col divide-y divide-violet-100 sm:flex-row sm:divide-x sm:divide-y-0">
               <FactColumn
@@ -465,13 +465,16 @@ export default function DisplayPage() {
             <img
               src="/qr-vegasfix.png"
               alt="QR code to collect your Vegas Gold Call chip"
-              className="h-24 w-24 flex-none rounded-lg border border-gray-200"
+              className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
             />
-            <p className="text-base text-gray-600">
-              <span className="font-bold text-gray-900">Scan the QR code</span> to collect your
-              Vegas Gold Call chip - then visit the other activations around the booth to collect
-              the remaining three and enter the draw
-            </p>
+            <div>
+              <p className="text-base font-semibold text-gray-900">
+                Scan the QR code to collect your Vegas Gold Call chip
+              </p>
+              <p className="mt-1 text-sm text-gray-500">
+                then visit the other activations to collect the remaining three chips
+              </p>
+            </div>
           </div>
         </div>
       )}
