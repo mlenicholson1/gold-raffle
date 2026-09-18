@@ -4,7 +4,7 @@ import { drawWinnerForSlot } from "@/lib/raffle";
 
 // How long the winner's name (or the "no eligible entries" message) stays on
 // screen before the display falls back to the idle Vegas Gold Call facts screen.
-const AUTO_IDLE_MS = 3 * 60 * 1000;
+const AUTO_IDLE_MS = 30 * 1000;
 
 const IDLE_RESET_DATA = {
   mode: "idle",
@@ -56,13 +56,13 @@ export async function GET() {
               }
             : {
                 mode: "empty",
-                emptyReason: "No one in this draw window has collected a chip yet.",
+                emptyReason: "No one in this draw window has collected a chip yet",
               },
         });
       } catch {
         state = await prisma.displayState.update({
           where: { id: "singleton" },
-          data: { mode: "empty", emptyReason: "Something went wrong running the draw." },
+          data: { mode: "empty", emptyReason: "Something went wrong running the draw" },
         });
       }
     } else {

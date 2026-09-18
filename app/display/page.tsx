@@ -23,52 +23,52 @@ const GOLD_FACTS: { before: string; highlight: string; after: string }[] = [
   {
     before: "Almost all the gold ever mined - around ",
     highlight: "220,000 tonnes",
-    after: " - is still in circulation today.",
+    after: " - is still in circulation today",
   },
   {
     before: "The world's above-ground gold stock is worth more than ",
     highlight: "$30 trillion",
-    after: ".",
+    after: "",
   },
   {
     before: "Gold ETFs took in ",
     highlight: "$89 billion",
-    after: " in 2025, pushing holdings to 4,025 tonnes.",
+    after: " in 2025, pushing holdings to 4,025 tonnes",
   },
   {
     before: "The tokenized gold market passed ",
     highlight: "$4 billion",
-    after: " in 2025.",
+    after: " in 2025",
   },
   {
     before: "DeFi protocols now hold more than ",
     highlight: "$125 billion",
-    after: " in value.",
+    after: " in value",
   },
   {
     before: "",
     highlight: "85%",
-    after: " of central banks cite gold's crisis performance as a reason to hold it.",
+    after: " of central banks cite gold's crisis performance as a reason to hold it",
   },
   {
     before: "",
     highlight: "30%",
-    after: " of Gen Z start investing as young adults - versus just 6% of Baby Boomers.",
+    after: " of Gen Z start investing as young adults - versus just 6% of Baby Boomers",
   },
   {
     before: "Gold trading in the Loco London market topped ",
     highlight: "$160 billion",
-    after: " a day in 2025.",
+    after: " a day in 2025",
   },
   {
     before: "Gold opened at 98 shillings 8 pence an ounce at that ",
     highlight: "first Fixing",
-    after: ".",
+    after: "",
   },
   {
     before: "Just ",
     highlight: "four bullion brokers",
-    after: " set that first gold price - the basic structure lasted over a century.",
+    after: " set that first gold price - the basic structure lasted over a century",
   },
 ];
 
@@ -85,15 +85,20 @@ function GoldFactsTicker() {
   const fact = GOLD_FACTS[index];
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="w-full">
       <p className="text-sm font-semibold uppercase tracking-[0.3em] text-violet-600">
         Did you know?
       </p>
-      <p key={index} className="mt-2 text-2xl text-gray-700 [animation:factFade_0.6s_ease-out]">
-        {fact.before}
-        <span className="font-bold text-[#a6822b]">{fact.highlight}</span>
-        {fact.after}
-      </p>
+      <div className="mt-2 flex min-h-[4rem] w-full items-center justify-center">
+        <p
+          key={index}
+          className="text-2xl text-gray-700 [animation:factFade_0.6s_ease-out]"
+        >
+          {fact.before}
+          <span className="font-bold text-[#a6822b]">{fact.highlight}</span>
+          {fact.after}
+        </p>
+      </div>
     </div>
   );
 }
@@ -153,50 +158,95 @@ function startFireworksLoop(): () => void {
   };
 }
 
-type Sparkle = { id: number; left: number; top: number; size: number; delay: number; duration: number };
+type NetworkPoint = { x: number; y: number; vx: number; vy: number; color: string };
 
-// Ambient floating specks behind everything. Generated client-side only,
-// after mount - Math.random() during the server render would mismatch the
-// client's first render and trigger a hydration error.
-function Sparkles() {
-  const [dots, setDots] = useState<Sparkle[]>([]);
+// An animated constellation of drifting, linking nodes - reads as "digital
+// gold network" rather than static decoration. Canvas-based and client-only,
+// since it needs real pixel dimensions and Math.random() (server rendering
+// this would mismatch the client's first paint and trigger a hydration error).
+function NetworkBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    setDots(
-      Array.from({ length: 22 }, (_, i) => ({
-        id: i,
-        left: Math.round(Math.random() * 1000) / 10,
-        top: Math.round(Math.random() * 1000) / 10,
-        size: 3 + Math.round(Math.random() * 3),
-        delay: Math.round(Math.random() * 6000) / 1000,
-        duration: 4 + Math.round(Math.random() * 3000) / 1000,
-      }))
-    );
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const LINK_DISTANCE = 190;
+    const colors = ["#a6822b", "#c9a13c", "#7c3aed"];
+    const points: NetworkPoint[] = Array.from({ length: 46 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      color: colors[Math.floor(Math.random() * colors.length)],
+    }));
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas!.width = width;
+      canvas!.height = height;
+    }
+    window.addEventListener("resize", resize);
+
+    let rafId = 0;
+    function frame() {
+      ctx!.clearRect(0, 0, width, height);
+
+      for (const p of points) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+      }
+
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const a = points[i];
+          const b = points[j];
+          const dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if (dist < LINK_DISTANCE) {
+            ctx!.strokeStyle = `rgba(124, 58, 237, ${0.22 * (1 - dist / LINK_DISTANCE)})`;
+            ctx!.lineWidth = 1;
+            ctx!.beginPath();
+            ctx!.moveTo(a.x, a.y);
+            ctx!.lineTo(b.x, b.y);
+            ctx!.stroke();
+          }
+        }
+      }
+
+      for (const p of points) {
+        ctx!.globalAlpha = 0.75;
+        ctx!.fillStyle = p.color;
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.globalAlpha = 1;
+      }
+
+      rafId = requestAnimationFrame(frame);
+    }
+    frame();
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {dots.map((d) => (
-        <span
-          key={d.id}
-          className="absolute rounded-full bg-[#a6822b]"
-          style={{
-            left: `${d.left}%`,
-            top: `${d.top}%`,
-            width: d.size,
-            height: d.size,
-            opacity: 0,
-            animation: `sparkle ${d.duration}s ease-in-out ${d.delay}s infinite`,
-          }}
-        />
-      ))}
-    </div>
-  );
+  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0" />;
 }
 
 function ClockIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="30" height="30">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.875rem] w-[1.875rem]">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7v5l3.2 2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -205,7 +255,7 @@ function ClockIcon() {
 
 function BenchmarkIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="30" height="30">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.875rem] w-[1.875rem]">
       <rect x="4" y="15" width="16" height="4" rx="1" />
       <rect x="5.5" y="10" width="13" height="4" rx="1" />
       <rect x="7" y="5" width="10" height="4" rx="1" />
@@ -215,7 +265,7 @@ function BenchmarkIcon() {
 
 function ScrollIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="30" height="30">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[1.875rem] w-[1.875rem]">
       <path d="M6 4h9l3 3v13H6z" strokeLinejoin="round" />
       <path d="M15 4v3h3" strokeLinejoin="round" />
       <path d="M9 11h6M9 15h6" strokeLinecap="round" />
@@ -253,6 +303,28 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
       {children}
       <span className="h-px w-10 bg-violet-300" />
     </p>
+  );
+}
+
+function WGCLogo() {
+  return (
+    <div
+      className="absolute left-6 top-6 z-20 flex items-center gap-3 text-[#d8ab4c]"
+      style={{ fontFamily: "var(--font-noto-sans)" }}
+    >
+      <svg viewBox="0 0 48 48" className="h-[2.625rem] w-[2.625rem]" fill="none">
+        <circle cx="24" cy="24" r="21.5" stroke="currentColor" strokeWidth="2.6" />
+        <circle cx="24" cy="24" r="14.5" stroke="currentColor" strokeWidth="2.6" />
+        <circle cx="24" cy="24" r="7.5" stroke="currentColor" strokeWidth="2.6" />
+      </svg>
+      <p className="text-left text-sm font-semibold uppercase leading-tight tracking-normal">
+        World
+        <br />
+        Gold
+        <br />
+        Council
+      </p>
+    </div>
   );
 }
 
@@ -305,6 +377,17 @@ export default function DisplayPage() {
   const [state, setState] = useState<DisplayState | null>(null);
   const prevMode = useRef<string | null>(null);
 
+  // Scales every rem-based size on this page (text, spacing, icons) via the
+  // root font size, rather than a CSS transform - which would just overflow
+  // visually instead of reflowing the layout. The winner reveal gets an
+  // extra boost (roughly 2x normal) for a bigger celebratory moment.
+  useEffect(() => {
+    document.documentElement.style.fontSize = state?.mode === "reveal" ? "200%" : "150%";
+    return () => {
+      document.documentElement.style.fontSize = "";
+    };
+  }, [state?.mode]);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -338,36 +421,41 @@ export default function DisplayPage() {
   const urgent = state?.mode === "countdown" && (state.secondsRemaining ?? 99) <= 10;
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 text-center">
-      <Sparkles />
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 pt-28 text-center">
+      <NetworkBackground />
+      <WGCLogo />
       <FullscreenButton />
 
       {!state && <p className="relative text-2xl text-gray-400">Connecting…</p>}
 
       {state && state.mode === "idle" && (
         <div className="relative w-full max-w-5xl space-y-6">
-          <SectionLabel>World Gold Council</SectionLabel>
           <h1 className="text-6xl font-black text-gray-900 sm:text-7xl">
             The Vegas <span className="text-[#a6822b]">Gold</span> Call
           </h1>
-          <p className="text-2xl text-gray-500">A daily benchmark price for physical gold.</p>
+          <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
 
-          <div className="mx-auto flex flex-col divide-y divide-violet-100 rounded-[2.5rem] border border-violet-100 bg-white px-10 py-6 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)] sm:flex-row sm:divide-x sm:divide-y-0">
-            <FactColumn
-              icon={<ClockIcon />}
-              title="Daily Call"
-              description="Twice a day, 10:30am and 3:00pm London time."
-            />
-            <FactColumn
-              icon={<BenchmarkIcon />}
-              title="Global Benchmark"
-              description="A trusted reference price for gold markets."
-            />
-            <FactColumn
-              icon={<ScrollIcon />}
-              title="Since 1919"
-              description="London's first Gold Fixing took place on 12 September 1919."
-            />
+          <div className="mx-auto rounded-[2.5rem] border border-violet-100 bg-white px-10 py-6 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+            <p className="pb-4 text-lg font-bold text-gray-900">
+              The daily benchmark price setting mechanism for physical gold
+            </p>
+            <div className="flex flex-col divide-y divide-violet-100 sm:flex-row sm:divide-x sm:divide-y-0">
+              <FactColumn
+                icon={<ClockIcon />}
+                title="Daily Call"
+                description="Twice a day, 10:30am and 3:00pm London time"
+              />
+              <FactColumn
+                icon={<BenchmarkIcon />}
+                title="Global Benchmark"
+                description="A trusted reference price for gold markets"
+              />
+              <FactColumn
+                icon={<ScrollIcon />}
+                title="Since 1919"
+                description="London's first Gold Fixing took place on 12 September 1919"
+              />
+            </div>
           </div>
 
           <GoldFactsTicker />
@@ -382,7 +470,7 @@ export default function DisplayPage() {
             <p className="text-base text-gray-600">
               <span className="font-bold text-gray-900">Scan the QR code</span> to collect your
               Vegas Gold Call chip - then visit the other activations around the booth to collect
-              the remaining three and enter the draw.
+              the remaining three and enter the draw
             </p>
           </div>
         </div>
@@ -425,16 +513,23 @@ export default function DisplayPage() {
       )}
 
       {state && state.mode === "reveal" && (
-        <div className="relative max-w-5xl space-y-6 animate-[popIn_0.6s_ease-out]">
-          <SectionLabel>{state.drawLabel ?? "Gold Call"}</SectionLabel>
-          <p className="text-3xl text-gray-700 sm:text-4xl">
+        <div
+          className="relative max-w-5xl space-y-12 animate-[popIn_0.6s_ease-out]"
+          style={{ fontFamily: "var(--font-noto-sans)" }}
+        >
+          <p className="flex items-center justify-center gap-4 text-xl font-semibold text-violet-600">
+            <span className="h-px w-10 bg-violet-300" />
+            {state.drawLabel ?? "Gold Call"}
+            <span className="h-px w-10 bg-violet-300" />
+          </p>
+          <p className="text-3xl font-light text-gray-700 sm:text-4xl">
             The winner of our 1oz gold coin from our {ordinalWord(state.ordinal ?? 1)} Gold Call
             is…
           </p>
-          <h1 className="bg-gradient-to-r from-[#8f6f22] via-[#a6822b] to-[#c9a13c] bg-[length:200%_auto] bg-clip-text text-7xl font-black text-transparent [animation:shimmer_2.5s_linear_infinite] sm:text-8xl">
+          <h1 className="bg-gradient-to-r from-[#b98f3a] via-[#d8ab4c] to-[#f0d199] bg-[length:200%_auto] bg-clip-text text-7xl font-semibold text-transparent [animation:shimmer_2.5s_linear_infinite] sm:text-8xl">
             {state.winner?.name} {state.winner?.surname}
           </h1>
-          <p className="text-2xl font-medium text-gray-700">
+          <p className="text-2xl font-light text-gray-700">
             Please come up to the front to collect your prize!
           </p>
         </div>
@@ -444,7 +539,7 @@ export default function DisplayPage() {
         <div className="relative space-y-6">
           <SectionLabel>{state.slotLabel ?? "Vegas Gold Call"}</SectionLabel>
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
-            {state.emptyReason ?? "No eligible entries yet."}
+            {state.emptyReason ?? "No eligible entries yet"}
           </h1>
         </div>
       )}
@@ -462,10 +557,6 @@ export default function DisplayPage() {
         @keyframes shimmer {
           0% { background-position: 0% center; }
           100% { background-position: 200% center; }
-        }
-        @keyframes sparkle {
-          0%, 100% { opacity: 0; transform: scale(0.6); }
-          50% { opacity: 0.7; transform: scale(1); }
         }
         @keyframes factFade {
           0% { opacity: 0; transform: translateY(6px); }
