@@ -452,7 +452,7 @@ export default function DisplayPage() {
           </h1>
           <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
 
-          <div className="mx-auto rounded-[1.75rem] border border-violet-100 bg-white px-7 py-4 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+          <div className="mx-auto rounded-[1.75rem] border border-violet-100 bg-white px-7 pb-4 pt-0 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
             <p className="mx-auto mb-5 w-fit rounded-b-xl border-x-2 border-b-2 border-[#704287] px-4 py-2 text-base font-normal text-gray-900">
               The daily benchmark price-setting mechanism for physical gold
             </p>
