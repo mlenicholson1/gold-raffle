@@ -53,6 +53,12 @@ export default function AdminPage() {
   const [loungeError, setLoungeError] = useState<string | null>(null);
   const [loungeMessage, setLoungeMessage] = useState<string | null>(null);
 
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoBusy, setLogoBusy] = useState<"upload" | "remove" | null>(null);
+  const [logoError, setLogoError] = useState<string | null>(null);
+  const [logoMessage, setLogoMessage] = useState<string | null>(null);
+  const [logoPreviewKey, setLogoPreviewKey] = useState(0);
+
   async function fetchStats(pw: string): Promise<boolean> {
     try {
       const res = await fetch("/api/admin/stats", {
@@ -208,6 +214,55 @@ export default function AdminPage() {
       setLoungeError("Something went wrong. Please try again.");
     } finally {
       setLoungeBusy(null);
+    }
+  }
+
+  async function handleUploadLogo() {
+    if (!logoFile) return;
+    setLogoBusy("upload");
+    setLogoError(null);
+    setLogoMessage(null);
+    try {
+      const formData = new FormData();
+      formData.append("password", password);
+      formData.append("file", logoFile);
+      const res = await fetch("/api/admin/logo", { method: "POST", body: formData });
+      const data = await res.json();
+      if (!res.ok) {
+        setLogoError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setLogoMessage("Logo updated - it'll appear on the lounge display right away.");
+      setLogoFile(null);
+      setLogoPreviewKey((k) => k + 1);
+    } catch {
+      setLogoError("Something went wrong. Please try again.");
+    } finally {
+      setLogoBusy(null);
+    }
+  }
+
+  async function handleRemoveLogo() {
+    setLogoBusy("remove");
+    setLogoError(null);
+    setLogoMessage(null);
+    try {
+      const res = await fetch("/api/admin/logo", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setLogoError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setLogoMessage("Custom logo removed - back to the default mark.");
+      setLogoPreviewKey((k) => k + 1);
+    } catch {
+      setLogoError("Something went wrong. Please try again.");
+    } finally {
+      setLogoBusy(null);
     }
   }
 
@@ -447,6 +502,52 @@ export default function AdminPage() {
             )}
           </>
         )}
+
+        <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
+            Display logo
+          </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Upload an image to replace the built-in logo mark on the lounge display screen
+            (PNG, JPG, or SVG - under 2MB). Leave it as-is to keep the default.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-4">
+            <img
+              key={logoPreviewKey}
+              src={`/api/logo?v=${logoPreviewKey}`}
+              alt="Current custom logo"
+              className="h-16 max-w-[12rem] rounded-lg border border-gray-200 bg-gray-50 object-contain p-1"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+              onLoad={(e) => {
+                e.currentTarget.style.display = "";
+              }}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setLogoFile(e.target.files?.[0] ?? null)}
+              className="text-sm text-gray-600"
+            />
+            <button
+              onClick={handleUploadLogo}
+              disabled={!logoFile || logoBusy !== null}
+              className="whitespace-nowrap rounded-full bg-[#a6822b] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] disabled:opacity-60 disabled:hover:translate-y-0"
+            >
+              {logoBusy === "upload" ? "Uploading…" : "Upload Logo"}
+            </button>
+            <button
+              onClick={handleRemoveLogo}
+              disabled={logoBusy !== null}
+              className="whitespace-nowrap rounded-full border border-gray-300 px-6 py-2.5 font-semibold text-gray-600 transition hover:bg-gray-50 disabled:opacity-60"
+            >
+              {logoBusy === "remove" ? "Removing…" : "Remove Custom Logo"}
+            </button>
+          </div>
+          {logoError && <p className="mt-3 text-sm text-red-600">{logoError}</p>}
+          {logoMessage && <p className="mt-3 text-sm text-emerald-600">{logoMessage}</p>}
+        </div>
 
         <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">

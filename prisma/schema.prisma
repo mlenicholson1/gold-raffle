@@ -73,3 +73,14 @@ model DisplayState {
 
   @@map("display_state")
 }
+
+// Singleton row (id is always "singleton") for app-wide settings that staff
+// can change from the admin dashboard, such as a custom logo replacing the
+// built-in one on the lounge display.
+model AppSettings {
+  id           String   @id @default("singleton")
+  logoDataUrl  String?  @map("logo_data_url")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("app_settings")
+}

@@ -177,9 +177,10 @@ function NetworkBackground() {
     canvas.width = width;
     canvas.height = height;
 
-    const LINK_DISTANCE = 190;
-    const colors = ["#a6822b", "#c9a13c", "#7c3aed"];
-    const points: NetworkPoint[] = Array.from({ length: 46 }, () => ({
+    const LINK_DISTANCE = 210;
+    // Mostly gold, with a little violet mixed in for brand contrast.
+    const colors = ["#a6822b", "#c9a13c", "#d8ab4c", "#a6822b", "#c9a13c", "#7c3aed"];
+    const points: NetworkPoint[] = Array.from({ length: 60 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       vx: (Math.random() - 0.5) * 0.35,
@@ -212,8 +213,8 @@ function NetworkBackground() {
           const b = points[j];
           const dist = Math.hypot(a.x - b.x, a.y - b.y);
           if (dist < LINK_DISTANCE) {
-            ctx!.strokeStyle = `rgba(124, 58, 237, ${0.22 * (1 - dist / LINK_DISTANCE)})`;
-            ctx!.lineWidth = 1;
+            ctx!.strokeStyle = `rgba(166, 130, 43, ${0.32 * (1 - dist / LINK_DISTANCE)})`;
+            ctx!.lineWidth = 1.4;
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
@@ -223,10 +224,10 @@ function NetworkBackground() {
       }
 
       for (const p of points) {
-        ctx!.globalAlpha = 0.75;
+        ctx!.globalAlpha = 0.9;
         ctx!.fillStyle = p.color;
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx!.arc(p.x, p.y, 4, 0, Math.PI * 2);
         ctx!.fill();
         ctx!.globalAlpha = 1;
       }
@@ -307,17 +308,33 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 function WGCLogo() {
+  const [customFailed, setCustomFailed] = useState(false);
+
+  if (!customFailed) {
+    return (
+      <div className="absolute left-10 top-10 z-20">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/api/logo"
+          alt="World Gold Council"
+          className="h-[5rem] w-auto max-w-[16rem] object-contain"
+          onError={() => setCustomFailed(true)}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
-      className="absolute left-6 top-6 z-20 flex items-center gap-3 text-[#d8ab4c]"
+      className="absolute left-10 top-10 z-20 flex items-center gap-4 text-[#d8ab4c]"
       style={{ fontFamily: "var(--font-noto-sans)" }}
     >
-      <svg viewBox="0 0 48 48" className="h-[2.625rem] w-[2.625rem]" fill="none">
+      <svg viewBox="0 0 48 48" className="h-[3.5rem] w-[3.5rem]" fill="none">
         <circle cx="24" cy="24" r="21.5" stroke="currentColor" strokeWidth="2.6" />
         <circle cx="24" cy="24" r="14.5" stroke="currentColor" strokeWidth="2.6" />
         <circle cx="24" cy="24" r="7.5" stroke="currentColor" strokeWidth="2.6" />
       </svg>
-      <p className="text-left text-sm font-semibold uppercase leading-tight tracking-normal">
+      <p className="text-left text-base font-semibold uppercase leading-tight tracking-normal">
         World
         <br />
         Gold
@@ -436,10 +453,10 @@ export default function DisplayPage() {
           <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
 
           <div className="mx-auto rounded-[1.75rem] border border-violet-100 bg-white px-7 py-4 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
-            <p className="pb-3 text-base font-normal text-gray-900">
+            <p className="mx-auto mb-5 w-fit rounded-xl border-2 border-[#704287] px-4 py-2 text-base font-normal text-gray-900">
               The daily benchmark price-setting mechanism for physical gold
             </p>
-            <div className="flex flex-col divide-y divide-violet-100 sm:flex-row sm:divide-x sm:divide-y-0">
+            <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:divide-x-2 sm:divide-y-0">
               <FactColumn
                 icon={<ClockIcon />}
                 title="Daily Call"
@@ -458,16 +475,18 @@ export default function DisplayPage() {
             </div>
           </div>
 
-          <GoldFactsTicker />
+          <div className="mt-4">
+            <GoldFactsTicker />
+          </div>
 
-          <div className="mx-auto flex max-w-2xl items-center gap-6 rounded-3xl border border-violet-100 bg-white px-8 py-5 text-left shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+          <div className="mx-auto flex max-w-4xl items-center justify-center gap-6 rounded-3xl border border-violet-100 bg-white px-8 py-5 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/qr-vegasfix.png"
               alt="QR code to collect your Vegas Gold Call chip"
               className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
             />
-            <div>
+            <div className="text-center">
               <p className="text-base font-semibold text-gray-900">
                 Scan the QR code to collect your Vegas Gold Call chip
               </p>
@@ -475,6 +494,12 @@ export default function DisplayPage() {
                 then visit the other activations to collect the remaining three chips
               </p>
             </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/qr-vegasfix.png"
+              alt="QR code to collect your Vegas Gold Call chip"
+              className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
+            />
           </div>
         </div>
       )}
