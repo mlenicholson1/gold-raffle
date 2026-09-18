@@ -202,7 +202,7 @@ export default function IdentityCheck({
                   href="/terms"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-violet-600 underline hover:text-violet-700"
+                  className="text-[#704287] underline hover:text-[#3c1e4b]"
                 >
                   Terms &amp; Conditions
                 </a>

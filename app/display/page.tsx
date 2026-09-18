@@ -299,10 +299,10 @@ function FactColumn({
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="flex items-center justify-center gap-4 text-xl font-semibold uppercase tracking-[0.3em] text-violet-600">
-      <span className="h-px w-10 bg-violet-300" />
+    <p className="flex items-center justify-center gap-4 text-xl font-semibold uppercase tracking-[0.3em] text-[#704287]">
+      <span className="h-px w-10 bg-[#94839c]" />
       {children}
-      <span className="h-px w-10 bg-violet-300" />
+      <span className="h-px w-10 bg-[#94839c]" />
     </p>
   );
 }
@@ -399,7 +399,7 @@ export default function DisplayPage() {
   // visually instead of reflowing the layout. The winner reveal gets an
   // extra boost (roughly 2x normal) for a bigger celebratory moment.
   useEffect(() => {
-    document.documentElement.style.fontSize = state?.mode === "reveal" ? "200%" : "150%";
+    document.documentElement.style.fontSize = state?.mode === "reveal" ? "170%" : "150%";
     return () => {
       document.documentElement.style.fontSize = "";
     };
@@ -438,7 +438,7 @@ export default function DisplayPage() {
   const urgent = state?.mode === "countdown" && (state.secondsRemaining ?? 99) <= 10;
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 pt-28 text-center">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 text-center">
       <NetworkBackground />
       <WGCLogo />
       <FullscreenButton />
@@ -447,13 +447,13 @@ export default function DisplayPage() {
 
       {state && state.mode === "idle" && (
         <div className="relative w-full max-w-5xl space-y-6">
-          <h1 className="text-6xl font-black text-gray-900 sm:text-7xl">
+          <h1 className="mt-8 text-6xl font-black text-gray-900 sm:text-7xl">
             The Vegas <span className="text-[#a6822b]">Gold</span> Call
           </h1>
           <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
 
           <div className="mx-auto rounded-[1.75rem] border border-violet-100 bg-white px-7 pb-4 pt-0 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
-            <p className="mx-auto mb-5 w-fit rounded-b-xl border-x-2 border-b-2 border-[#704287] px-4 py-2 text-base font-normal text-gray-900">
+            <p className="mx-auto mb-5 w-fit rounded-b-xl border-x-2 border-b-2 border-[#3c1e4b] px-4 py-2 text-base font-normal text-gray-900">
               The daily benchmark price-setting mechanism for physical gold
             </p>
             <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:divide-x-2 sm:divide-y-0">
@@ -542,22 +542,22 @@ export default function DisplayPage() {
 
       {state && state.mode === "reveal" && (
         <div
-          className="relative max-w-5xl space-y-12 animate-[popIn_0.6s_ease-out]"
+          className="relative mt-6 max-w-5xl space-y-6 animate-[popIn_0.6s_ease-out]"
           style={{ fontFamily: "var(--font-noto-sans)" }}
         >
-          <p className="flex items-center justify-center gap-4 text-xl font-semibold text-violet-600">
-            <span className="h-px w-10 bg-violet-300" />
+          <p className="flex items-center justify-center gap-4 text-xl font-semibold text-[#704287]">
+            <span className="h-px w-10 bg-[#94839c]" />
             {state.drawLabel ?? "Gold Call"}
-            <span className="h-px w-10 bg-violet-300" />
+            <span className="h-px w-10 bg-[#94839c]" />
           </p>
-          <p className="text-3xl font-light text-gray-700 sm:text-4xl">
+          <p className="text-2xl font-light text-gray-700 sm:text-3xl">
             The winner of our 1oz gold coin from our {ordinalWord(state.ordinal ?? 1)} Gold Call
             is…
           </p>
-          <h1 className="bg-gradient-to-r from-[#b98f3a] via-[#d8ab4c] to-[#f0d199] bg-[length:200%_auto] bg-clip-text text-7xl font-semibold text-transparent [animation:shimmer_2.5s_linear_infinite] sm:text-8xl">
+          <h1 className="bg-gradient-to-r from-[#b98f3a] via-[#d8ab4c] to-[#f0d199] bg-[length:200%_auto] bg-clip-text text-6xl font-semibold text-transparent [animation:shimmer_2.5s_linear_infinite] sm:text-7xl">
             {state.winner?.name} {state.winner?.surname}
           </h1>
-          <p className="text-2xl font-light text-gray-700">
+          <p className="text-xl font-light text-gray-700">
             Please come up to the front to collect your prize!
           </p>
         </div>

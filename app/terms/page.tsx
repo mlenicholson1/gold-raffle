@@ -2,7 +2,7 @@ export default function TermsPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4 py-12">
       <div className="mx-auto max-w-2xl rounded-3xl border border-violet-100 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)] sm:p-12">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-violet-600">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#704287]">
           Hold Gold
         </p>
         <h1 className="mt-2 text-3xl font-black text-gray-900">

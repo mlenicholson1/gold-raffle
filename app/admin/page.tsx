@@ -368,7 +368,7 @@ export default function AdminPage() {
             {activeSlot && (
               <>
                 <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
                     Live counts - {activeSlot.label}
                   </h2>
                   <p className="mt-1 text-xs text-gray-500">
@@ -402,7 +402,7 @@ export default function AdminPage() {
                 </div>
 
                 <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
                     Run raffle - {activeSlot.label}
                   </h2>
                   <p className="mt-2 text-sm text-gray-500">
@@ -444,7 +444,7 @@ export default function AdminPage() {
                 </div>
 
                 <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
                     Lounge screen - {activeSlot.label}
                   </h2>
                   <p className="mt-2 text-sm text-gray-500">
@@ -453,7 +453,7 @@ export default function AdminPage() {
                       href="/display"
                       target="_blank"
                       rel="noreferrer"
-                      className="text-violet-600 underline hover:text-violet-700"
+                      className="text-[#704287] underline hover:text-[#3c1e4b]"
                     >
                       open display
                     </a>
@@ -504,7 +504,7 @@ export default function AdminPage() {
         )}
 
         <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
             Display logo
           </h2>
           <p className="mt-2 text-sm text-gray-500">
@@ -550,7 +550,7 @@ export default function AdminPage() {
         </div>
 
         <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-600">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
             Export data
           </h2>
           <p className="mt-2 text-sm text-gray-500">
