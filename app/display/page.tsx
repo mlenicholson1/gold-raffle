@@ -86,13 +86,13 @@ function GoldFactsTicker() {
 
   return (
     <div className="w-full">
-      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#704287]">
         Did you know?
       </p>
-      <div className="mt-2 flex min-h-[4rem] w-full items-center justify-center">
+      <div className="mt-1 flex min-h-[4rem] w-full items-center justify-center">
         <p
           key={index}
-          className="text-2xl text-[#3c1e4b] [animation:factFade_0.6s_ease-out]"
+          className="text-2xl text-gray-900 [animation:factFade_0.6s_ease-out]"
         >
           {fact.before}
           <span className="font-bold text-[#a6822b]">{fact.highlight}</span>
