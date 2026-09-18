@@ -59,6 +59,11 @@ export default function AdminPage() {
   const [logoMessage, setLogoMessage] = useState<string | null>(null);
   const [logoPreviewKey, setLogoPreviewKey] = useState(0);
 
+  const [clearConfirmText, setClearConfirmText] = useState("");
+  const [clearing, setClearing] = useState(false);
+  const [clearError, setClearError] = useState<string | null>(null);
+  const [clearMessage, setClearMessage] = useState<string | null>(null);
+
   async function fetchStats(pw: string): Promise<boolean> {
     try {
       const res = await fetch("/api/admin/stats", {
@@ -263,6 +268,35 @@ export default function AdminPage() {
       setLogoError("Something went wrong. Please try again.");
     } finally {
       setLogoBusy(null);
+    }
+  }
+
+  async function handleClearAllUsers() {
+    if (clearConfirmText !== "CLEAR") return;
+    setClearing(true);
+    setClearError(null);
+    setClearMessage(null);
+    try {
+      const res = await fetch("/api/admin/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setClearError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setClearMessage(
+        `Cleared ${data.deleted.visitors} visitor(s), ${data.deleted.tokens} chip(s), and ${data.deleted.raffleDraws} raffle draw(s).`
+      );
+      setClearConfirmText("");
+      setLastDraw(null);
+      fetchStats(password);
+    } catch {
+      setClearError("Something went wrong. Please try again.");
+    } finally {
+      setClearing(false);
     }
   }
 
@@ -565,6 +599,36 @@ export default function AdminPage() {
             {exporting ? "Exporting…" : "Export CSV"}
           </button>
           {exportError && <p className="mt-3 text-sm text-red-600">{exportError}</p>}
+        </div>
+
+        <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-red-700">
+            Danger zone
+          </h2>
+          <p className="mt-2 text-sm text-red-700">
+            Permanently deletes every registered visitor, their collected chips, and all past
+            raffle draw/winner history. This cannot be undone - export the CSV above first if
+            you need a record. Type <span className="font-mono font-bold">CLEAR</span> to enable
+            the button.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <input
+              type="text"
+              value={clearConfirmText}
+              onChange={(e) => setClearConfirmText(e.target.value)}
+              placeholder="Type CLEAR"
+              className="w-40 rounded-lg border border-red-300 bg-white px-3 py-2 text-gray-900 focus:border-red-500 focus:outline-none"
+            />
+            <button
+              onClick={handleClearAllUsers}
+              disabled={clearConfirmText !== "CLEAR" || clearing}
+              className="whitespace-nowrap rounded-full bg-red-600 px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(220,38,38,0.35)] transition hover:-translate-y-0.5 hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
+            >
+              {clearing ? "Clearing…" : "Clear All Users"}
+            </button>
+          </div>
+          {clearError && <p className="mt-3 text-sm text-red-700">{clearError}</p>}
+          {clearMessage && <p className="mt-3 text-sm text-emerald-700">{clearMessage}</p>}
         </div>
       </div>
     </main>
