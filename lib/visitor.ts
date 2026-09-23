@@ -21,7 +21,14 @@ export type Progress = {
 };
 
 export function buildProgress(collectedStations: string[]): Progress {
-  const collected = new Set(collectedStations);
+  // Filters out any station not in the current STATIONS list (e.g. a
+  // legacy "register" token from before it stopped being chip-tracked),
+  // so stale rows can never inflate the count.
+  const collected = new Set(
+    collectedStations.filter((station): station is Station =>
+      (STATIONS as readonly string[]).includes(station)
+    )
+  );
   const stations = Object.fromEntries(
     STATIONS.map((station) => [station, collected.has(station)])
   ) as Record<Station, boolean>;
