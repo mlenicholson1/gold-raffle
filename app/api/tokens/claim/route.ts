@@ -3,14 +3,12 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@/app/generated/prisma/client";
 import { buildProgress, STATIONS } from "@/lib/visitor";
 
-const CLAIMABLE_STATIONS = STATIONS.filter((s) => s !== "register");
-
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const visitorId = typeof body?.visitorId === "string" ? body.visitorId : undefined;
   const station = typeof body?.station === "string" ? body.station : undefined;
 
-  if (!visitorId || !station || !CLAIMABLE_STATIONS.includes(station as never)) {
+  if (!visitorId || !station || !STATIONS.includes(station as never)) {
     return NextResponse.json({ error: "Invalid claim request." }, { status: 400 });
   }
 

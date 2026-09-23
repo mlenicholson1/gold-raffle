@@ -48,14 +48,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const visitor = await prisma.$transaction(async (tx) => {
-      const created = await tx.visitor.create({
-        data: { name, surname, email, personalCode },
-      });
-      await tx.token.create({
-        data: { visitorId: created.id, station: "register" },
-      });
-      return created;
+    const visitor = await prisma.visitor.create({
+      data: { name, surname, email, personalCode },
     });
 
     return NextResponse.json(
@@ -67,7 +61,7 @@ export async function POST(request: Request) {
           personalCode: visitor.personalCode,
           createdAt: visitor.createdAt,
         },
-        progress: buildProgress(["register"]),
+        progress: buildProgress([]),
         alreadyRegistered: false,
       },
       { status: 201 }

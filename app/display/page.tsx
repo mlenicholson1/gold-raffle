@@ -15,7 +15,7 @@ type DisplayState = {
 };
 
 const GOLD = "#a6822b";
-const CONFETTI_COLORS = [GOLD, "#c9a13c", "#e8d18f", "#7c3aed", "#ffffff"];
+const CONFETTI_COLORS = [GOLD, "#c9a13c", "#e8d18f", "#704287", "#ffffff"];
 
 // Sourced from the WGC/BCG "Digital Gold" white paper - kept to public, final
 // figures only (no internal roadmap, projections, or named individuals).
@@ -62,7 +62,7 @@ const GOLD_FACTS: { before: string; highlight: string; after: string }[] = [
   },
   {
     before: "Gold opened at 98 shillings 8 pence an ounce at that ",
-    highlight: "first Fixing",
+    highlight: "first gold price auction",
     after: "",
   },
   {
@@ -178,8 +178,8 @@ function NetworkBackground() {
     canvas.height = height;
 
     const LINK_DISTANCE = 210;
-    // Mostly gold, with a little violet mixed in for brand contrast.
-    const colors = ["#a6822b", "#c9a13c", "#d8ab4c", "#a6822b", "#c9a13c", "#7c3aed"];
+    // Mostly gold, with a little WGC purple mixed in for brand contrast.
+    const colors = ["#a6822b", "#c9a13c", "#d8ab4c", "#a6822b", "#c9a13c", "#704287"];
     const points: NetworkPoint[] = Array.from({ length: 60 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -213,8 +213,8 @@ function NetworkBackground() {
           const b = points[j];
           const dist = Math.hypot(a.x - b.x, a.y - b.y);
           if (dist < LINK_DISTANCE) {
-            ctx!.strokeStyle = `rgba(166, 130, 43, ${0.32 * (1 - dist / LINK_DISTANCE)})`;
-            ctx!.lineWidth = 1.4;
+            ctx!.strokeStyle = `rgba(166, 130, 43, ${0.55 * (1 - dist / LINK_DISTANCE)})`;
+            ctx!.lineWidth = 1.8;
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
@@ -291,8 +291,8 @@ function FactColumn({
         {icon}
       </div>
       <p className="text-base font-bold uppercase tracking-wide text-gray-900">{title}</p>
-      <p className="text-sm text-gray-500">{description}</p>
-      {note && <p className="text-xs text-gray-400">{note}</p>}
+      <p className="text-base text-gray-600">{description}</p>
+      {note && <p className="text-sm text-gray-500">{note}</p>}
     </div>
   );
 }
@@ -381,7 +381,7 @@ function FullscreenButton() {
   return (
     <button
       onClick={() => (isFullscreen ? document.exitFullscreen() : enterFullscreen())}
-      className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-full border border-violet-100 bg-white px-4 py-2 text-sm font-semibold text-gray-600 shadow-[0_10px_30px_-10px_rgba(124,58,237,0.35)] transition hover:text-[#a6822b]"
+      className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-full border border-[#3c1e4b]/15 bg-white px-4 py-2 text-sm font-semibold text-gray-600 shadow-[0_10px_30px_-10px_rgba(112,66,135,0.35)] transition hover:text-[#a6822b]"
       title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
     >
       <span className="text-lg">⛶</span>
@@ -452,25 +452,25 @@ export default function DisplayPage() {
           </h1>
           <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
 
-          <div className="mx-auto rounded-[1.75rem] border border-violet-100 bg-white px-7 pb-4 pt-0 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-4 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
             <p className="mx-auto mb-5 w-fit rounded-b-xl border-x-2 border-b-2 border-[#3c1e4b] px-4 py-2 text-base font-normal text-gray-900">
               The daily benchmark price-setting mechanism for physical gold
             </p>
             <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:divide-x-2 sm:divide-y-0">
               <FactColumn
                 icon={<ClockIcon />}
-                title="Daily Call"
+                title="Price Auction"
                 description="Twice a day, 10:30am and 3:00pm London time"
               />
               <FactColumn
                 icon={<BenchmarkIcon />}
-                title="Global Benchmark"
+                title="Gold Market"
                 description="A trusted reference price for gold markets"
               />
               <FactColumn
                 icon={<ScrollIcon />}
-                title="Since 1919"
-                description="London's first Gold Fixing took place on 12 September 1919"
+                title="Digital Gold Market"
+                description="Tokenized gold on-chain passed $4 billion in 2025"
               />
             </div>
           </div>
@@ -479,7 +479,7 @@ export default function DisplayPage() {
             <GoldFactsTicker />
           </div>
 
-          <div className="mx-auto flex max-w-4xl items-center justify-center gap-6 rounded-3xl border border-violet-100 bg-white px-8 py-5 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+          <div className="mx-auto flex max-w-4xl items-center justify-center gap-6 rounded-3xl border border-[#3c1e4b]/15 bg-white px-8 py-5 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/qr-vegasfix.png"
@@ -490,8 +490,8 @@ export default function DisplayPage() {
               <p className="text-base font-semibold text-gray-900">
                 Scan the QR code to collect your Vegas Gold Call chip
               </p>
-              <p className="mt-1 text-sm text-gray-500">
-                then visit the other activations to collect the remaining three chips
+              <p className="mt-1 text-base text-gray-600">
+                then visit the other activations to collect the remaining two chips
               </p>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -508,7 +508,7 @@ export default function DisplayPage() {
         <div className="relative space-y-8">
           <SectionLabel>{state.slotLabel ?? "Vegas Gold Call"}</SectionLabel>
           <p className="text-3xl text-gray-600">The draw happens in…</p>
-          <div className="relative mx-auto flex items-center justify-center rounded-[3rem] border border-violet-100 bg-white px-20 py-14 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+          <div className="relative mx-auto flex items-center justify-center rounded-[3rem] border border-[#3c1e4b]/15 bg-white px-20 py-14 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
             <div
               className={`absolute inset-6 rounded-[2.5rem] border-4 sm:inset-8 ${
                 urgent

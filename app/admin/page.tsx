@@ -341,7 +341,7 @@ export default function AdminPage() {
   if (!authed) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
-        <div className="w-full max-w-sm rounded-3xl border border-violet-100 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.25)]">
+        <div className="w-full max-w-sm rounded-3xl border border-[#3c1e4b]/15 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
           <h1 className="text-xl font-bold text-gray-900">Staff Admin</h1>
           <p className="mt-1 text-sm text-gray-500">Enter the shared staff password.</p>
           <form onSubmit={handleLogin} className="mt-6 space-y-4">
@@ -376,7 +376,7 @@ export default function AdminPage() {
         {statsError && <p className="text-sm text-red-600">{statsError}</p>}
 
         {slots && slots.length === 0 && (
-          <div className="rounded-2xl border border-violet-100 bg-white p-6 text-center shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+          <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 text-center shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
             <p className="text-gray-500">No visitors registered yet.</p>
           </div>
         )}
@@ -401,7 +401,7 @@ export default function AdminPage() {
 
             {activeSlot && (
               <>
-                <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+                <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
                   <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
                     Live counts - {activeSlot.label}
                   </h2>
@@ -419,7 +419,7 @@ export default function AdminPage() {
                       <p className="text-3xl font-bold text-[#a6822b]">
                         {activeSlot.fullyCollected}
                       </p>
-                      <p className="mt-1 text-xs text-gray-600">All tokens collected</p>
+                      <p className="mt-1 text-xs text-gray-600">All chips collected</p>
                     </div>
                     {STATIONS.map((station) => (
                       <div
@@ -435,13 +435,13 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+                <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
                   <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
                     Run raffle - {activeSlot.label}
                   </h2>
                   <p className="mt-2 text-sm text-gray-500">
-                    Draws only from visitors in this slot, weighted by tokens held (a visitor
-                    with more tokens is proportionally more likely to be drawn).
+                    Draws only from visitors in this slot, weighted by chips held (a visitor
+                    with more chips is proportionally more likely to be drawn).
                   </p>
                   <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                     <input
@@ -470,14 +470,14 @@ export default function AdminPage() {
                       </p>
                       <p className="text-sm text-gray-600">{lastDraw.winner.email}</p>
                       <p className="mt-1 text-xs text-gray-500">
-                        {lastDraw.winner.tokenCount} token{lastDraw.winner.tokenCount === 1 ? "" : "s"}{" "}
+                        {lastDraw.winner.tokenCount} chip{lastDraw.winner.tokenCount === 1 ? "" : "s"}{" "}
                         held
                       </p>
                     </div>
                   )}
                 </div>
 
-                <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+                <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
                   <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
                     Lounge screen - {activeSlot.label}
                   </h2>
@@ -537,7 +537,7 @@ export default function AdminPage() {
           </>
         )}
 
-        <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+        <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
             Display logo
           </h2>
@@ -583,7 +583,7 @@ export default function AdminPage() {
           {logoMessage && <p className="mt-3 text-sm text-emerald-600">{logoMessage}</p>}
         </div>
 
-        <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+        <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
             Export data
           </h2>
@@ -601,7 +601,7 @@ export default function AdminPage() {
           {exportError && <p className="mt-3 text-sm text-red-600">{exportError}</p>}
         </div>
 
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-[0_10px_40px_-10px_rgba(124,58,237,0.2)]">
+        <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-red-700">
             Danger zone
           </h2>
