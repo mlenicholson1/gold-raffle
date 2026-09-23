@@ -448,7 +448,7 @@ export default function DisplayPage() {
       {state && state.mode === "idle" && (
         <div className="relative w-full max-w-5xl space-y-6">
           <h1 className="mt-8 text-6xl font-black text-gray-900 sm:text-7xl">
-            The Vegas <span className="text-[#a6822b]">Gold</span> Call
+            The Las Vegas <span className="text-[#a6822b]">Gold</span> Call
           </h1>
           <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
 
@@ -483,12 +483,12 @@ export default function DisplayPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/qr-vegasfix.png"
-              alt="QR code to collect your Vegas Gold Call chip"
+              alt="QR code to collect your Las Vegas Gold Call chip"
               className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
             />
             <div className="text-center">
               <p className="text-base font-semibold text-gray-900">
-                Scan the QR code to collect your Vegas Gold Call chip
+                Scan the QR code to collect your Las Vegas Gold Call chip
               </p>
               <p className="mt-1 text-base text-gray-600">
                 then visit the other activations to collect the remaining two chips
@@ -497,7 +497,7 @@ export default function DisplayPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/qr-vegasfix.png"
-              alt="QR code to collect your Vegas Gold Call chip"
+              alt="QR code to collect your Las Vegas Gold Call chip"
               className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
             />
           </div>
@@ -506,7 +506,7 @@ export default function DisplayPage() {
 
       {state && state.mode === "countdown" && state.secondsRemaining !== null && (
         <div className="relative space-y-8">
-          <SectionLabel>{state.slotLabel ?? "Vegas Gold Call"}</SectionLabel>
+          <SectionLabel>{state.slotLabel ?? "Las Vegas Gold Call"}</SectionLabel>
           <p className="text-3xl text-gray-600">The draw happens in…</p>
           <div className="relative mx-auto flex items-center justify-center rounded-[3rem] border border-[#3c1e4b]/15 bg-white px-20 py-14 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
             <div
@@ -531,7 +531,7 @@ export default function DisplayPage() {
 
       {state && state.mode === "drawing" && (
         <div className="relative space-y-8">
-          <SectionLabel>{state.slotLabel ?? "Vegas Gold Call"}</SectionLabel>
+          <SectionLabel>{state.slotLabel ?? "Las Vegas Gold Call"}</SectionLabel>
           <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-[#EADFC0] border-t-[#a6822b] [animation:spin_1s_linear_infinite]" />
           <p className="bg-gradient-to-r from-[#a6822b] via-[#e8d18f] to-[#a6822b] bg-[length:200%_auto] bg-clip-text text-5xl font-black text-transparent [animation:shimmer_1.6s_linear_infinite] sm:text-7xl">
             Shuffling the chips…
@@ -565,7 +565,7 @@ export default function DisplayPage() {
 
       {state && state.mode === "empty" && (
         <div className="relative space-y-6">
-          <SectionLabel>{state.slotLabel ?? "Vegas Gold Call"}</SectionLabel>
+          <SectionLabel>{state.slotLabel ?? "Las Vegas Gold Call"}</SectionLabel>
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
             {state.emptyReason ?? "No eligible entries yet"}
           </h1>

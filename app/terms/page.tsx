@@ -6,7 +6,7 @@ export default function TermsPage() {
           Hold Gold
         </p>
         <h1 className="mt-2 text-3xl font-black text-gray-900">
-          Vegas Gold Call - Raffle Terms &amp; Conditions
+          Las Vegas Gold Call - Raffle Terms &amp; Conditions
         </h1>
         <p className="mt-2 text-sm text-gray-500">
           Money 20/20 Vegas, 18-21 October 2026 - The Venetian, Las Vegas.
@@ -16,7 +16,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-bold text-gray-900">1. Organiser / Sponsor</h2>
             <p className="mt-1">
-              This raffle ("Vegas Gold Call") is organised by the World Gold Council (the
+              This raffle ("Las Vegas Gold Call") is organised by the World Gold Council (the
               "Sponsor") as part of its activation at Money 20/20 Vegas 2026. By entering, you
               agree to be bound by these terms and by the Sponsor&rsquo;s decisions, which are
               final on all matters relating to the raffle.

@@ -3,8 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { drawWinnerForSlot } from "@/lib/raffle";
 
 // How long the winner's name (or the "no eligible entries" message) stays on
-// screen before the display falls back to the idle Vegas Gold Call facts screen.
-const AUTO_IDLE_MS = 30 * 1000;
+// screen before the display falls back to the idle Las Vegas Gold Call facts screen.
+const AUTO_IDLE_MS = 5 * 60 * 1000;
 
 const IDLE_RESET_DATA = {
   mode: "idle",
@@ -41,7 +41,7 @@ export async function GET() {
       // it never gets stuck mid-transition in front of a live crowd.
       try {
         const result = state.slotKey
-          ? await drawWinnerForSlot(state.slotKey, state.drawLabel ?? "Vegas Gold Call Draw")
+          ? await drawWinnerForSlot(state.slotKey, state.drawLabel ?? "Las Vegas Gold Call Draw")
           : { ok: false as const, reason: "no_eligible_visitors" as const };
 
         state = await prisma.displayState.update({

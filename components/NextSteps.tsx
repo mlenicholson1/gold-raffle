@@ -16,11 +16,11 @@ export default function NextSteps({
   return (
     <div className="mt-6 space-y-3 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-sm text-gray-600">
       <p>
-        <span className="font-semibold text-gray-900">The live Vegas Gold Call moment</span> takes
+        <span className="font-semibold text-gray-900">The live Las Vegas Gold Call moment</span> takes
         place right here at the booth.
       </p>
       <p className="font-medium text-gray-900">
-        You&rsquo;re entered into the Vegas Gold Call draw at {nextDraw}
+        You&rsquo;re entered into the Las Vegas Gold Call draw at {nextDraw}
         {remaining.length > 0
           ? " - collect your remaining chips before then to make them count toward it."
           : " with all your chips counted toward it."}

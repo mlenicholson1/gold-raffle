@@ -5,7 +5,7 @@ export default function PurchasePage() {
     <AutoClaimStation
       station="purchase"
       title="Chip Collection"
-      fact="Every chip you collect is another entry into the Vegas Gold Call raffle, drawn twice daily at 10:30am and 3pm."
+      fact="Every chip you collect is another entry into the Las Vegas Gold Call raffle, drawn twice daily at 10:30am and 3pm."
     />
   );
 }

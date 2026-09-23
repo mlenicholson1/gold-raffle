@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   const drawLabel =
     typeof body?.drawLabel === "string" && body.drawLabel.trim()
       ? body.drawLabel.trim()
-      : "Vegas Gold Call Draw";
+      : "Las Vegas Gold Call Draw";
 
   const result = await drawWinnerForSlot(slotKey, drawLabel);
 

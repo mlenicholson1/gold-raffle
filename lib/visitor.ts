@@ -4,13 +4,13 @@ export type Station = (typeof STATIONS)[number];
 export const STATION_LABELS: Record<Station, string> = {
   purchase: "Chip Collection",
   goldbar: "Gold Bar Photo",
-  vegasfix: "Vegas Gold Call",
+  vegasfix: "Las Vegas Gold Call",
 };
 
 export const STATION_DESCRIPTORS: Record<Station, string> = {
   purchase: "Pop over to the Chip Collection screen to check out Gold as a Service.",
   goldbar: "Head over to the gold bar, pick it up for a photo moment, and collect your next chip.",
-  vegasfix: "Head to the Vegas Gold Call screen to learn about the gold market.",
+  vegasfix: "Head to the Las Vegas Gold Call screen to learn about the gold market.",
 };
 
 export type Progress = {

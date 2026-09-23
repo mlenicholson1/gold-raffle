@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   const drawLabel =
     typeof body?.drawLabel === "string" && body.drawLabel.trim()
       ? body.drawLabel.trim()
-      : "Vegas Gold Call Draw";
+      : "Las Vegas Gold Call Draw";
 
   const durationSeconds =
     typeof body?.durationSeconds === "number" && body.durationSeconds > 0

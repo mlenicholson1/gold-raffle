@@ -1,4 +1,4 @@
-// The live, in-person Vegas Gold Call raffle draw happens at four fixed moments
+// The live, in-person Las Vegas Gold Call raffle draw happens at four fixed moments
 // across the show - not a simple "twice a day" pattern, since the first and
 // last days only get one draw each. This scheduling info determines which
 // draw a visitor's chips count toward - it has no bearing on token eligibility

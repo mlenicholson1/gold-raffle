@@ -48,7 +48,7 @@ export default function AdminPage() {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
 
-  const [loungeMinutes, setLoungeMinutes] = useState("5");
+  const [loungeSeconds, setLoungeSeconds] = useState("300");
   const [loungeBusy, setLoungeBusy] = useState<"start" | "redraw" | "reset" | null>(null);
   const [loungeError, setLoungeError] = useState<string | null>(null);
   const [loungeMessage, setLoungeMessage] = useState<string | null>(null);
@@ -58,6 +58,7 @@ export default function AdminPage() {
   const [logoError, setLogoError] = useState<string | null>(null);
   const [logoMessage, setLogoMessage] = useState<string | null>(null);
   const [logoPreviewKey, setLogoPreviewKey] = useState(0);
+  const [hasCustomLogo, setHasCustomLogo] = useState(false);
 
   const [clearConfirmText, setClearConfirmText] = useState("");
   const [clearing, setClearing] = useState(false);
@@ -123,7 +124,7 @@ export default function AdminPage() {
   const activeSlot = slots?.find((s) => s.key === activeSlotKey) ?? null;
 
   useEffect(() => {
-    if (activeSlot) setDrawLabel(`${activeSlot.label} Vegas Gold Call`);
+    if (activeSlot) setDrawLabel(`${activeSlot.label} Las Vegas Gold Call`);
   }, [activeSlot?.key]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handleLogin(e: React.FormEvent) {
@@ -224,6 +225,12 @@ export default function AdminPage() {
 
   async function handleUploadLogo() {
     if (!logoFile) return;
+    if (
+      hasCustomLogo &&
+      !window.confirm("A custom logo is already set. Replace it with this new file?")
+    ) {
+      return;
+    }
     setLogoBusy("upload");
     setLogoError(null);
     setLogoMessage(null);
@@ -248,6 +255,9 @@ export default function AdminPage() {
   }
 
   async function handleRemoveLogo() {
+    if (!window.confirm("Remove the custom logo and revert to the default mark?")) {
+      return;
+    }
     setLogoBusy("remove");
     setLogoError(null);
     setLogoMessage(null);
@@ -498,16 +508,16 @@ export default function AdminPage() {
                       Countdown
                       <input
                         type="number"
-                        min={1}
-                        value={loungeMinutes}
-                        onChange={(e) => setLoungeMinutes(e.target.value)}
-                        className="w-16 rounded-lg border border-gray-300 bg-white px-2 py-1.5 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                        min={10}
+                        value={loungeSeconds}
+                        onChange={(e) => setLoungeSeconds(e.target.value)}
+                        className="w-20 rounded-lg border border-gray-300 bg-white px-2 py-1.5 text-gray-900 focus:border-[#a6822b] focus:outline-none"
                       />
-                      min
+                      sec
                     </label>
                     <button
                       onClick={() =>
-                        startLoungeCountdown(Math.max(1, Number(loungeMinutes) || 5) * 60, "start")
+                        startLoungeCountdown(Math.max(10, Number(loungeSeconds) || 300), "start")
                       }
                       disabled={loungeBusy !== null}
                       className="whitespace-nowrap rounded-full bg-[#a6822b] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] disabled:opacity-60 disabled:hover:translate-y-0"
@@ -553,9 +563,11 @@ export default function AdminPage() {
               className="h-16 max-w-[12rem] rounded-lg border border-gray-200 bg-gray-50 object-contain p-1"
               onError={(e) => {
                 e.currentTarget.style.display = "none";
+                setHasCustomLogo(false);
               }}
               onLoad={(e) => {
                 e.currentTarget.style.display = "";
+                setHasCustomLogo(true);
               }}
             />
             <input
