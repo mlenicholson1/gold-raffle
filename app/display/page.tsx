@@ -470,7 +470,7 @@ export default function DisplayPage() {
               <FactColumn
                 icon={<ScrollIcon />}
                 title="Digital Gold Market"
-                description="Tokenized gold on-chain passed $4 billion in 2025"
+                description="London's first gold price auction took place on 12 September 1919"
               />
             </div>
           </div>
@@ -491,7 +491,7 @@ export default function DisplayPage() {
                 Scan the QR code to collect your Las Vegas Gold Call chip
               </p>
               <p className="mt-1 text-base text-gray-600">
-                then visit the other activations to collect the remaining two chips
+                then visit the other activations to collect the remaining three chips
               </p>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}

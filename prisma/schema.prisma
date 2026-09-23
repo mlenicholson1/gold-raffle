@@ -15,6 +15,7 @@ enum Station {
   purchase
   goldbar
   vegasfix
+  vault
 }
 
 model Visitor {

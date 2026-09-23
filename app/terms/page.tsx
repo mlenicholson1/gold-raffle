@@ -47,7 +47,7 @@ export default function TermsPage() {
             <h2 className="text-base font-bold text-gray-900">4. How to Enter</h2>
             <p className="mt-1">
               Register your name, surname, and email at the booth to receive your personal code,
-              then collect chips at each of the three activations around the booth. One
+              then collect chips at each of the four activations around the booth. One
               registration per person; the Sponsor may treat duplicate or fraudulent entries
               (including multiple registrations by the same person) as a single entry or
               disqualify them entirely.

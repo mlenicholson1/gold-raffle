@@ -4,8 +4,8 @@ export default function PurchasePage() {
   return (
     <AutoClaimStation
       station="purchase"
-      title="Chip Collection"
-      fact="Every chip you collect is another entry into the Las Vegas Gold Call raffle, drawn twice daily at 10:30am and 3pm."
+      title="Gold Unlocked"
+      fact="See digital gold in action - a live demo of how Gold as a Service brings physical gold onto digital rails."
     />
   );
 }

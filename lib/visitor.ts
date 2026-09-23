@@ -1,16 +1,18 @@
-export const STATIONS = ["purchase", "goldbar", "vegasfix"] as const;
+export const STATIONS = ["vault", "purchase", "goldbar", "vegasfix"] as const;
 export type Station = (typeof STATIONS)[number];
 
 export const STATION_LABELS: Record<Station, string> = {
-  purchase: "Chip Collection",
-  goldbar: "Gold Bar Photo",
+  vault: "Gold Bar Vault",
+  purchase: "Gold Unlocked",
+  goldbar: "Gold Bar Display",
   vegasfix: "Las Vegas Gold Call",
 };
 
 export const STATION_DESCRIPTORS: Record<Station, string> = {
-  purchase: "Pop over to the Chip Collection screen to check out Gold as a Service.",
-  goldbar: "Head over to the gold bar, pick it up for a photo moment, and collect your next chip.",
-  vegasfix: "Head to the Las Vegas Gold Call screen to learn about the gold market.",
+  vault: "Head to the gold vault and grab a protein bar to keep you fuelled while you explore.",
+  purchase: "Check out the Gold Unlocked demo to see digital gold in action.",
+  goldbar: "Head over to the gold bar display, pick it up for a photo moment, and collect your next chip.",
+  vegasfix: "Head to the Las Vegas Gold Call screen to learn about the physical and digital gold market.",
 };
 
 export type Progress = {
