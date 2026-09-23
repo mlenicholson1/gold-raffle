@@ -522,7 +522,7 @@ export default function DisplayPage() {
                 Scan the QR code to collect your Las Vegas Gold Call chip
               </p>
               <p className="mt-1 text-base text-gray-600">
-                then visit the other activations to collect the remaining three chips
+                and make sure to visit the other activations to collect the other three chips
               </p>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
