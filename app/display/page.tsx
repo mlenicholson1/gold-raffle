@@ -207,11 +207,25 @@ function NetworkBackground() {
         if (p.y < 0 || p.y > height) p.vy *= -1;
       }
 
+      const connections = new Array(points.length).fill(0);
+      const nearest = new Array(points.length).fill(-1);
+      const nearestDist = new Array(points.length).fill(Infinity);
+
       for (let i = 0; i < points.length; i++) {
         for (let j = i + 1; j < points.length; j++) {
           const a = points[i];
           const b = points[j];
           const dist = Math.hypot(a.x - b.x, a.y - b.y);
+
+          if (dist < nearestDist[i]) {
+            nearestDist[i] = dist;
+            nearest[i] = j;
+          }
+          if (dist < nearestDist[j]) {
+            nearestDist[j] = dist;
+            nearest[j] = i;
+          }
+
           if (dist < LINK_DISTANCE) {
             ctx!.strokeStyle = `rgba(166, 130, 43, ${0.55 * (1 - dist / LINK_DISTANCE)})`;
             ctx!.lineWidth = 1.8;
@@ -219,8 +233,25 @@ function NetworkBackground() {
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
             ctx!.stroke();
+            connections[i] += 1;
+            connections[j] += 1;
           }
         }
+      }
+
+      // Guarantees no point is left as an isolated "polka dot": anything that
+      // didn't land a connection within LINK_DISTANCE still gets one line to
+      // its single nearest neighbour, however far away that is.
+      for (let i = 0; i < points.length; i++) {
+        if (connections[i] > 0 || nearest[i] === -1) continue;
+        const a = points[i];
+        const b = points[nearest[i]];
+        ctx!.strokeStyle = "rgba(166, 130, 43, 0.35)";
+        ctx!.lineWidth = 1.8;
+        ctx!.beginPath();
+        ctx!.moveTo(a.x, a.y);
+        ctx!.lineTo(b.x, b.y);
+        ctx!.stroke();
       }
 
       for (const p of points) {
@@ -469,7 +500,7 @@ export default function DisplayPage() {
               />
               <FactColumn
                 icon={<ScrollIcon />}
-                title="Digital Gold Market"
+                title="Auction Price History"
                 description="London's first gold price auction took place on 12 September 1919"
               />
             </div>
