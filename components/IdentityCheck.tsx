@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Progress } from "@/lib/visitor";
+import { US_STATES } from "@/lib/usStates";
 import {
   getStoredVisitor,
   setStoredVisitor,
@@ -40,6 +41,7 @@ export default function IdentityCheck({
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
+  const [usState, setUsState] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -123,7 +125,7 @@ export default function IdentityCheck({
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, surname, email }),
+        body: JSON.stringify({ name, surname, email, state: usState }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -156,7 +158,7 @@ export default function IdentityCheck({
         <div className="w-full max-w-sm rounded-3xl border border-[#3c1e4b]/15 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
           <h1 className="text-xl font-bold text-gray-900">New here? Register first</h1>
           <p className="mt-1 text-sm text-gray-500">
-            Just your name, surname, and email - takes a few seconds.
+            Just your name, surname, email, and state - takes a few seconds.
           </p>
           <form onSubmit={handleRegister} className="mt-6 space-y-4">
             <div>
@@ -188,6 +190,24 @@ export default function IdentityCheck({
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
               />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">State</label>
+              <select
+                required
+                value={usState}
+                onChange={(e) => setUsState(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+              >
+                <option value="" disabled>
+                  Select your state
+                </option>
+                {US_STATES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex items-start gap-2">
               <input

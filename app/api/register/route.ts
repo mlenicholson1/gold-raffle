@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@/app/generated/prisma/client";
 import { buildProgress, generateCode, isValidEmail, normalizeEmail } from "@/lib/visitor";
+import { US_STATES } from "@/lib/usStates";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const name = typeof body?.name === "string" ? body.name.trim() : "";
   const surname = typeof body?.surname === "string" ? body.surname.trim() : "";
   const email = typeof body?.email === "string" ? normalizeEmail(body.email) : "";
+  const state = typeof body?.state === "string" ? body.state.trim() : "";
 
   if (!name) {
     return NextResponse.json({ error: "Please enter your name." }, { status: 400 });
@@ -17,6 +19,9 @@ export async function POST(request: Request) {
   }
   if (!isValidEmail(email)) {
     return NextResponse.json({ error: "Please enter a valid email." }, { status: 400 });
+  }
+  if (!(US_STATES as readonly string[]).includes(state)) {
+    return NextResponse.json({ error: "Please select the state you live in." }, { status: 400 });
   }
 
   const existing = await prisma.visitor.findUnique({
@@ -49,7 +54,7 @@ export async function POST(request: Request) {
 
   try {
     const visitor = await prisma.visitor.create({
-      data: { name, surname, email, personalCode },
+      data: { name, surname, email, state, personalCode },
     });
 
     return NextResponse.json(

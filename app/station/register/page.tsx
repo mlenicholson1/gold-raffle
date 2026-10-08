@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ProgressTracker from "@/components/ProgressTracker";
 import NextSteps from "@/components/NextSteps";
 import type { Progress } from "@/lib/visitor";
+import { US_STATES } from "@/lib/usStates";
 import {
   getStoredVisitor,
   setStoredVisitor,
@@ -26,6 +27,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
+  const [usState, setUsState] = useState("");
   const [identifier, setIdentifier] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
@@ -65,7 +67,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, surname, email }),
+        body: JSON.stringify({ name, surname, email, state: usState }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -185,6 +187,24 @@ export default function RegisterPage() {
                 className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
                 placeholder="you@example.com"
               />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">State</label>
+              <select
+                required
+                value={usState}
+                onChange={(e) => setUsState(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+              >
+                <option value="" disabled>
+                  Select your state
+                </option>
+                {US_STATES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex items-start gap-2">
               <input

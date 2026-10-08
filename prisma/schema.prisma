@@ -23,6 +23,7 @@ model Visitor {
   name         String
   surname      String   @default("")
   email        String   @unique
+  state        String   @default("")
   personalCode String   @unique @map("personal_code")
   createdAt    DateTime @default(now()) @map("created_at")
 
