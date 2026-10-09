@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ProgressTracker from "@/components/ProgressTracker";
 import NextSteps from "@/components/NextSteps";
 import type { Progress } from "@/lib/visitor";
-import { US_STATES } from "@/lib/usStates";
+import { OUTSIDE_US, US_STATES } from "@/lib/usStates";
 import {
   getStoredVisitor,
   setStoredVisitor,
@@ -199,6 +199,10 @@ export default function RegisterPage() {
                 >
                   <option value="" disabled>
                     Select your state
+                  </option>
+                  <option value={OUTSIDE_US}>{OUTSIDE_US}</option>
+                  <option value="" disabled>
+                    ──────────
                   </option>
                   {US_STATES.map((s) => (
                     <option key={s} value={s}>

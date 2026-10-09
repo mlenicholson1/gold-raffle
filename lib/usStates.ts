@@ -1,3 +1,8 @@
+// Shown as its own option above the US states list, for visitors who live
+// outside the US (still eligible to enter, just not a jurisdiction in the
+// list below).
+export const OUTSIDE_US = "Outside of US";
+
 // US states + DC, used to validate sweepstakes eligibility by jurisdiction
 // (the Terms are "void where prohibited or restricted by law").
 export const US_STATES = [
