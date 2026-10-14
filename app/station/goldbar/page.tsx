@@ -4,7 +4,7 @@ export default function GoldbarPage() {
   return (
     <AutoClaimStation
       station="goldbar"
-      title="Gold Bar Display"
+      title="400 oz Gold Bar"
       fact="A 400oz gold bar is worth well over a million dollars."
     />
   );

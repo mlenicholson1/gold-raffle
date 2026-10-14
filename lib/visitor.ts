@@ -4,14 +4,14 @@ export type Station = (typeof STATIONS)[number];
 export const STATION_LABELS: Record<Station, string> = {
   vault: "Gold Bar Vault",
   purchase: "Gold Unlocked",
-  goldbar: "Gold Bar Display",
+  goldbar: "400 oz Gold Bar",
   vegasfix: "Las Vegas Gold Call",
 };
 
 export const STATION_DESCRIPTORS: Record<Station, string> = {
   vault: "Head to the gold vault and grab a protein bar to keep you fuelled while you explore.",
   purchase: "Check out the Gold Unlocked demo to see digital gold in action.",
-  goldbar: "Head over to the gold bar display, pick it up for a photo moment, and collect your next chip.",
+  goldbar: "Head over to the 400 oz gold bar, pick it up for a photo moment, and collect your next chip.",
   vegasfix: "Head to the Las Vegas Gold Call screen to learn about the physical and digital gold market.",
 };
 
