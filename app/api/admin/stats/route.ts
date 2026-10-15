@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { STATIONS } from "@/lib/visitor";
 import { isValidAdminPassword } from "@/lib/adminAuth";
-import { getDrawSlot } from "@/lib/vegasFixSchedule";
+import { DRAW_SLOTS, getDrawSlot } from "@/lib/vegasFixSchedule";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -16,6 +16,16 @@ export async function POST(request: Request) {
     string,
     { label: string; date: string; visitors: typeof visitors }
   >();
+
+  // Seed every scheduled draw up front, even ones with no registrants yet,
+  // so staff can always see (and select) the full schedule on the dashboard.
+  for (const slot of DRAW_SLOTS) {
+    slotGroups.set(slot.date.toISOString(), {
+      label: slot.label,
+      date: slot.date.toISOString(),
+      visitors: [],
+    });
+  }
 
   for (const visitor of visitors) {
     const slot = getDrawSlot(visitor.createdAt);

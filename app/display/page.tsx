@@ -504,17 +504,17 @@ export default function DisplayPage() {
               <FactColumn
                 icon={<ClockIcon />}
                 title="Price Auction"
-                description="A transparent process used to determine a benchmark price for physical gold. The auction takes place twice daily at 10:30am and 3:00pm London time."
+                description="Twice daily, 10:30am and 3:00pm London time."
               />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
-                description="From central banks and jewellers to investors and technology providers, market participants around the world use benchmark gold prices every day."
+                description="Used daily by central banks, jewellers, investors and tech providers."
               />
               <FactColumn
                 icon={<ScrollIcon />}
-                title="Auction Price History"
-                description="London's first gold price auction took place on 12 September 1919"
+                title="Auction History"
+                description="London's first gold price auction took place on 12 September 1919, setting the benchmark still used today."
               />
             </div>
           </div>

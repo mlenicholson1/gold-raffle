@@ -3,7 +3,7 @@
 // last days only get one draw each. This scheduling info determines which
 // draw a visitor's chips count toward - it has no bearing on token eligibility
 // itself.
-const DRAW_SLOTS = [
+export const DRAW_SLOTS = [
   { date: new Date(2026, 9, 19, 15, 0), label: "3pm, Monday, October 19" },
   { date: new Date(2026, 9, 20, 10, 30), label: "10:30am, Tuesday, October 20" },
   { date: new Date(2026, 9, 20, 15, 0), label: "3pm, Tuesday, October 20" },
