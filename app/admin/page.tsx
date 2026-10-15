@@ -360,7 +360,7 @@ export default function AdminPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
               placeholder="Password"
               autoFocus
             />
@@ -368,7 +368,7 @@ export default function AdminPage() {
             <button
               type="submit"
               disabled={submittingLogin}
-              className="w-full rounded-full bg-[#a6822b] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full rounded-full bg-[#D8AB4C] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(216,171,76,0.35)] transition hover:-translate-y-0.5 hover:bg-[#BE9643] hover:shadow-[0_6px_20px_rgba(216,171,76,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(216,171,76,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submittingLogin ? "Checking…" : "Enter"}
             </button>
@@ -400,7 +400,7 @@ export default function AdminPage() {
                   onClick={() => setActiveSlotKey(slot.key)}
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     slot.key === activeSlotKey
-                      ? "bg-[#a6822b] text-white"
+                      ? "bg-[#D8AB4C] text-white"
                       : "border border-gray-300 text-gray-600 hover:bg-gray-50"
                   }`}
                 >
@@ -420,13 +420,13 @@ export default function AdminPage() {
                   </p>
                   <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
                     <div className="rounded-xl border border-[#EADFC0] bg-[#FBF3E1] p-4 text-center">
-                      <p className="text-3xl font-bold text-[#a6822b]">
+                      <p className="text-3xl font-bold text-[#D8AB4C]">
                         {activeSlot.totalVisitors}
                       </p>
                       <p className="mt-1 text-xs text-gray-600">Total registered</p>
                     </div>
                     <div className="rounded-xl border border-[#EADFC0] bg-[#FBF3E1] p-4 text-center">
-                      <p className="text-3xl font-bold text-[#a6822b]">
+                      <p className="text-3xl font-bold text-[#D8AB4C]">
                         {activeSlot.fullyCollected}
                       </p>
                       <p className="mt-1 text-xs text-gray-600">All chips collected</p>
@@ -458,13 +458,13 @@ export default function AdminPage() {
                       type="text"
                       value={drawLabel}
                       onChange={(e) => setDrawLabel(e.target.value)}
-                      className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                      className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                       placeholder="Draw label"
                     />
                     <button
                       onClick={handleRunRaffle}
                       disabled={drawing}
-                      className="whitespace-nowrap rounded-full bg-[#a6822b] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+                      className="whitespace-nowrap rounded-full bg-[#D8AB4C] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(216,171,76,0.35)] transition hover:-translate-y-0.5 hover:bg-[#BE9643] hover:shadow-[0_6px_20px_rgba(216,171,76,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(216,171,76,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
                     >
                       {drawing ? "Drawing…" : "Run Raffle"}
                     </button>
@@ -511,7 +511,7 @@ export default function AdminPage() {
                         min={10}
                         value={loungeSeconds}
                         onChange={(e) => setLoungeSeconds(e.target.value)}
-                        className="w-20 rounded-lg border border-gray-300 bg-white px-2 py-1.5 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                        className="w-20 rounded-lg border border-gray-300 bg-white px-2 py-1.5 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                       />
                       sec
                     </label>
@@ -520,14 +520,14 @@ export default function AdminPage() {
                         startLoungeCountdown(Math.max(10, Number(loungeSeconds) || 300), "start")
                       }
                       disabled={loungeBusy !== null}
-                      className="whitespace-nowrap rounded-full bg-[#a6822b] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] disabled:opacity-60 disabled:hover:translate-y-0"
+                      className="whitespace-nowrap rounded-full bg-[#D8AB4C] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(216,171,76,0.35)] transition hover:-translate-y-0.5 hover:bg-[#BE9643] disabled:opacity-60 disabled:hover:translate-y-0"
                     >
                       {loungeBusy === "start" ? "Starting…" : "Start Countdown"}
                     </button>
                     <button
                       onClick={() => startLoungeCountdown(8, "redraw")}
                       disabled={loungeBusy !== null}
-                      className="whitespace-nowrap rounded-full border border-[#a6822b]/50 px-6 py-2.5 font-bold tracking-wide text-[#a6822b] transition hover:bg-[#FBF3E1] disabled:opacity-60"
+                      className="whitespace-nowrap rounded-full border border-[#D8AB4C]/50 px-6 py-2.5 font-bold tracking-wide text-[#D8AB4C] transition hover:bg-[#FBF3E1] disabled:opacity-60"
                     >
                       {loungeBusy === "redraw" ? "Redrawing…" : "Redraw"}
                     </button>
@@ -579,7 +579,7 @@ export default function AdminPage() {
             <button
               onClick={handleUploadLogo}
               disabled={!logoFile || logoBusy !== null}
-              className="whitespace-nowrap rounded-full bg-[#a6822b] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] disabled:opacity-60 disabled:hover:translate-y-0"
+              className="whitespace-nowrap rounded-full bg-[#D8AB4C] px-6 py-2.5 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(216,171,76,0.35)] transition hover:-translate-y-0.5 hover:bg-[#BE9643] disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {logoBusy === "upload" ? "Uploading…" : "Upload Logo"}
             </button>

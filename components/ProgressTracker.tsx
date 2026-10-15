@@ -15,7 +15,7 @@ export default function ProgressTracker({ progress }: { progress: Progress }) {
               key={i}
               className={`flex h-14 w-14 items-center justify-center rounded-lg border-2 text-2xl font-bold ${
                 collected
-                  ? "border-[#a6822b] bg-[#a6822b] text-white"
+                  ? "border-[#D8AB4C] bg-[#D8AB4C] text-white"
                   : "border-gray-200 bg-[#FBF3E1] text-transparent"
               }`}
               aria-label={`Chip ${i + 1}: ${collected ? "collected" : "not collected"}`}

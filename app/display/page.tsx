@@ -13,7 +13,7 @@ type DisplayState = {
   emptyReason: string | null;
 };
 
-const GOLD = "#a6822b";
+const GOLD = "#D8AB4C";
 const CONFETTI_COLORS = [GOLD, "#c9a13c", "#e8d18f", "#704287", "#ffffff"];
 
 // Sourced from the WGC/BCG "Digital Gold" white paper - kept to public, final
@@ -106,7 +106,7 @@ function GoldFactsTicker() {
           className="text-2xl text-gray-900 [animation:factFade_0.6s_ease-out]"
         >
           {fact.before}
-          <span className="font-bold text-[#a6822b]">{fact.highlight}</span>
+          <span className="font-bold text-[#D8AB4C]">{fact.highlight}</span>
           {fact.after}
         </p>
       </div>
@@ -190,7 +190,7 @@ function NetworkBackground() {
 
     const LINK_DISTANCE = 210;
     // Mostly gold, with a little WGC purple mixed in for brand contrast.
-    const colors = ["#a6822b", "#c9a13c", "#d8ab4c", "#a6822b", "#c9a13c", "#704287"];
+    const colors = ["#D8AB4C", "#c9a13c", "#d8ab4c", "#D8AB4C", "#c9a13c", "#704287"];
     const points: NetworkPoint[] = Array.from({ length: 60 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -238,7 +238,7 @@ function NetworkBackground() {
           }
 
           if (dist < LINK_DISTANCE) {
-            ctx!.strokeStyle = `rgba(166, 130, 43, ${0.55 * (1 - dist / LINK_DISTANCE)})`;
+            ctx!.strokeStyle = `rgba(216, 171, 76, ${0.55 * (1 - dist / LINK_DISTANCE)})`;
             ctx!.lineWidth = 1.8;
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
@@ -257,7 +257,7 @@ function NetworkBackground() {
         if (connections[i] > 0 || nearest[i] === -1) continue;
         const a = points[i];
         const b = points[nearest[i]];
-        ctx!.strokeStyle = "rgba(166, 130, 43, 0.35)";
+        ctx!.strokeStyle = "rgba(216, 171, 76, 0.35)";
         ctx!.lineWidth = 1.8;
         ctx!.beginPath();
         ctx!.moveTo(a.x, a.y);
@@ -329,7 +329,7 @@ function FactColumn({
 }) {
   return (
     <div className="flex flex-1 flex-col items-center gap-2 px-4 py-1 text-center">
-      <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#EADFC0] bg-[#FBF3E1] text-[#a6822b]">
+      <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#EADFC0] bg-[#FBF3E1] text-[#D8AB4C]">
         {icon}
       </div>
       <p className="text-base font-bold uppercase tracking-wide text-gray-900">{title}</p>
@@ -423,7 +423,7 @@ function FullscreenButton() {
   return (
     <button
       onClick={() => (isFullscreen ? document.exitFullscreen() : enterFullscreen())}
-      className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-full border border-[#3c1e4b]/15 bg-white px-4 py-2 text-sm font-semibold text-gray-600 shadow-[0_10px_30px_-10px_rgba(112,66,135,0.35)] transition hover:text-[#a6822b]"
+      className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-full border border-[#3c1e4b]/15 bg-white px-4 py-2 text-sm font-semibold text-gray-600 shadow-[0_10px_30px_-10px_rgba(112,66,135,0.35)] transition hover:text-[#D8AB4C]"
       title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
     >
       <span className="text-lg">⛶</span>
@@ -490,7 +490,7 @@ export default function DisplayPage() {
       {state && state.mode === "idle" && (
         <div className="relative w-full max-w-5xl space-y-6">
           <h1 className="mt-8 text-6xl font-black text-gray-900 sm:text-7xl">
-            The Las Vegas <span className="text-[#a6822b]">Gold</span> Call
+            The Las Vegas <span className="text-[#D8AB4C]">Gold</span> Call
           </h1>
           <p className="text-2xl text-gray-500">
             Inspired by the benchmark price-setting process used in the global gold market
@@ -556,12 +556,12 @@ export default function DisplayPage() {
             <div
               className={`absolute inset-6 rounded-[2.5rem] border-4 sm:inset-8 ${
                 urgent
-                  ? "border-[#a6822b] animate-[ringPulse_0.6s_ease-in-out_infinite]"
+                  ? "border-[#D8AB4C] animate-[ringPulse_0.6s_ease-in-out_infinite]"
                   : "border-[#EADFC0] animate-[ringPulse_2.4s_ease-in-out_infinite]"
               }`}
             />
             <p
-              className="relative font-mono text-[11rem] font-black leading-none text-[#a6822b] sm:text-[13rem]"
+              className="relative font-mono text-[11rem] font-black leading-none text-[#D8AB4C] sm:text-[13rem]"
               style={{ fontVariantNumeric: "tabular-nums" }}
             >
               {formatClock(state.secondsRemaining)}
@@ -574,8 +574,8 @@ export default function DisplayPage() {
       {state && state.mode === "drawing" && (
         <div className="relative space-y-8">
           <SectionLabel>{state.slotLabel ?? "Las Vegas Gold Call"}</SectionLabel>
-          <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-[#EADFC0] border-t-[#a6822b] [animation:spin_1s_linear_infinite]" />
-          <p className="bg-gradient-to-r from-[#a6822b] via-[#e8d18f] to-[#a6822b] bg-[length:200%_auto] bg-clip-text text-5xl font-black text-transparent [animation:shimmer_1.6s_linear_infinite] sm:text-7xl">
+          <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-4 border-[#EADFC0] border-t-[#D8AB4C] [animation:spin_1s_linear_infinite]" />
+          <p className="bg-gradient-to-r from-[#D8AB4C] via-[#e8d18f] to-[#D8AB4C] bg-[length:200%_auto] bg-clip-text text-5xl font-black text-transparent [animation:shimmer_1.6s_linear_infinite] sm:text-7xl">
             Shuffling the chips…
           </p>
           <p className="text-2xl text-gray-500">Picking a winner now</p>

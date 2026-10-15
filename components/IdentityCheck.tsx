@@ -168,7 +168,7 @@ export default function IdentityCheck({
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
               />
             </div>
             <div>
@@ -178,7 +178,7 @@ export default function IdentityCheck({
                 required
                 value={surname}
                 onChange={(e) => setSurname(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
               />
             </div>
             <div>
@@ -188,7 +188,7 @@ export default function IdentityCheck({
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
               />
             </div>
             <div>
@@ -198,7 +198,7 @@ export default function IdentityCheck({
                   required
                   value={usState}
                   onChange={(e) => setUsState(e.target.value)}
-                  className="w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                  className="w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                 >
                   <option value="" disabled>
                     Select your state
@@ -229,7 +229,7 @@ export default function IdentityCheck({
                 type="checkbox"
                 id="terms"
                 required
-                className="mt-1 h-4 w-4 flex-none rounded border-gray-300 text-[#a6822b] focus:ring-[#a6822b]"
+                className="mt-1 h-4 w-4 flex-none rounded border-gray-300 text-[#D8AB4C] focus:ring-[#D8AB4C]"
               />
               <label htmlFor="terms" className="text-sm text-gray-600">
                 I agree to the{" "}
@@ -247,7 +247,7 @@ export default function IdentityCheck({
             <button
               type="submit"
               disabled={submitting}
-              className="w-full rounded-full bg-[#a6822b] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full rounded-full bg-[#D8AB4C] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(216,171,76,0.35)] transition hover:-translate-y-0.5 hover:bg-[#BE9643] hover:shadow-[0_6px_20px_rgba(216,171,76,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(216,171,76,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submitting ? "Submitting…" : "Register & continue"}
             </button>
@@ -284,7 +284,7 @@ export default function IdentityCheck({
               required
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+              className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
               placeholder="you@example.com or 1234"
             />
           </div>
@@ -292,7 +292,7 @@ export default function IdentityCheck({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-lg bg-[#a6822b] py-2.5 font-semibold text-white hover:bg-[#8f6f22] disabled:opacity-60"
+            className="w-full rounded-lg bg-[#D8AB4C] py-2.5 font-semibold text-white hover:bg-[#BE9643] disabled:opacity-60"
           >
             {submitting ? "Looking up…" : "Continue"}
           </button>

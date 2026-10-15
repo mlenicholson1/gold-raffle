@@ -133,7 +133,7 @@ export default function RegisterPage() {
             {result.alreadyRegistered ? `Welcome back, ${result.visitor.name}!` : `You're in, ${result.visitor.name}!`}
           </h1>
           <p className="mt-2 text-gray-500">Your code - save this if you switch phones</p>
-          <p className="mt-2 text-4xl font-mono font-bold tracking-widest text-[#a6822b]">
+          <p className="mt-2 text-4xl font-mono font-bold tracking-widest text-[#D8AB4C]">
             {result.visitor.personalCode}
           </p>
           <div className="mt-6">
@@ -162,7 +162,7 @@ export default function RegisterPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                 placeholder="Your name"
               />
             </div>
@@ -173,7 +173,7 @@ export default function RegisterPage() {
                 required
                 value={surname}
                 onChange={(e) => setSurname(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                 placeholder="Your surname"
               />
             </div>
@@ -184,7 +184,7 @@ export default function RegisterPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                 placeholder="you@example.com"
               />
             </div>
@@ -195,7 +195,7 @@ export default function RegisterPage() {
                   required
                   value={usState}
                   onChange={(e) => setUsState(e.target.value)}
-                  className="w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                  className="w-full appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                 >
                   <option value="" disabled>
                     Select your state
@@ -226,7 +226,7 @@ export default function RegisterPage() {
                 type="checkbox"
                 id="terms"
                 required
-                className="mt-1 h-4 w-4 flex-none rounded border-gray-300 text-[#a6822b] focus:ring-[#a6822b]"
+                className="mt-1 h-4 w-4 flex-none rounded border-gray-300 text-[#D8AB4C] focus:ring-[#D8AB4C]"
               />
               <label htmlFor="terms" className="text-sm text-gray-600">
                 I agree to the{" "}
@@ -244,7 +244,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full rounded-full bg-[#a6822b] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full rounded-full bg-[#D8AB4C] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(216,171,76,0.35)] transition hover:-translate-y-0.5 hover:bg-[#BE9643] hover:shadow-[0_6px_20px_rgba(216,171,76,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(216,171,76,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submitting ? "Submitting…" : "Register"}
             </button>
@@ -270,7 +270,7 @@ export default function RegisterPage() {
                 required
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#a6822b] focus:outline-none"
+                className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-[#D8AB4C] focus:outline-none"
                 placeholder="you@example.com or 1234"
               />
             </div>
@@ -278,7 +278,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full rounded-full bg-[#a6822b] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(166,130,43,0.35)] transition hover:-translate-y-0.5 hover:bg-[#8f6f22] hover:shadow-[0_6px_20px_rgba(166,130,43,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(166,130,43,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full rounded-full bg-[#D8AB4C] py-3 font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(216,171,76,0.35)] transition hover:-translate-y-0.5 hover:bg-[#BE9643] hover:shadow-[0_6px_20px_rgba(216,171,76,0.45)] active:translate-y-0 active:shadow-[0_2px_8px_rgba(216,171,76,0.3)] disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submitting ? "Looking up…" : "Find my progress"}
             </button>
