@@ -62,13 +62,13 @@ function AutoClaimContent({
         <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
 
         {claiming ? (
-          <p className="mt-6 text-gray-500">Collecting your chip…</p>
+          <p className="mt-6 text-lg text-gray-500">Collecting your chip…</p>
         ) : error ? (
-          <p className="mt-6 text-sm text-red-600">{error}</p>
+          <p className="mt-6 text-base text-red-600">{error}</p>
         ) : (
           <>
-            {fact && <p className="mt-4 text-sm text-gray-600">{fact}</p>}
-            <p className="mt-6 font-semibold text-gray-900">
+            {fact && <p className="mt-4 text-base text-gray-600">{fact}</p>}
+            <p className="mt-6 text-lg font-semibold text-gray-900">
               {justClaimed && progress.complete
                 ? "All chips collected! You're entered in every raffle draw today."
                 : justClaimed

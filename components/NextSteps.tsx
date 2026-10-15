@@ -14,7 +14,7 @@ export default function NextSteps({
   const nextDraw = getNextVegasFixDraw(new Date(registeredAt));
 
   return (
-    <div className="mt-6 space-y-2 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-sm text-gray-600">
+    <div className="mt-6 space-y-2 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-base text-gray-600">
       <p className="font-semibold text-gray-900">
         {progress.complete
           ? `All ${progress.total} chips collected!`
