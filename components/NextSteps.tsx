@@ -1,4 +1,4 @@
-import { STATIONS, STATION_DESCRIPTORS, type Progress } from "@/lib/visitor";
+import { STATIONS, STATION_LABELS, STATION_DESCRIPTORS, type Progress } from "@/lib/visitor";
 import { getNextVegasFixDraw } from "@/lib/vegasFixSchedule";
 
 export default function NextSteps({
@@ -15,28 +15,32 @@ export default function NextSteps({
 
   return (
     <div className="mt-6 space-y-3 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-sm text-gray-600">
-      <p>
-        <span className="font-semibold text-gray-900">The live Las Vegas Gold Call moment</span> takes
-        place right here at the booth.
+      <p className="font-semibold text-gray-900">
+        {progress.complete
+          ? `All ${progress.total} chips collected!`
+          : `${progress.count} chip${progress.count === 1 ? "" : "s"} collected. ${remaining.length} more to go.`}
       </p>
-      <p className="font-medium text-gray-900">
-        You&rsquo;re entered into the Las Vegas Gold Call draw at {nextDraw}
-        {remaining.length > 0
-          ? " - collect your remaining chips before then to make them count toward it."
-          : " with all your chips counted toward it."}
+      <p>
+        Each chip gives you another chance to win a 1 oz gold coin. Collect all {progress.total}{" "}
+        chips for {progress.total} chances to win.
       </p>
       {remaining.length > 0 && (
         <div>
-          <p className="font-medium text-gray-900">
-            Fancy more entries? A few more chips are still up for grabs:
-          </p>
-          <ul className="mt-1 list-disc space-y-1 pl-5">
+          <p className="font-medium text-gray-900">Here&rsquo;s how to earn your remaining chips:</p>
+          <ul className="mt-1 space-y-2">
             {remaining.map((station) => (
-              <li key={station}>{STATION_DESCRIPTORS[station]}</li>
+              <li key={station}>
+                <span className="font-semibold text-gray-900">{STATION_LABELS[station]}</span>
+                <br />
+                {STATION_DESCRIPTORS[station]}
+              </li>
             ))}
           </ul>
         </div>
       )}
+      <p className="font-medium text-gray-900">
+        The live Las Vegas Gold Call draw takes place here at the booth at {nextDraw}.
+      </p>
     </div>
   );
 }

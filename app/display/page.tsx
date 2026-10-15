@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
-import { ordinalWord } from "@/lib/ordinal";
 
 type DisplayState = {
   mode: "idle" | "countdown" | "drawing" | "reveal" | "empty";
@@ -19,56 +18,68 @@ const CONFETTI_COLORS = [GOLD, "#c9a13c", "#e8d18f", "#704287", "#ffffff"];
 
 // Sourced from the WGC/BCG "Digital Gold" white paper - kept to public, final
 // figures only (no internal roadmap, projections, or named individuals).
-const GOLD_FACTS: { before: string; highlight: string; after: string }[] = [
+// Grouped into History / Today / Tomorrow per Steph's "Vegas content feedback"
+// doc, so the eyebrow above each fact can say which bucket it's in.
+const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; highlight: string; after: string }[] = [
   {
+    category: "History",
+    before: "Gold opened at 98 shillings 8 pence an ounce at that ",
+    highlight: "first gold price auction",
+    after: " in 1919",
+  },
+  {
+    category: "History",
+    before: "Just ",
+    highlight: "four bullion brokers",
+    after: " set that first gold price - the basic structure lasted over a century",
+  },
+  {
+    category: "History",
+    before: "Gold was pegged at ",
+    highlight: "US$35 an ounce",
+    after: " under the Bretton Woods system, until it ended in the early 1970s",
+  },
+  {
+    category: "Today",
     before: "Almost all the gold ever mined - around ",
     highlight: "220,000 tonnes",
     after: " - is still in circulation today",
   },
   {
+    category: "Today",
     before: "The world's above-ground gold stock is worth more than ",
     highlight: "$30 trillion",
     after: "",
   },
   {
+    category: "Today",
     before: "Gold ETFs took in ",
     highlight: "$89 billion",
     after: " in 2025, pushing holdings to 4,025 tonnes",
   },
   {
-    before: "The tokenized gold market passed ",
-    highlight: "$4 billion",
-    after: " in 2025",
-  },
-  {
-    before: "DeFi protocols now hold more than ",
-    highlight: "$125 billion",
-    after: " in value",
-  },
-  {
-    before: "",
-    highlight: "85%",
-    after: " of central banks cite gold's crisis performance as a reason to hold it",
-  },
-  {
-    before: "",
-    highlight: "30%",
-    after: " of Gen Z start investing as young adults - versus just 6% of Baby Boomers",
-  },
-  {
+    category: "Today",
     before: "Gold trading in the Loco London market topped ",
     highlight: "$160 billion",
     after: " a day in 2025",
   },
   {
-    before: "Gold opened at 98 shillings 8 pence an ounce at that ",
-    highlight: "first gold price auction",
-    after: "",
+    category: "Tomorrow",
+    before: "The tokenized gold market passed ",
+    highlight: "$4 billion",
+    after: " in 2025",
   },
   {
-    before: "Just ",
-    highlight: "four bullion brokers",
-    after: " set that first gold price - the basic structure lasted over a century",
+    category: "Tomorrow",
+    before: "DeFi protocols now hold more than ",
+    highlight: "$125 billion",
+    after: " in value",
+  },
+  {
+    category: "Tomorrow",
+    before: "",
+    highlight: "30%",
+    after: " of Gen Z start investing as young adults - versus just 6% of Baby Boomers",
   },
 ];
 
@@ -87,7 +98,7 @@ function GoldFactsTicker() {
   return (
     <div className="w-full">
       <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#704287]">
-        Did you know?
+        Gold Market {fact.category}
       </p>
       <div className="mt-1 flex min-h-[4rem] w-full items-center justify-center">
         <p
@@ -481,7 +492,9 @@ export default function DisplayPage() {
           <h1 className="mt-8 text-6xl font-black text-gray-900 sm:text-7xl">
             The Las Vegas <span className="text-[#a6822b]">Gold</span> Call
           </h1>
-          <p className="text-2xl text-gray-500">Inspired by the LBMA Gold Price Auction</p>
+          <p className="text-2xl text-gray-500">
+            Inspired by the benchmark price-setting process used in the global gold market
+          </p>
 
           <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-4 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
             <p className="mx-auto mb-5 w-fit rounded-b-xl border-x-2 border-b-2 border-[#3c1e4b] px-4 py-2 text-base font-normal text-gray-900">
@@ -491,12 +504,12 @@ export default function DisplayPage() {
               <FactColumn
                 icon={<ClockIcon />}
                 title="Price Auction"
-                description="Twice a day, 10:30am and 3:00pm London time"
+                description="A transparent process used to determine a benchmark price for physical gold. The auction takes place twice daily at 10:30am and 3:00pm London time."
               />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
-                description="A trusted reference price for gold markets"
+                description="From central banks and jewellers to investors and technology providers, market participants around the world use benchmark gold prices every day."
               />
               <FactColumn
                 icon={<ScrollIcon />}
@@ -519,10 +532,10 @@ export default function DisplayPage() {
             />
             <div className="text-center">
               <p className="text-base font-semibold text-gray-900">
-                Scan the QR code to collect your Las Vegas Gold Call chip
+                Scan the QR code to collect your chip - one of 4 chances to win a 1oz gold coin
               </p>
               <p className="mt-1 text-base text-gray-600">
-                and make sure to visit the other activations to collect the other three chips
+                Then visit the other activations to collect your remaining three chips
               </p>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -543,14 +556,12 @@ export default function DisplayPage() {
             <div
               className={`absolute inset-6 rounded-[2.5rem] border-4 sm:inset-8 ${
                 urgent
-                  ? "border-red-400/60 animate-[ringPulse_0.6s_ease-in-out_infinite]"
+                  ? "border-[#a6822b] animate-[ringPulse_0.6s_ease-in-out_infinite]"
                   : "border-[#EADFC0] animate-[ringPulse_2.4s_ease-in-out_infinite]"
               }`}
             />
             <p
-              className={`relative font-mono text-[11rem] font-black leading-none sm:text-[13rem] ${
-                urgent ? "text-red-500" : "text-[#a6822b]"
-              }`}
+              className="relative font-mono text-[11rem] font-black leading-none text-[#a6822b] sm:text-[13rem]"
               style={{ fontVariantNumeric: "tabular-nums" }}
             >
               {formatClock(state.secondsRemaining)}
@@ -576,20 +587,14 @@ export default function DisplayPage() {
           className="relative mt-6 max-w-5xl space-y-6 animate-[popIn_0.6s_ease-out]"
           style={{ fontFamily: "var(--font-noto-sans)" }}
         >
-          <p className="flex items-center justify-center gap-4 text-xl font-semibold text-[#704287]">
-            <span className="h-px w-10 bg-[#94839c]" />
-            {state.drawLabel ?? "Gold Call"}
-            <span className="h-px w-10 bg-[#94839c]" />
+          <p className="text-3xl font-semibold text-[#704287] sm:text-4xl">
+            The Las Vegas Gold Call Winner:
           </p>
-          <p className="text-2xl font-light text-gray-700 sm:text-3xl">
-            The winner of our 1oz gold coin from our {ordinalWord(state.ordinal ?? 1)} Gold Call
-            is…
-          </p>
-          <h1 className="bg-gradient-to-r from-[#b98f3a] via-[#d8ab4c] to-[#f0d199] bg-[length:200%_auto] bg-clip-text text-6xl font-semibold text-transparent [animation:shimmer_2.5s_linear_infinite] sm:text-7xl">
+          <h1 className="bg-gradient-to-r from-[#b98f3a] via-[#d8ab4c] to-[#f0d199] bg-[length:200%_auto] bg-clip-text text-7xl font-semibold text-transparent [animation:shimmer_2.5s_linear_infinite] sm:text-8xl">
             {state.winner?.name} {state.winner?.surname}
           </h1>
-          <p className="text-xl font-light text-gray-700">
-            Please come up to the front to collect your prize!
+          <p className="text-2xl font-light text-gray-700 sm:text-3xl">
+            Please come and collect your 1oz Gold Coin!
           </p>
         </div>
       )}

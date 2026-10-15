@@ -25,9 +25,6 @@ export default function ProgressTracker({ progress }: { progress: Progress }) {
           );
         })}
       </div>
-      <p className="mt-3 text-center text-sm text-gray-500">
-        {progress.count} of {progress.total} chips collected
-      </p>
     </div>
   );
 }

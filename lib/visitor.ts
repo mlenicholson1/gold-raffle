@@ -9,10 +9,10 @@ export const STATION_LABELS: Record<Station, string> = {
 };
 
 export const STATION_DESCRIPTORS: Record<Station, string> = {
-  vault: "Head to the gold vault and grab a protein bar to keep you fuelled while you explore.",
-  purchase: "Check out the Gold Unlocked demo to see digital gold in action.",
-  goldbar: "Head over to the 400 oz gold bar, pick it up for a photo moment, and collect your next chip.",
-  vegasfix: "Head to the Las Vegas Gold Call screen to learn about the physical and digital gold market.",
+  vault: "Grab a protein bar from the vault and earn another chip. It's not gold, but it's still a bar.",
+  purchase: "Check out the Gold Unlocked demo to see digital gold in action and collect another chip.",
+  goldbar: "Experience what is worth its weight in gold - pick up a real 400 oz gold bar, snap a photo and collect another chip.",
+  vegasfix: "Explore the display and learn about the physical and digital gold market to collect your final chip.",
 };
 
 export type Progress = {

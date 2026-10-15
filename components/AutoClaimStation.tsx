@@ -19,7 +19,7 @@ function AutoClaimContent({
   refresh: () => void;
   station: Station;
   title: string;
-  fact: string;
+  fact?: string;
 }) {
   const [progress, setProgress] = useState(initialProgress);
   const [justClaimed, setJustClaimed] = useState(false);
@@ -67,13 +67,13 @@ function AutoClaimContent({
           <p className="mt-6 text-sm text-red-600">{error}</p>
         ) : (
           <>
-            <p className="mt-4 text-sm text-gray-600">{fact}</p>
+            {fact && <p className="mt-4 text-sm text-gray-600">{fact}</p>}
             <p className="mt-6 font-semibold text-gray-900">
               {justClaimed && progress.complete
-                ? `All ${progress.total} chips are collected. You are entered in every raffle draw today.`
+                ? "All chips collected! You're entered in every raffle draw today."
                 : justClaimed
-                  ? `Chip collected. ${progress.count} of ${progress.total} so far.`
-                  : `You have already collected this chip. Progress: ${progress.count} of ${progress.total}.`}
+                  ? "Chip collected!"
+                  : "You've already collected this chip."}
             </p>
             <div className="mt-4">
               <ProgressTracker progress={progress} />
@@ -93,7 +93,7 @@ export default function AutoClaimStation({
 }: {
   station: Station;
   title: string;
-  fact: string;
+  fact?: string;
 }) {
   return (
     <IdentityCheck>
