@@ -23,11 +23,19 @@ export type DrawSlot = {
   key: string;
 };
 
+// Registering this close to a draw (or after it's already started) leaves no
+// realistic time to collect chips before it runs, so those sign-ups roll
+// forward to the next draw instead of the one that's about to happen.
+const CUTOFF_MS = 5 * 60 * 1000;
+
 // Given a reference time (e.g. when a visitor collected their first chip),
 // works out which of the four fixed draw slots that moment counts toward -
-// whichever one comes next. Past the final slot, everything counts toward it.
+// whichever one comes next, as long as it's more than 5 minutes away. Past
+// the final slot (plus its cutoff), everything counts toward it.
 export function getDrawSlot(referenceTime: Date = new Date()): DrawSlot {
-  const upcoming = DRAW_SLOTS.find((slot) => slot.date >= referenceTime);
+  const upcoming = DRAW_SLOTS.find(
+    (slot) => slot.date.getTime() - referenceTime.getTime() > CUTOFF_MS
+  );
   const chosen = upcoming ?? DRAW_SLOTS[DRAW_SLOTS.length - 1];
 
   return {

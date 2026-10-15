@@ -14,33 +14,23 @@ export default function NextSteps({
   const nextDraw = getNextVegasFixDraw(new Date(registeredAt));
 
   return (
-    <div className="mt-6 space-y-3 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-sm text-gray-600">
+    <div className="mt-6 space-y-2 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-sm text-gray-600">
       <p className="font-semibold text-gray-900">
         {progress.complete
           ? `All ${progress.total} chips collected!`
-          : `${progress.count} chip${progress.count === 1 ? "" : "s"} collected. ${remaining.length} more to go.`}
-      </p>
-      <p>
-        Each chip gives you another chance to win a 1 oz gold coin. Collect all {progress.total}{" "}
-        chips for {progress.total} chances to win.
+          : `${progress.count} of ${progress.total} chips collected - each is a chance to win a 1oz gold coin.`}
       </p>
       {remaining.length > 0 && (
-        <div>
-          <p className="font-medium text-gray-900">Here&rsquo;s how to earn your remaining chips:</p>
-          <ul className="mt-1 space-y-2">
-            {remaining.map((station) => (
-              <li key={station}>
-                <span className="font-semibold text-gray-900">{STATION_LABELS[station]}</span>
-                <br />
-                {STATION_DESCRIPTORS[station]}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="space-y-1">
+          {remaining.map((station) => (
+            <li key={station}>
+              <span className="font-semibold text-gray-900">{STATION_LABELS[station]}:</span>{" "}
+              {STATION_DESCRIPTORS[station]}
+            </li>
+          ))}
+        </ul>
       )}
-      <p className="font-medium text-gray-900">
-        The live Las Vegas Gold Call draw takes place here at the booth at {nextDraw}.
-      </p>
+      <p className="font-medium text-gray-900">Draw at {nextDraw}.</p>
     </div>
   );
 }
