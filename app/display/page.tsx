@@ -113,10 +113,10 @@ function GoldFactsTicker() {
 
   return (
     <div className="w-full">
-      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
+      <p className="text-base font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
         Gold Market {fact.category}
       </p>
-      <div className="mt-1 flex min-h-[4rem] w-full items-center justify-center">
+      <div className="mt-1 flex min-h-[2.75rem] w-full items-center justify-center">
         <p
           key={index}
           className="text-2xl text-gray-900 [animation:factFade_0.6s_ease-out]"
@@ -516,8 +516,8 @@ export default function DisplayPage() {
             Inspired by the benchmark price-setting process used in the global gold market
           </p>
 
-          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-2 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
-            <p className="mx-auto mb-5 w-fit px-5 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
+          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-3 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+            <p className="mx-auto mb-5 w-fit px-5 py-2 text-base font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
               About the auction
             </p>
             <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:divide-x-2 sm:divide-y-0">
