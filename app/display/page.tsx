@@ -501,7 +501,7 @@ export default function DisplayPage() {
   const urgent = state?.mode === "countdown" && (state.secondsRemaining ?? 99) <= 10;
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 text-center">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 py-10 text-center">
       <NetworkBackground />
       <WGCLogo />
       <FullscreenButton />
@@ -517,7 +517,7 @@ export default function DisplayPage() {
             Inspired by the benchmark price-setting process used in the global gold market
           </p>
 
-          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-6 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-6 pt-4 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
             <p className="mx-auto mb-2 w-fit px-5 py-2 text-base font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
               About the auction
             </p>
@@ -527,13 +527,13 @@ export default function DisplayPage() {
                 title="Price Auction"
                 description="A transparent process establishing benchmark gold prices through twice-daily auctions in London"
               />
-              <span className="hidden h-28 w-0.5 bg-[#3c1e4b] sm:block" />
+              <span className="hidden h-[140px] w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
                 description="Central banks, jewellers and investors worldwide rely on benchmark gold prices every day"
               />
-              <span className="hidden h-28 w-0.5 bg-[#3c1e4b] sm:block" />
+              <span className="hidden h-[140px] w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<ScrollIcon />}
                 title="Auction History"
@@ -569,7 +569,7 @@ export default function DisplayPage() {
             />
           </div>
 
-          <ContactCTA className="text-center" />
+          <ContactCTA className="pt-2 text-center" />
         </div>
       )}
 
