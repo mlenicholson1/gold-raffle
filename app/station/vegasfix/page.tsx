@@ -5,7 +5,7 @@ export default function VegasFixPage() {
     <AutoClaimStation
       station="vegasfix"
       title="Las Vegas Gold Call"
-      fact="Gold is priced twice daily through a benchmark trusted worldwide. That same benchmark now underpins a fast-growing digital gold market too."
+      fact="Learn more about the gold market"
     />
   );
 }
