@@ -1,6 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import { getDrawSlot } from "@/lib/vegasFixSchedule";
 
+// Excluded from the draw itself ("void where prohibited or restricted by
+// law" per the Terms) - these visitors still register and collect chips
+// like anyone else, they're just never selected as a winner.
+const EXCLUDED_DRAW_STATES = new Set(["Florida", "New York"]);
+
 export type DrawResult =
   | {
       ok: true;
@@ -14,7 +19,9 @@ export type DrawResult =
 // button and the lounge display's countdown-triggered reveal.
 export async function drawWinnerForSlot(slotKey: string, drawLabel: string): Promise<DrawResult> {
   const visitors = await prisma.visitor.findMany({ include: { tokens: true } });
-  const eligible = visitors.filter((v) => getDrawSlot(v.createdAt).key === slotKey);
+  const eligible = visitors.filter(
+    (v) => getDrawSlot(v.createdAt).key === slotKey && !EXCLUDED_DRAW_STATES.has(v.state)
+  );
 
   const weighted = eligible
     .map((v) => ({ visitor: v, weight: v.tokens.length }))
