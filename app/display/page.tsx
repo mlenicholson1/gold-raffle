@@ -23,27 +23,27 @@ const CONFETTI_COLORS = [GOLD, "#c9a13c", "#e8d18f", "#704287", "#ffffff"];
 const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; highlight: string; after: string }[] = [
   {
     category: "History",
-    before: "Gold opened at 98 shillings 8 pence an ounce at that ",
-    highlight: "first gold price auction",
-    after: " in 1919",
+    before: "Gold opened at ",
+    highlight: "98 shillings 8 pence (c. $6)",
+    after: " at the first 1919 auction",
   },
   {
     category: "History",
-    before: "Just ",
-    highlight: "four bullion brokers",
-    after: " set that first gold price - the basic structure lasted over a century",
+    before: "",
+    highlight: "Four bullion brokers",
+    after: " set that first gold price - lasting over a century",
   },
   {
     category: "History",
     before: "Gold was pegged at ",
-    highlight: "US$35 an ounce",
-    after: " under the Bretton Woods system, until it ended in the early 1970s",
+    highlight: "US$35/oz",
+    after: " under Bretton Woods to the early 1970s",
   },
   {
     category: "Today",
-    before: "Almost all the gold ever mined - around ",
+    before: "Almost all gold ever mined - around ",
     highlight: "220,000 tonnes",
-    after: " - is still in circulation today",
+    after: " - is still in circulation",
   },
   {
     category: "Today",
@@ -55,11 +55,11 @@ const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; 
     category: "Today",
     before: "Gold ETFs took in ",
     highlight: "$89 billion",
-    after: " in 2025, pushing holdings to 4,025 tonnes",
+    after: " in 2025, pushing holdings to c. $570 billion",
   },
   {
     category: "Today",
-    before: "Gold trading in the Loco London market topped ",
+    before: "Gold trading in Loco London topped ",
     highlight: "$160 billion",
     after: " a day in 2025",
   },
@@ -71,15 +71,21 @@ const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; 
   },
   {
     category: "Tomorrow",
-    before: "DeFi protocols now hold more than ",
-    highlight: "$125 billion",
-    after: " in value",
+    before: "Digital gold could triple to ",
+    highlight: "$160-170 billion",
+    after: " by 2031 at 27% a year",
   },
   {
     category: "Tomorrow",
     before: "",
     highlight: "30%",
-    after: " of Gen Z start investing as young adults - versus just 6% of Baby Boomers",
+    after: " of Gen Z invest as young adults vs just 6% of Baby Boomers",
+  },
+  {
+    category: "Tomorrow",
+    before: "Up to ",
+    highlight: "$700 billion",
+    after: " in digital gold demand remains untapped today",
   },
 ];
 
