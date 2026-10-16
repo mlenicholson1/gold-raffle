@@ -30,7 +30,10 @@ export default function NextSteps({
           ))}
         </ul>
       )}
-      <p className="font-medium text-gray-900">Draw at {nextDraw}.</p>
+      <p className="font-medium text-gray-900">
+        Draw at {nextDraw}. Please come back to the Lounge 5 minutes before to see if you&rsquo;ve
+        won!
+      </p>
     </div>
   );
 }

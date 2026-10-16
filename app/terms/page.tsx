@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import ContactCTA from "@/components/ContactCTA";
 
 export default function TermsPage() {
   return (
@@ -197,6 +198,8 @@ export default function TermsPage() {
             </p>
           </section>
         </div>
+
+        <ContactCTA className="mt-8 border-t border-[#3c1e4b]/10 pt-6" />
       </div>
     </main>
   );

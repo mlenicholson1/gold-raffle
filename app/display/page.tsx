@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
+import ContactCTA from "@/components/ContactCTA";
 
 type DisplayState = {
   mode: "idle" | "countdown" | "drawing" | "reveal" | "empty";
@@ -516,21 +517,23 @@ export default function DisplayPage() {
             Inspired by the benchmark price-setting process used in the global gold market
           </p>
 
-          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-3 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
-            <p className="mx-auto mb-5 w-fit px-5 py-2 text-base font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
+          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-6 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+            <p className="mx-auto mb-2 w-fit px-5 py-2 text-base font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
               About the auction
             </p>
-            <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:divide-x-2 sm:divide-y-0">
+            <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:items-center sm:divide-y-0">
               <FactColumn
                 icon={<ClockIcon />}
                 title="Price Auction"
                 description="A transparent process establishing benchmark gold prices through twice-daily auctions in London"
               />
+              <span className="hidden h-28 w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
                 description="Central banks, jewellers and investors worldwide rely on benchmark gold prices every day"
               />
+              <span className="hidden h-28 w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<ScrollIcon />}
                 title="Auction History"
@@ -565,6 +568,8 @@ export default function DisplayPage() {
               className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
             />
           </div>
+
+          <ContactCTA className="text-center" />
         </div>
       )}
 

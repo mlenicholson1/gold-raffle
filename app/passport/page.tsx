@@ -4,6 +4,7 @@ import IdentityCheck, { type IdentifiedVisitor } from "@/components/IdentityChec
 import ProgressTracker from "@/components/ProgressTracker";
 import NextSteps from "@/components/NextSteps";
 import Logo from "@/components/Logo";
+import ContactCTA from "@/components/ContactCTA";
 import type { Progress } from "@/lib/visitor";
 
 function PassportContent({
@@ -22,6 +23,7 @@ function PassportContent({
           <ProgressTracker progress={progress} />
         </div>
         <NextSteps progress={progress} registeredAt={visitor.createdAt} />
+        <ContactCTA className="mt-6" />
       </div>
     </main>
   );

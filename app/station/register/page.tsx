@@ -6,6 +6,7 @@ import NextSteps from "@/components/NextSteps";
 import type { Progress } from "@/lib/visitor";
 import { OUTSIDE_US, US_STATES } from "@/lib/usStates";
 import Logo from "@/components/Logo";
+import ContactCTA from "@/components/ContactCTA";
 import {
   getStoredVisitor,
   setStoredVisitor,
@@ -142,6 +143,7 @@ export default function RegisterPage() {
             <ProgressTracker progress={result.progress} />
           </div>
           <NextSteps progress={result.progress} registeredAt={result.visitor.createdAt} />
+          <ContactCTA className="mt-6" />
         </div>
       </main>
     );
@@ -297,6 +299,7 @@ export default function RegisterPage() {
             </button>
           </form>
         )}
+        <ContactCTA className="mt-6 text-center" />
       </div>
     </main>
   );

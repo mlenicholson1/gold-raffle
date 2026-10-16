@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Progress } from "@/lib/visitor";
 import { OUTSIDE_US, US_STATES } from "@/lib/usStates";
 import Logo from "@/components/Logo";
+import ContactCTA from "@/components/ContactCTA";
 import {
   getStoredVisitor,
   setStoredVisitor,
@@ -264,6 +265,7 @@ export default function IdentityCheck({
               Already registered? Look yourself up
             </button>
           </form>
+          <ContactCTA className="mt-6 text-center" />
         </div>
       </main>
     );
@@ -310,6 +312,7 @@ export default function IdentityCheck({
             New here? Register instead
           </button>
         </form>
+        <ContactCTA className="mt-6 text-center" />
       </div>
     </main>
   );

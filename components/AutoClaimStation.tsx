@@ -5,6 +5,7 @@ import IdentityCheck, { type IdentifiedVisitor } from "@/components/IdentityChec
 import ProgressTracker from "@/components/ProgressTracker";
 import NextSteps from "@/components/NextSteps";
 import Logo from "@/components/Logo";
+import ContactCTA from "@/components/ContactCTA";
 import type { Progress, Station } from "@/lib/visitor";
 
 function AutoClaimContent({
@@ -83,6 +84,7 @@ function AutoClaimContent({
             <NextSteps progress={progress} registeredAt={visitor.createdAt} />
           </>
         )}
+        <ContactCTA className="mt-6" />
       </div>
     </main>
   );
