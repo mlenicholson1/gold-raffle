@@ -348,7 +348,7 @@ function FactColumn({
   note?: string;
 }) {
   return (
-    <div className="flex flex-1 flex-col items-center gap-2 px-4 py-1 text-center">
+    <div className="flex flex-1 flex-col items-center gap-2 px-4 text-center">
       <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#EADFC0] bg-[#FBF3E1] text-[#D8AB4C]">
         {icon}
       </div>
@@ -516,7 +516,7 @@ export default function DisplayPage() {
             Inspired by the benchmark price-setting process used in the global gold market
           </p>
 
-          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-4 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-2 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
             <p className="mx-auto mb-5 w-fit rounded-b-xl bg-[#3c1e4b]/[0.06] px-5 py-2 text-lg font-semibold tracking-wide text-[#3c1e4b]">
               The daily benchmark price-setting mechanism for physical gold
             </p>
@@ -524,17 +524,17 @@ export default function DisplayPage() {
               <FactColumn
                 icon={<ClockIcon />}
                 title="Price Auction"
-                description="A transparent process establishing benchmark gold prices through twice-daily auctions in London."
+                description="A transparent process establishing benchmark gold prices through twice-daily auctions in London"
               />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
-                description="Central banks, jewellers and investors worldwide rely on benchmark gold prices every day."
+                description="Central banks, jewellers and investors worldwide rely on benchmark gold prices every day"
               />
               <FactColumn
                 icon={<ScrollIcon />}
                 title="Auction History"
-                description="London's first gold price auction took place on 12 September 1919, establishing a lasting tradition."
+                description="London's first gold price auction took place on 12 September 1919, creating a lasting tradition"
               />
             </div>
           </div>

@@ -73,8 +73,8 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-bold text-gray-900">6. The Draw</h2>
             <p className="mt-1">
-              Four draws take place live at the booth: Monday 19 October at 3:00pm; Tuesday 20
-              October at 10:30am and 3:00pm; and Wednesday 21 October at 10:30am. Your entries
+              Four draws take place live at the booth: Mon 19 October at 3:00pm; Tues 20
+              October at 10:30am and 3:00pm; and Weds 21 October at 10:30am. Your entries
               count toward whichever of these draws is next at the time you collect your first
               chip - not any draw that has already taken place.
             </p>

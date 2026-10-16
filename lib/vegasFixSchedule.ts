@@ -4,10 +4,10 @@
 // draw a visitor's chips count toward - it has no bearing on token eligibility
 // itself.
 export const DRAW_SLOTS = [
-  { date: new Date(2026, 9, 19, 15, 0), label: "3pm, Monday, October 19" },
-  { date: new Date(2026, 9, 20, 10, 30), label: "10:30am, Tuesday, October 20" },
-  { date: new Date(2026, 9, 20, 15, 0), label: "3pm, Tuesday, October 20" },
-  { date: new Date(2026, 9, 21, 10, 30), label: "10:30am, Wednesday, October 21" },
+  { date: new Date(2026, 9, 19, 15, 0), label: "3pm, Mon 19 October" },
+  { date: new Date(2026, 9, 20, 10, 30), label: "10:30am, Tues 20 October" },
+  { date: new Date(2026, 9, 20, 15, 0), label: "3pm, Tues 20 October" },
+  { date: new Date(2026, 9, 21, 10, 30), label: "10:30am, Weds 21 October" },
 ];
 
 function startOfDay(d: Date): Date {
@@ -17,7 +17,7 @@ function startOfDay(d: Date): Date {
 export type DrawSlot = {
   /** Exact target draw date/time. */
   date: Date;
-  /** e.g. "10:30am, Tuesday, October 20" */
+  /** e.g. "10:30am, Tues 20 October" */
   label: string;
   /** Stable, sortable, groupable identifier for this slot. */
   key: string;
@@ -45,7 +45,7 @@ export function getDrawSlot(referenceTime: Date = new Date()): DrawSlot {
   };
 }
 
-// Display string for a visitor, e.g. "10:30am, Tuesday, October 20 (today)".
+// Display string for a visitor, e.g. "10:30am, Tues 20 October (today)".
 export function getNextVegasFixDraw(referenceTime: Date = new Date()): string {
   const slot = getDrawSlot(referenceTime);
   const now = new Date();
