@@ -20,7 +20,15 @@ const CONFETTI_COLORS = [GOLD, "#c9a13c", "#e8d18f", "#704287", "#ffffff"];
 // figures only (no internal roadmap, projections, or named individuals).
 // Grouped into History / Today / Tomorrow per Steph's "Vegas content feedback"
 // doc, so the eyebrow above each fact can say which bucket it's in.
-const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; highlight: string; after: string }[] = [
+const GOLD_FACTS: {
+  category: "History" | "Today" | "Tomorrow";
+  before: string;
+  highlight: string;
+  after: string;
+  // Only set on facts that need a second bolded/gold figure.
+  highlight2?: string;
+  after2?: string;
+}[] = [
   {
     category: "History",
     before: "Gold opened at ",
@@ -55,7 +63,9 @@ const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; 
     category: "Today",
     before: "Gold ETFs took in ",
     highlight: "$89 billion",
-    after: " in 2025, pushing holdings to c. $570 billion",
+    after: " in 2025, pushing holdings to ",
+    highlight2: "c. $570 billion",
+    after2: "",
   },
   {
     category: "Today",
@@ -64,7 +74,7 @@ const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; 
     after: " a day in 2025",
   },
   {
-    category: "Tomorrow",
+    category: "Today",
     before: "The tokenized gold market passed ",
     highlight: "$4 billion",
     after: " in 2025",
@@ -73,7 +83,7 @@ const GOLD_FACTS: { category: "History" | "Today" | "Tomorrow"; before: string; 
     category: "Tomorrow",
     before: "Digital gold could triple to ",
     highlight: "$160-170 billion",
-    after: " by 2031 at 27% a year",
+    after: " by 2031 (27% per year)",
   },
   {
     category: "Tomorrow",
@@ -114,6 +124,10 @@ function GoldFactsTicker() {
           {fact.before}
           <span className="font-bold text-[#D8AB4C]">{fact.highlight}</span>
           {fact.after}
+          {fact.highlight2 && (
+            <span className="font-bold text-[#D8AB4C]">{fact.highlight2}</span>
+          )}
+          {fact.after2}
         </p>
       </div>
     </div>
@@ -503,7 +517,7 @@ export default function DisplayPage() {
           </p>
 
           <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-4 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
-            <p className="mx-auto mb-5 w-fit rounded-b-xl border-x-2 border-b-2 border-[#3c1e4b] px-4 py-2 text-base font-normal text-gray-900">
+            <p className="mx-auto mb-5 w-fit rounded-b-xl border-x-2 border-b-2 border-[#3c1e4b] bg-[#3c1e4b]/[0.04] px-5 py-2 text-lg font-semibold tracking-wide text-[#3c1e4b]">
               The daily benchmark price-setting mechanism for physical gold
             </p>
             <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:divide-x-2 sm:divide-y-0">
