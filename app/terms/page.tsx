@@ -1,7 +1,10 @@
+import Logo from "@/components/Logo";
+
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4 py-12">
       <div className="mx-auto max-w-2xl rounded-3xl border border-[#3c1e4b]/15 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)] sm:p-12">
+        <Logo className="mx-auto mb-6 h-9" />
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#704287]">
           Hold Gold
         </p>

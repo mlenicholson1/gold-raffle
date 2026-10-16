@@ -3,6 +3,7 @@
 import IdentityCheck, { type IdentifiedVisitor } from "@/components/IdentityCheck";
 import ProgressTracker from "@/components/ProgressTracker";
 import NextSteps from "@/components/NextSteps";
+import Logo from "@/components/Logo";
 import type { Progress } from "@/lib/visitor";
 
 function PassportContent({
@@ -15,6 +16,7 @@ function PassportContent({
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4 py-10">
       <div className="w-full max-w-sm rounded-3xl border border-[#3c1e4b]/15 bg-white p-8 text-center shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+        <Logo className="mx-auto mb-6 h-9" />
         <h1 className="text-2xl font-bold text-gray-900">{visitor.name}&rsquo;s Passport</h1>
         <div className="mt-6">
           <ProgressTracker progress={progress} />

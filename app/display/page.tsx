@@ -489,7 +489,7 @@ export default function DisplayPage() {
 
       {state && state.mode === "idle" && (
         <div className="relative w-full max-w-5xl space-y-6">
-          <h1 className="mt-8 text-6xl font-black text-gray-900 sm:text-7xl">
+          <h1 className="mt-36 text-6xl font-black text-gray-900 sm:text-7xl">
             The Las Vegas <span className="text-[#D8AB4C]">Gold</span> Call
           </h1>
           <p className="text-2xl text-gray-500">
@@ -504,17 +504,17 @@ export default function DisplayPage() {
               <FactColumn
                 icon={<ClockIcon />}
                 title="Price Auction"
-                description="Twice daily, 10:30am and 3:00pm London time."
+                description="A transparent process establishing benchmark gold prices through twice-daily auctions in London."
               />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
-                description="Used daily by central banks, jewellers, investors and tech providers."
+                description="Central banks, jewellers and investors worldwide rely on benchmark gold prices every day."
               />
               <FactColumn
                 icon={<ScrollIcon />}
                 title="Auction History"
-                description="London's first gold price auction took place on 12 September 1919, setting the benchmark still used today."
+                description="London's first gold price auction took place on 12 September 1919, establishing a lasting tradition."
               />
             </div>
           </div>

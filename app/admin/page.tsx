@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { STATIONS, STATION_LABELS } from "@/lib/visitor";
 import { getDrawSlot } from "@/lib/vegasFixSchedule";
+import Logo from "@/components/Logo";
 
 const SESSION_KEY = "holdgold_admin_password";
 
@@ -352,6 +353,7 @@ export default function AdminPage() {
     return (
       <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
         <div className="w-full max-w-sm rounded-3xl border border-[#3c1e4b]/15 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+          <Logo className="mx-auto mb-6 h-9" />
           <h1 className="text-xl font-bold text-gray-900">Staff Admin</h1>
           <p className="mt-1 text-sm text-gray-500">Enter the shared staff password.</p>
           <form onSubmit={handleLogin} className="mt-6 space-y-4">
@@ -381,7 +383,10 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4 py-10">
       <div className="mx-auto max-w-2xl space-y-6">
-        <h1 className="text-2xl font-bold text-gray-900">Hold Gold - Staff Dashboard</h1>
+        <div className="flex items-center gap-3">
+          <Logo className="h-8" />
+          <h1 className="text-2xl font-bold text-gray-900">Hold Gold - Staff Dashboard</h1>
+        </div>
 
         {statsError && <p className="text-sm text-red-600">{statsError}</p>}
 

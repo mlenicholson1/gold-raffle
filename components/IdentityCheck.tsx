@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Progress } from "@/lib/visitor";
 import { OUTSIDE_US, US_STATES } from "@/lib/usStates";
+import Logo from "@/components/Logo";
 import {
   getStoredVisitor,
   setStoredVisitor,
@@ -156,6 +157,7 @@ export default function IdentityCheck({
     return (
       <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
         <div className="w-full max-w-sm rounded-3xl border border-[#3c1e4b]/15 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+          <Logo className="mx-auto mb-6 h-9" />
           <h1 className="text-xl font-bold text-gray-900">New here? Register first</h1>
           <p className="mt-1 text-sm text-gray-500">
             Just your name, surname, email, and state - takes a few seconds.
@@ -270,6 +272,7 @@ export default function IdentityCheck({
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-4">
       <div className="w-full max-w-sm rounded-3xl border border-[#3c1e4b]/15 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+        <Logo className="mx-auto mb-6 h-9" />
         <h1 className="text-xl font-bold text-gray-900">Who are you?</h1>
         <p className="mt-1 text-sm text-gray-500">
           Enter the email or 4-digit code from when you registered.
