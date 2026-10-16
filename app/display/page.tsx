@@ -527,13 +527,13 @@ export default function DisplayPage() {
                 title="Price Auction"
                 description="A transparent process establishing benchmark gold prices through twice-daily auctions in London"
               />
-              <span className="hidden h-[140px] w-0.5 bg-[#3c1e4b] sm:block" />
+              <span className="hidden h-[200px] w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
                 description="Central banks, jewellers and investors worldwide rely on benchmark gold prices every day"
               />
-              <span className="hidden h-[140px] w-0.5 bg-[#3c1e4b] sm:block" />
+              <span className="hidden h-[200px] w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<ScrollIcon />}
                 title="Auction History"
