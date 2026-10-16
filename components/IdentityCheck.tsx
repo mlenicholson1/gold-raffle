@@ -62,7 +62,7 @@ export default function IdentityCheck({
   useEffect(() => {
     const stored = getStoredVisitor();
     if (!stored) {
-      setPhase("identify");
+      setPhase("register");
       return;
     }
     fetch("/api/identify", {
@@ -77,7 +77,7 @@ export default function IdentityCheck({
       .then(applyIdentified)
       .catch(() => {
         clearStoredVisitor();
-        setPhase("identify");
+        setPhase("register");
       });
   }, []);
 
