@@ -113,7 +113,7 @@ function GoldFactsTicker() {
 
   return (
     <div className="w-full">
-      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#704287]">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
         Gold Market {fact.category}
       </p>
       <div className="mt-1 flex min-h-[4rem] w-full items-center justify-center">
@@ -517,8 +517,8 @@ export default function DisplayPage() {
           </p>
 
           <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-2 pt-0 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
-            <p className="mx-auto mb-5 w-fit rounded-b-xl bg-[#3c1e4b]/[0.06] px-5 py-2 text-lg font-semibold tracking-wide text-[#3c1e4b]">
-              The daily benchmark price-setting mechanism for physical gold
+            <p className="mx-auto mb-5 w-fit px-5 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
+              About the auction
             </p>
             <div className="flex flex-col divide-y-2 divide-[#3c1e4b] sm:flex-row sm:divide-x-2 sm:divide-y-0">
               <FactColumn
