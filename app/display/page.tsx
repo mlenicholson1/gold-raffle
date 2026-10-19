@@ -461,9 +461,22 @@ export default function DisplayPage() {
   // root font size, rather than a CSS transform - which would just overflow
   // visually instead of reflowing the layout. The winner reveal gets an
   // extra boost (roughly 2x normal) for a bigger celebratory moment.
+  //
+  // The booth screen runs wide (1600px+), so it gets the big scale this was
+  // designed for. A normal laptop window is narrower than max-w-5xl already
+  // scaled up, which would otherwise clip against `overflow-hidden` - so it
+  // falls back to an unscaled size that actually fits.
   useEffect(() => {
-    document.documentElement.style.fontSize = state?.mode === "reveal" ? "170%" : "150%";
+    function applyScale() {
+      const isBigScreen = window.innerWidth >= 1600;
+      const base = isBigScreen ? 150 : 100;
+      const scale = state?.mode === "reveal" ? base * (170 / 150) : base;
+      document.documentElement.style.fontSize = `${scale}%`;
+    }
+    applyScale();
+    window.addEventListener("resize", applyScale);
     return () => {
+      window.removeEventListener("resize", applyScale);
       document.documentElement.style.fontSize = "";
     };
   }, [state?.mode]);
