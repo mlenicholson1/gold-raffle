@@ -455,6 +455,7 @@ function FullscreenButton() {
 
 export default function DisplayPage() {
   const [state, setState] = useState<DisplayState | null>(null);
+  const [bigScreen, setBigScreen] = useState(true);
   const prevMode = useRef<string | null>(null);
 
   // Scales every rem-based size on this page (text, spacing, icons) via the
@@ -465,10 +466,12 @@ export default function DisplayPage() {
   // The booth screen runs wide (1600px+), so it gets the big scale this was
   // designed for. A normal laptop window is narrower than max-w-5xl already
   // scaled up, which would otherwise clip against `overflow-hidden` - so it
-  // falls back to an unscaled size that actually fits.
+  // falls back to an unscaled size that actually fits, with tighter spacing
+  // (see `bigScreen` below) so the idle screen still fits with no scrolling.
   useEffect(() => {
     function applyScale() {
       const isBigScreen = window.innerWidth >= 1600;
+      setBigScreen(isBigScreen);
       const base = isBigScreen ? 150 : 100;
       const scale = state?.mode === "reveal" ? base * (170 / 150) : base;
       document.documentElement.style.fontSize = `${scale}%`;
@@ -514,7 +517,9 @@ export default function DisplayPage() {
   const urgent = state?.mode === "countdown" && (state.secondsRemaining ?? 99) <= 10;
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 py-10 text-center">
+    <main
+      className={`relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 text-center ${bigScreen ? "py-10" : "py-2"}`}
+    >
       <NetworkBackground />
       <WGCLogo />
       <FullscreenButton />
@@ -522,15 +527,19 @@ export default function DisplayPage() {
       {!state && <p className="relative text-2xl text-gray-400">Connecting…</p>}
 
       {state && state.mode === "idle" && (
-        <div className="relative w-full max-w-5xl space-y-6">
-          <h1 className="mt-36 text-6xl font-black text-gray-900 sm:text-7xl">
+        <div className={`relative w-full max-w-5xl ${bigScreen ? "space-y-6" : "space-y-2"}`}>
+          <h1
+            className={`${bigScreen ? "mt-36" : "mt-24"} text-6xl font-black text-gray-900 sm:text-7xl`}
+          >
             The Las Vegas <span className="text-[#D8AB4C]">Gold</span> Call
           </h1>
           <p className="text-2xl text-gray-500">
             Inspired by the benchmark price-setting process used in the global gold market
           </p>
 
-          <div className="mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 pb-6 pt-4 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+          <div
+            className={`mx-auto rounded-[1.75rem] border border-[#3c1e4b]/15 bg-white px-7 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)] ${bigScreen ? "pb-6 pt-4" : "pb-3 pt-2"}`}
+          >
             <p className="mx-auto mb-2 w-fit px-5 py-2 text-base font-semibold uppercase tracking-[0.3em] text-[#3c1e4b]">
               About the auction
             </p>
@@ -540,13 +549,13 @@ export default function DisplayPage() {
                 title="Price Auction"
                 description="A transparent process establishing benchmark gold prices through twice-daily auctions in London"
               />
-              <span className="hidden h-[200px] w-0.5 bg-[#3c1e4b] sm:block" />
+              <span className="hidden h-[8.33rem] w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<BenchmarkIcon />}
                 title="Gold Market"
                 description="Central banks, jewellers and investors worldwide rely on benchmark gold prices every day"
               />
-              <span className="hidden h-[200px] w-0.5 bg-[#3c1e4b] sm:block" />
+              <span className="hidden h-[8.33rem] w-0.5 bg-[#3c1e4b] sm:block" />
               <FactColumn
                 icon={<ScrollIcon />}
                 title="Auction History"
@@ -559,12 +568,14 @@ export default function DisplayPage() {
             <GoldFactsTicker />
           </div>
 
-          <div className="mx-auto flex max-w-4xl items-center justify-center gap-6 rounded-3xl border border-[#3c1e4b]/15 bg-white px-8 py-5 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)]">
+          <div
+            className={`mx-auto flex max-w-4xl items-center justify-center gap-6 rounded-3xl border border-[#3c1e4b]/15 bg-white px-8 shadow-[0_20px_60px_-15px_rgba(112,66,135,0.25)] ${bigScreen ? "py-5" : "py-3"}`}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/qr-vegasfix.png"
               alt="QR code to collect your Las Vegas Gold Call chip"
-              className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
+              className={`flex-none rounded-lg border border-gray-200 ${bigScreen ? "h-[8.4rem] w-[8.4rem]" : "h-16 w-16"}`}
             />
             <div className="text-center">
               <p className="text-base font-semibold text-gray-900">
@@ -578,11 +589,11 @@ export default function DisplayPage() {
             <img
               src="/qr-vegasfix.png"
               alt="QR code to collect your Las Vegas Gold Call chip"
-              className="h-[8.4rem] w-[8.4rem] flex-none rounded-lg border border-gray-200"
+              className={`flex-none rounded-lg border border-gray-200 ${bigScreen ? "h-[8.4rem] w-[8.4rem]" : "h-16 w-16"}`}
             />
           </div>
 
-          <ContactCTA className="pt-2 text-center" />
+          <ContactCTA className={bigScreen ? "pt-2 text-center" : "text-center"} />
         </div>
       )}
 
