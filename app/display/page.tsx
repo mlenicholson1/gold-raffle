@@ -412,7 +412,7 @@ export default function DisplayPage() {
       {state && state.mode === "idle" && (
         <div className={`relative w-full max-w-5xl ${bigScreen ? "space-y-7" : "space-y-3"}`}>
           <h1
-            className={`${bigScreen ? "mt-28" : "mt-20"} text-6xl font-black text-gray-900 sm:text-7xl`}
+            className={`${bigScreen ? "mt-24" : "mt-16"} text-6xl font-black text-gray-900 sm:text-7xl`}
           >
             The Las Vegas <span className="text-[#D8AB4C]">Gold</span> Call
           </h1>
@@ -458,7 +458,7 @@ export default function DisplayPage() {
             <img
               src="/qr-vegasfix.png"
               alt="QR code to collect your Las Vegas Gold Call chip"
-              className={`flex-none rounded-lg border border-gray-200 ${bigScreen ? "h-[8.4rem] w-[8.4rem]" : "h-16 w-16"}`}
+              className={`flex-none rounded-lg border border-gray-200 ${bigScreen ? "h-[11.75rem] w-[11.75rem]" : "h-[5.6rem] w-[5.6rem]"}`}
             />
             <div className="text-center">
               <p className="text-base font-semibold text-gray-900">
@@ -472,7 +472,7 @@ export default function DisplayPage() {
             <img
               src="/qr-vegasfix.png"
               alt="QR code to collect your Las Vegas Gold Call chip"
-              className={`flex-none rounded-lg border border-gray-200 ${bigScreen ? "h-[8.4rem] w-[8.4rem]" : "h-16 w-16"}`}
+              className={`flex-none rounded-lg border border-gray-200 ${bigScreen ? "h-[11.75rem] w-[11.75rem]" : "h-[5.6rem] w-[5.6rem]"}`}
             />
           </div>
 
