@@ -375,12 +375,12 @@ function WGCLogo() {
 
   if (!customFailed) {
     return (
-      <div className="absolute left-10 top-10 z-20">
+      <div className="absolute left-20 top-10 z-20">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/api/logo"
           alt="World Gold Council"
-          className="h-[5rem] w-auto max-w-[16rem] object-contain"
+          className="h-[2.5rem] w-auto max-w-[8rem] object-contain"
           onError={() => setCustomFailed(true)}
         />
       </div>
@@ -389,15 +389,15 @@ function WGCLogo() {
 
   return (
     <div
-      className="absolute left-10 top-10 z-20 flex items-center gap-4 text-[#d8ab4c]"
+      className="absolute left-20 top-10 z-20 flex items-center gap-2 text-[#d8ab4c]"
       style={{ fontFamily: "var(--font-noto-sans)" }}
     >
-      <svg viewBox="0 0 48 48" className="h-[3.5rem] w-[3.5rem]" fill="none">
+      <svg viewBox="0 0 48 48" className="h-[1.75rem] w-[1.75rem]" fill="none">
         <circle cx="24" cy="24" r="21.5" stroke="currentColor" strokeWidth="2.6" />
         <circle cx="24" cy="24" r="14.5" stroke="currentColor" strokeWidth="2.6" />
         <circle cx="24" cy="24" r="7.5" stroke="currentColor" strokeWidth="2.6" />
       </svg>
-      <p className="text-left text-base font-semibold uppercase leading-tight tracking-normal">
+      <p className="text-left text-sm font-semibold uppercase leading-tight tracking-normal">
         World
         <br />
         Gold
@@ -527,13 +527,13 @@ export default function DisplayPage() {
       {!state && <p className="relative text-2xl text-gray-400">Connecting…</p>}
 
       {state && state.mode === "idle" && (
-        <div className={`relative w-full max-w-5xl ${bigScreen ? "space-y-6" : "space-y-2"}`}>
+        <div className={`relative w-full max-w-5xl ${bigScreen ? "space-y-7" : "space-y-3"}`}>
           <h1
-            className={`${bigScreen ? "mt-36" : "mt-24"} text-6xl font-black text-gray-900 sm:text-7xl`}
+            className={`${bigScreen ? "mt-28" : "mt-20"} text-6xl font-black text-gray-900 sm:text-7xl`}
           >
             The Las Vegas <span className="text-[#D8AB4C]">Gold</span> Call
           </h1>
-          <p className="text-2xl text-gray-500">
+          <p className="text-lg text-gray-500">
             Inspired by the benchmark price-setting process used in the global gold market
           </p>
 
