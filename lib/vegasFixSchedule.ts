@@ -10,10 +10,6 @@ export const DRAW_SLOTS = [
   { date: new Date(2026, 9, 21, 10, 30), label: "10:30am, Weds 21 October" },
 ];
 
-function startOfDay(d: Date): Date {
-  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-}
-
 export type DrawSlot = {
   /** Exact target draw date/time. */
   date: Date;
@@ -43,15 +39,4 @@ export function getDrawSlot(referenceTime: Date = new Date()): DrawSlot {
     label: chosen.label,
     key: chosen.date.toISOString(),
   };
-}
-
-// Display string for a visitor, e.g. "10:30am, Tues 20 October (today)".
-export function getNextVegasFixDraw(referenceTime: Date = new Date()): string {
-  const slot = getDrawSlot(referenceTime);
-  const now = new Date();
-  const dayDiff = Math.round(
-    (startOfDay(slot.date).getTime() - startOfDay(now).getTime()) / 86_400_000
-  );
-  const relative = dayDiff === 0 ? " (today)" : dayDiff === 1 ? " (tomorrow)" : "";
-  return `${slot.label}${relative}`;
 }

@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { getDrawSlot } from "@/lib/vegasFixSchedule";
+import { DRAW_SLOTS, getDrawSlot } from "@/lib/vegasFixSchedule";
 
 // Excluded from the draw itself ("void where prohibited or restricted by
 // law" per the Terms) - these visitors still register and collect chips
@@ -14,13 +14,24 @@ export type DrawResult =
     }
   | { ok: false; reason: "no_eligible_visitors" };
 
-// Weighted random draw (weight = token count) restricted to visitors whose first
-// chip fell in the given draw slot. Shared by the instant admin "Run Raffle"
-// button and the lounge display's countdown-triggered reveal.
+// Weighted random draw (weight = token count) restricted to visitors who
+// entered at or before this draw slot (i.e. everyone still "in the running"
+// by this point in the schedule, not just whoever entered immediately before
+// this specific slot) and who haven't already won a prior draw - one Prize
+// per person. Shared by the instant admin "Run Raffle" button and the lounge
+// display's countdown-triggered reveal.
 export async function drawWinnerForSlot(slotKey: string, drawLabel: string): Promise<DrawResult> {
-  const visitors = await prisma.visitor.findMany({ include: { tokens: true } });
+  const targetSlot = DRAW_SLOTS.find((s) => s.date.toISOString() === slotKey);
+  if (!targetSlot) {
+    return { ok: false, reason: "no_eligible_visitors" };
+  }
+
+  const visitors = await prisma.visitor.findMany({ include: { tokens: true, raffleWins: true } });
   const eligible = visitors.filter(
-    (v) => getDrawSlot(v.createdAt).key === slotKey && !EXCLUDED_DRAW_STATES.has(v.state)
+    (v) =>
+      getDrawSlot(v.createdAt).date.getTime() <= targetSlot.date.getTime() &&
+      !EXCLUDED_DRAW_STATES.has(v.state) &&
+      v.raffleWins.length === 0
   );
 
   const weighted = eligible

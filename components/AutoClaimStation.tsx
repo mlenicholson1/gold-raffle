@@ -73,7 +73,7 @@ function AutoClaimContent({
             {fact && <p className="mt-4 text-base text-gray-600">{fact}</p>}
             <p className="mt-6 text-lg font-semibold text-gray-900">
               {justClaimed && progress.complete
-                ? "All chips collected! You've got 4 chips in the next raffle draw."
+                ? "All chips collected! You've got 4 chips in every upcoming raffle draw."
                 : justClaimed
                   ? "Chip collected!"
                   : "You've already collected this chip."}

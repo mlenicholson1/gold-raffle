@@ -1,5 +1,5 @@
 import { STATIONS, STATION_LABELS, STATION_DESCRIPTORS, type Progress } from "@/lib/visitor";
-import { getNextVegasFixDraw } from "@/lib/vegasFixSchedule";
+import { DRAW_SLOTS, getDrawSlot } from "@/lib/vegasFixSchedule";
 
 export default function NextSteps({
   progress,
@@ -10,8 +10,10 @@ export default function NextSteps({
 }) {
   const remaining = STATIONS.filter((station) => !progress.stations[station]);
   // Locked to the draw slot active when the visitor collected their first chip,
-  // not recalculated against "now" every time this renders.
-  const nextDraw = getNextVegasFixDraw(new Date(registeredAt));
+  // not recalculated against "now" every time this renders. Entries carry
+  // forward into every draw from that point on, not just the next one.
+  const entrySlot = getDrawSlot(new Date(registeredAt));
+  const upcomingDraws = DRAW_SLOTS.filter((slot) => slot.date.getTime() >= entrySlot.date.getTime());
 
   return (
     <div className="mt-6 space-y-2 rounded-lg border border-[#EADFC0] bg-[#FBF3E1] p-4 text-left text-base text-gray-600">
@@ -30,9 +32,20 @@ export default function NextSteps({
           ))}
         </ul>
       )}
-      <p className="font-medium text-gray-900">
-        Draw at {nextDraw}. Please come back to the Lounge 5 minutes before to see if you&rsquo;ve
-        won!
+      <div>
+        <p className="font-medium text-gray-900">
+          {upcomingDraws.length > 1
+            ? "You're entered in every remaining draw:"
+            : "You're entered in the final draw:"}
+        </p>
+        <ul className="mt-1 space-y-0.5">
+          {upcomingDraws.map((slot) => (
+            <li key={slot.date.toISOString()}>{slot.label}</li>
+          ))}
+        </ul>
+      </div>
+      <p className="text-gray-600">
+        Please come back to the Lounge 5 minutes before each one to see if you&rsquo;ve won!
       </p>
     </div>
   );

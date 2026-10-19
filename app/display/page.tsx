@@ -651,7 +651,7 @@ export default function DisplayPage() {
       {state && state.mode === "empty" && (
         <div className="relative space-y-6">
           <SectionLabel>{state.slotLabel ?? "Las Vegas Gold Call"}</SectionLabel>
-          <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
+          <h1 className="text-5xl font-bold text-gray-900 sm:text-6xl">
             {state.emptyReason ?? "No eligible entries yet"}
           </h1>
         </div>
