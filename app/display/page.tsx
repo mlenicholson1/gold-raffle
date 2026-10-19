@@ -90,7 +90,9 @@ const GOLD_FACTS: {
     category: "Tomorrow",
     before: "",
     highlight: "30%",
-    after: " of Gen Z invest as young adults vs just 6% of Baby Boomers",
+    after: " of Gen Z invest as young adults vs just ",
+    highlight2: "6%",
+    after2: " of Baby Boomers",
   },
   {
     category: "Tomorrow",
@@ -188,124 +190,6 @@ function startFireworksLoop(): () => void {
     cancelAnimationFrame(rafId);
     clearInterval(burstInterval);
   };
-}
-
-type NetworkPoint = { x: number; y: number; vx: number; vy: number; color: string };
-
-// An animated constellation of drifting, linking nodes - reads as "digital
-// gold network" rather than static decoration. Canvas-based and client-only,
-// since it needs real pixel dimensions and Math.random() (server rendering
-// this would mismatch the client's first paint and trigger a hydration error).
-function NetworkBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-    const LINK_DISTANCE = 210;
-    // Mostly gold, with a little WGC purple mixed in for brand contrast.
-    const colors = ["#D8AB4C", "#c9a13c", "#d8ab4c", "#D8AB4C", "#c9a13c", "#704287"];
-    const points: NetworkPoint[] = Array.from({ length: 60 }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      color: colors[Math.floor(Math.random() * colors.length)],
-    }));
-
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas!.width = width;
-      canvas!.height = height;
-    }
-    window.addEventListener("resize", resize);
-
-    let rafId = 0;
-    function frame() {
-      ctx!.clearRect(0, 0, width, height);
-
-      for (const p of points) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-      }
-
-      const connections = new Array(points.length).fill(0);
-      const nearest = new Array(points.length).fill(-1);
-      const nearestDist = new Array(points.length).fill(Infinity);
-
-      for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
-          const a = points[i];
-          const b = points[j];
-          const dist = Math.hypot(a.x - b.x, a.y - b.y);
-
-          if (dist < nearestDist[i]) {
-            nearestDist[i] = dist;
-            nearest[i] = j;
-          }
-          if (dist < nearestDist[j]) {
-            nearestDist[j] = dist;
-            nearest[j] = i;
-          }
-
-          if (dist < LINK_DISTANCE) {
-            ctx!.strokeStyle = `rgba(216, 171, 76, ${0.55 * (1 - dist / LINK_DISTANCE)})`;
-            ctx!.lineWidth = 1.8;
-            ctx!.beginPath();
-            ctx!.moveTo(a.x, a.y);
-            ctx!.lineTo(b.x, b.y);
-            ctx!.stroke();
-            connections[i] += 1;
-            connections[j] += 1;
-          }
-        }
-      }
-
-      // Guarantees no point is left as an isolated "polka dot": anything that
-      // didn't land a connection within LINK_DISTANCE still gets one line to
-      // its single nearest neighbour, however far away that is.
-      for (let i = 0; i < points.length; i++) {
-        if (connections[i] > 0 || nearest[i] === -1) continue;
-        const a = points[i];
-        const b = points[nearest[i]];
-        ctx!.strokeStyle = "rgba(216, 171, 76, 0.35)";
-        ctx!.lineWidth = 1.8;
-        ctx!.beginPath();
-        ctx!.moveTo(a.x, a.y);
-        ctx!.lineTo(b.x, b.y);
-        ctx!.stroke();
-      }
-
-      for (const p of points) {
-        ctx!.globalAlpha = 0.9;
-        ctx!.fillStyle = p.color;
-        ctx!.beginPath();
-        ctx!.arc(p.x, p.y, 4, 0, Math.PI * 2);
-        ctx!.fill();
-        ctx!.globalAlpha = 1;
-      }
-
-      rafId = requestAnimationFrame(frame);
-    }
-    frame();
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0" />;
 }
 
 function ClockIcon() {
@@ -520,7 +404,6 @@ export default function DisplayPage() {
     <main
       className={`relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#f7f2fc] to-[#efe4f9] px-8 text-center ${bigScreen ? "py-10" : "py-2"}`}
     >
-      <NetworkBackground />
       <WGCLogo />
       <FullscreenButton />
 
