@@ -3,11 +3,20 @@
 // last days only get one draw each. This scheduling info determines which
 // draw a visitor's chips count toward - it has no bearing on token eligibility
 // itself.
+//
+// These are built with Date.UTC at the exact UTC-equivalent of each time as
+// stated in PDT in the Official Rules (UTC-7 during daylight saving, which is
+// in effect across the whole show). Using `new Date(year, month, day, hour)`
+// instead would construct the date in the SERVER's local timezone - Vercel's
+// Node runtime defaults to UTC, so "15:00" would silently mean 3pm UTC (8am
+// PDT) rather than 3pm PDT, shifting every visitor's draw-slot cutoff about
+// seven hours earlier than intended and misclassifying most same-day entries
+// into the following slot.
 export const DRAW_SLOTS = [
-  { date: new Date(2026, 9, 19, 15, 0), label: "3pm, Mon 19 October" },
-  { date: new Date(2026, 9, 20, 10, 30), label: "10:30am, Tues 20 October" },
-  { date: new Date(2026, 9, 20, 15, 0), label: "3pm, Tues 20 October" },
-  { date: new Date(2026, 9, 21, 10, 30), label: "10:30am, Weds 21 October" },
+  { date: new Date(Date.UTC(2026, 9, 19, 22, 0)), label: "3pm, Mon 19 October" },
+  { date: new Date(Date.UTC(2026, 9, 20, 17, 30)), label: "10:30am, Tues 20 October" },
+  { date: new Date(Date.UTC(2026, 9, 20, 22, 0)), label: "3pm, Tues 20 October" },
+  { date: new Date(Date.UTC(2026, 9, 21, 17, 30)), label: "10:30am, Weds 21 October" },
 ];
 
 export type DrawSlot = {
