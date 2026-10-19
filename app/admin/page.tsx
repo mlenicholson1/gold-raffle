@@ -30,6 +30,15 @@ type Draw = {
   drawnAt: string;
 };
 
+type TestEntry = {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  personalCode: string;
+  tokenCount: number;
+};
+
 export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [authed, setAuthed] = useState(false);
@@ -65,6 +74,11 @@ export default function AdminPage() {
   const [clearing, setClearing] = useState(false);
   const [clearError, setClearError] = useState<string | null>(null);
   const [clearMessage, setClearMessage] = useState<string | null>(null);
+
+  const [testEntries, setTestEntries] = useState<TestEntry[] | null>(null);
+  const [findingTestEntries, setFindingTestEntries] = useState(false);
+  const [testEntriesError, setTestEntriesError] = useState<string | null>(null);
+  const [deletingVisitorId, setDeletingVisitorId] = useState<string | null>(null);
 
   async function fetchStats(pw: string): Promise<boolean> {
     try {
@@ -308,6 +322,54 @@ export default function AdminPage() {
       setClearError("Something went wrong. Please try again.");
     } finally {
       setClearing(false);
+    }
+  }
+
+  async function handleFindTestEntries() {
+    setFindingTestEntries(true);
+    setTestEntriesError(null);
+    try {
+      const res = await fetch("/api/admin/find-test-entries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setTestEntriesError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setTestEntries(data.matches);
+    } catch {
+      setTestEntriesError("Something went wrong. Please try again.");
+    } finally {
+      setFindingTestEntries(false);
+    }
+  }
+
+  async function handleDeleteVisitor(entry: TestEntry) {
+    if (!window.confirm(`Delete ${entry.name} ${entry.surname} (${entry.email})? This cannot be undone.`)) {
+      return;
+    }
+    setDeletingVisitorId(entry.id);
+    setTestEntriesError(null);
+    try {
+      const res = await fetch("/api/admin/visitor", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password, visitorId: entry.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setTestEntriesError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setTestEntries((prev) => prev?.filter((e) => e.id !== entry.id) ?? null);
+      fetchStats(password);
+    } catch {
+      setTestEntriesError("Something went wrong. Please try again.");
+    } finally {
+      setDeletingVisitorId(null);
     }
   }
 
@@ -616,6 +678,55 @@ export default function AdminPage() {
             {exporting ? "Exporting…" : "Export CSV"}
           </button>
           {exportError && <p className="mt-3 text-sm text-red-600">{exportError}</p>}
+        </div>
+
+        <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
+            Remove test / staff entries
+          </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Finds visitors whose name, surname, or email contains &ldquo;test&rdquo;,
+            &ldquo;miranda&rdquo;, or &ldquo;finn&rdquo;, so you can delete them one at a time -
+            they&rsquo;d otherwise still show up in counts and be eligible for the draw.
+          </p>
+          <button
+            onClick={handleFindTestEntries}
+            disabled={findingTestEntries}
+            className="mt-4 rounded-full border border-gray-300 px-6 py-2.5 font-semibold text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
+          >
+            {findingTestEntries ? "Searching…" : "Find entries"}
+          </button>
+          {testEntriesError && <p className="mt-3 text-sm text-red-600">{testEntriesError}</p>}
+          {testEntries && testEntries.length === 0 && (
+            <p className="mt-3 text-sm text-gray-500">No matching entries found.</p>
+          )}
+          {testEntries && testEntries.length > 0 && (
+            <ul className="mt-4 space-y-2">
+              {testEntries.map((entry) => (
+                <li
+                  key={entry.id}
+                  className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3"
+                >
+                  <div>
+                    <p className="font-semibold text-gray-900">
+                      {entry.name} {entry.surname}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {entry.email} - code {entry.personalCode} - {entry.tokenCount} chip
+                      {entry.tokenCount === 1 ? "" : "s"}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteVisitor(entry)}
+                    disabled={deletingVisitorId !== null}
+                    className="whitespace-nowrap rounded-full bg-red-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-red-700 disabled:opacity-60"
+                  >
+                    {deletingVisitorId === entry.id ? "Deleting…" : "Delete"}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
