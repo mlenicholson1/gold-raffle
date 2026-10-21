@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { isValidAdminPassword } from "@/lib/adminAuth";
-import { drawWinnerForSlot } from "@/lib/raffle";
+import { drawWinnerForSlot, type DrawPool } from "@/lib/raffle";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -18,7 +18,9 @@ export async function POST(request: Request) {
       ? body.drawLabel.trim()
       : "Las Vegas Gold Call Draw";
 
-  const result = await drawWinnerForSlot(slotKey, drawLabel);
+  const pool: DrawPool = body?.pool === "window" ? "window" : "cumulative";
+
+  const result = await drawWinnerForSlot(slotKey, drawLabel, pool);
 
   if (!result.ok) {
     return NextResponse.json(

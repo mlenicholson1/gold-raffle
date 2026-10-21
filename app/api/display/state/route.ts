@@ -13,6 +13,7 @@ const IDLE_RESET_DATA = {
   drawLabel: null,
   ordinal: null,
   countdownEndsAt: null,
+  drawPool: null,
   winningVisitorId: null,
   winnerName: null,
   winnerSurname: null,
@@ -41,7 +42,11 @@ export async function GET() {
       // it never gets stuck mid-transition in front of a live crowd.
       try {
         const result = state.slotKey
-          ? await drawWinnerForSlot(state.slotKey, state.drawLabel ?? "Las Vegas Gold Call Draw")
+          ? await drawWinnerForSlot(
+              state.slotKey,
+              state.drawLabel ?? "Las Vegas Gold Call Draw",
+              state.drawPool === "window" ? "window" : "cumulative"
+            )
           : { ok: false as const, reason: "no_eligible_visitors" as const };
 
         state = await prisma.displayState.update({

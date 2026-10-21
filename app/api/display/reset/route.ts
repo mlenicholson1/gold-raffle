@@ -20,6 +20,7 @@ export async function POST(request: Request) {
       drawLabel: null,
       ordinal: null,
       countdownEndsAt: null,
+      drawPool: null,
       winningVisitorId: null,
       winnerName: null,
       winnerSurname: null,

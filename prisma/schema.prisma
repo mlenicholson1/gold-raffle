@@ -67,6 +67,7 @@ model DisplayState {
   drawLabel       String?   @map("draw_label")
   ordinal         Int?      @map("ordinal")
   countdownEndsAt DateTime? @map("countdown_ends_at")
+  drawPool        String?   @map("draw_pool")
   winningVisitorId String?  @map("winning_visitor_id")
   winnerName      String?   @map("winner_name")
   winnerSurname   String?   @map("winner_surname")

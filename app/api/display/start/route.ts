@@ -28,6 +28,7 @@ export async function POST(request: Request) {
       : 300;
 
   const ordinal = typeof body?.ordinal === "number" && body.ordinal > 0 ? body.ordinal : null;
+  const drawPool = body?.pool === "window" ? "window" : "cumulative";
 
   const countdownEndsAt = new Date(Date.now() + durationSeconds * 1000);
 
@@ -41,6 +42,7 @@ export async function POST(request: Request) {
       drawLabel,
       ordinal,
       countdownEndsAt,
+      drawPool,
       winningVisitorId: null,
       winnerName: null,
       winnerSurname: null,
@@ -53,6 +55,7 @@ export async function POST(request: Request) {
       drawLabel,
       ordinal,
       countdownEndsAt,
+      drawPool,
       winningVisitorId: null,
       winnerName: null,
       winnerSurname: null,

@@ -39,6 +39,13 @@ type TestEntry = {
   tokenCount: number;
 };
 
+type DrawHistoryEntry = {
+  id: string;
+  drawLabel: string;
+  drawnAt: string;
+  winner: { name: string; surname: string; email: string; personalCode: string };
+};
+
 export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [authed, setAuthed] = useState(false);
@@ -51,6 +58,7 @@ export default function AdminPage() {
   const [statsError, setStatsError] = useState<string | null>(null);
 
   const [drawLabel, setDrawLabel] = useState("");
+  const [drawPool, setDrawPool] = useState<"cumulative" | "window">("cumulative");
   const [drawing, setDrawing] = useState(false);
   const [drawError, setDrawError] = useState<string | null>(null);
   const [lastDraw, setLastDraw] = useState<{ draw: Draw; winner: Winner } | null>(null);
@@ -79,6 +87,10 @@ export default function AdminPage() {
   const [findingTestEntries, setFindingTestEntries] = useState(false);
   const [testEntriesError, setTestEntriesError] = useState<string | null>(null);
   const [deletingVisitorId, setDeletingVisitorId] = useState<string | null>(null);
+
+  const [drawHistory, setDrawHistory] = useState<DrawHistoryEntry[] | null>(null);
+  const [loadingDrawHistory, setLoadingDrawHistory] = useState(false);
+  const [drawHistoryError, setDrawHistoryError] = useState<string | null>(null);
 
   async function fetchStats(pw: string): Promise<boolean> {
     try {
@@ -164,7 +176,7 @@ export default function AdminPage() {
       const res = await fetch("/api/admin/raffle", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, drawLabel, slotKey: activeSlot.key }),
+        body: JSON.stringify({ password, drawLabel, slotKey: activeSlot.key, pool: drawPool }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -196,6 +208,7 @@ export default function AdminPage() {
           drawLabel,
           durationSeconds,
           ordinal,
+          pool: drawPool,
         }),
       });
       const data = await res.json();
@@ -373,6 +386,28 @@ export default function AdminPage() {
     }
   }
 
+  async function handleLoadDrawHistory() {
+    setLoadingDrawHistory(true);
+    setDrawHistoryError(null);
+    try {
+      const res = await fetch("/api/admin/draws", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setDrawHistoryError(data.error ?? "Something went wrong.");
+        return;
+      }
+      setDrawHistory(data.draws);
+    } catch {
+      setDrawHistoryError("Something went wrong. Please try again.");
+    } finally {
+      setLoadingDrawHistory(false);
+    }
+  }
+
   async function handleExport() {
     setExporting(true);
     setExportError(null);
@@ -517,8 +552,8 @@ export default function AdminPage() {
                     Run raffle - {activeSlot.label}
                   </h2>
                   <p className="mt-2 text-sm text-gray-500">
-                    Draws only from visitors in this slot, weighted by chips held (a visitor
-                    with more chips is proportionally more likely to be drawn).
+                    Weighted by chips held (a visitor with more chips is proportionally more
+                    likely to be drawn). Draws from whichever pool is selected below.
                   </p>
                   <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                     <input
@@ -570,6 +605,28 @@ export default function AdminPage() {
                     </a>
                     ). When it hits zero it draws and reveals the winner live, with fireworks.
                   </p>
+                  <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                      <input
+                        type="radio"
+                        name="drawPool"
+                        checked={drawPool === "cumulative"}
+                        onChange={() => setDrawPool("cumulative")}
+                        className="h-4 w-4 text-[#D8AB4C] focus:ring-[#D8AB4C]"
+                      />
+                      Everyone entered so far (carries forward from earlier draws)
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                      <input
+                        type="radio"
+                        name="drawPool"
+                        checked={drawPool === "window"}
+                        onChange={() => setDrawPool("window")}
+                        className="h-4 w-4 text-[#D8AB4C] focus:ring-[#D8AB4C]"
+                      />
+                      Only new entrants in this window
+                    </label>
+                  </div>
                   <div className="mt-4 flex flex-wrap items-center gap-3">
                     <label className="flex items-center gap-2 text-sm text-gray-700">
                       Countdown
@@ -678,6 +735,53 @@ export default function AdminPage() {
             {exporting ? "Exporting…" : "Export CSV"}
           </button>
           {exportError && <p className="mt-3 text-sm text-red-600">{exportError}</p>}
+        </div>
+
+        <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#704287]">
+            Draw history
+          </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Every raffle draw that's been run, most recent first - including redraws. If a
+            window shows more than one entry clustered around the same time, the one with the
+            latest timestamp is the one that actually played out live on screen; earlier
+            entries in that cluster were superseded redraws.
+          </p>
+          <button
+            onClick={handleLoadDrawHistory}
+            disabled={loadingDrawHistory}
+            className="mt-4 rounded-full border border-gray-300 px-6 py-2.5 font-semibold text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
+          >
+            {loadingDrawHistory ? "Loading…" : "Load draw history"}
+          </button>
+          {drawHistoryError && <p className="mt-3 text-sm text-red-600">{drawHistoryError}</p>}
+          {drawHistory && drawHistory.length === 0 && (
+            <p className="mt-3 text-sm text-gray-500">No draws have been run yet.</p>
+          )}
+          {drawHistory && drawHistory.length > 0 && (
+            <ul className="mt-4 space-y-2">
+              {drawHistory.map((d) => (
+                <li
+                  key={d.id}
+                  className="rounded-xl border border-[#EADFC0] bg-[#FBF3E1] px-4 py-3"
+                >
+                  <p className="text-xs uppercase tracking-wide text-gray-500">
+                    {new Date(d.drawnAt).toLocaleString("en-US", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })}{" "}
+                    - {d.drawLabel}
+                  </p>
+                  <p className="mt-1 font-bold text-gray-900">
+                    {d.winner.name} {d.winner.surname}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    {d.winner.email} - code {d.winner.personalCode}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="rounded-2xl border border-[#3c1e4b]/15 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(112,66,135,0.2)]">

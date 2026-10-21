@@ -14,25 +14,39 @@ export type DrawResult =
     }
   | { ok: false; reason: "no_eligible_visitors" };
 
-// Weighted random draw (weight = token count) restricted to visitors who
-// entered at or before this draw slot (i.e. everyone still "in the running"
-// by this point in the schedule, not just whoever entered immediately before
-// this specific slot) and who haven't already won a prior draw - one Prize
-// per person. Shared by the instant admin "Run Raffle" button and the lounge
-// display's countdown-triggered reveal.
-export async function drawWinnerForSlot(slotKey: string, drawLabel: string): Promise<DrawResult> {
+export type DrawPool =
+  // Everyone still "in the running" by this point in the schedule - anyone
+  // who entered at or before this slot, not just whoever entered immediately
+  // before it. This is the default: entries carry forward draw to draw.
+  | "cumulative"
+  // Only visitors whose first chip fell specifically in this slot's own
+  // window (e.g. between the previous draw and this one) - the same
+  // single-slot grouping already shown in the admin dashboard's live counts.
+  | "window";
+
+// Weighted random draw (weight = token count), restricted to an eligible pool
+// for this slot (see DrawPool) and excluding anyone who already won a prior
+// draw - one Prize per person. Shared by the instant admin "Run Raffle"
+// button and the lounge display's countdown-triggered reveal.
+export async function drawWinnerForSlot(
+  slotKey: string,
+  drawLabel: string,
+  pool: DrawPool = "cumulative"
+): Promise<DrawResult> {
   const targetSlot = DRAW_SLOTS.find((s) => s.date.toISOString() === slotKey);
   if (!targetSlot) {
     return { ok: false, reason: "no_eligible_visitors" };
   }
 
   const visitors = await prisma.visitor.findMany({ include: { tokens: true, raffleWins: true } });
-  const eligible = visitors.filter(
-    (v) =>
-      getDrawSlot(v.createdAt).date.getTime() <= targetSlot.date.getTime() &&
-      !EXCLUDED_DRAW_STATES.has(v.state) &&
-      v.raffleWins.length === 0
-  );
+  const eligible = visitors.filter((v) => {
+    const entrySlot = getDrawSlot(v.createdAt);
+    const inPool =
+      pool === "window"
+        ? entrySlot.key === slotKey
+        : entrySlot.date.getTime() <= targetSlot.date.getTime();
+    return inPool && !EXCLUDED_DRAW_STATES.has(v.state) && v.raffleWins.length === 0;
+  });
 
   const weighted = eligible
     .map((v) => ({ visitor: v, weight: v.tokens.length }))
